@@ -2,12 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Boy and a Scanner - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boy and a Scanner | Your Expert Guide to Radio Scanners</title>
+    <meta name="description" content="The definitive hub for radio scanner enthusiasts. In-depth reviews, expert guides, live feeds, and a community for everyone who loves to 'get their freq on!'">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Update this path if you use the recommended folder structure -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Welcome to Boy and a Scanner</h1>
-    <p>This is the home page of the Boy and a Scanner website.</p>
+
+    <!-- Site Header: Contains the logo and main navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Boy and a Scanner</a>
+            </div>
+            <nav class="main-nav">
+                <!-- Mobile navigation toggle button -->
+                <button class="nav-toggle" aria-label="toggle navigation">
+                    <span class="hamburger"></span>
+                </button>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#">The Scanner Log</a></li>
+                    <li><a href="gear-review.html">The Gear Locker</a></li>
+                    <li><a href="#">The Workshop</a></li>
+                    <li><a href="#">Live Freqs</a></li>
+                    <li><a href="https://shop.boyandascanner.com/" target="_blank">Merch Outpost</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section: The main welcome area -->
+        <section class="hero">
+            <div class="container">
+                <h1>Your Expert Guide to the World of Radio Scanners.</h1>
+                <p class="subtitle">Honest reviews, practical guides, and a community for hobbyists who value clarity and performance. Let's get your freq on.</p>
+                <a href="#" class="btn">Start Here: Beginner's Guide</a>
+            </div>
+        </section>
+
+        <!-- Featured Gear Section: Highlights key reviews from the Gear Locker -->
+        <section class="featured-gear">
+            <div class="container">
+                <h2>Featured From The Gear Locker</h2>
+                <div class="grid-3">
+                    <!-- Card for a specific gear review -->
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/2a2a2a/f0f0f0?text=Scanner+Image" alt="Uniden SDS100 Scanner" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2a2a2a/f0f0f0?text=Image+Error';">
+                        <h3>Uniden SDS100 In-Depth Review</h3>
+                        <p>The gold standard for handheld digital scanning. We break down its True I/Q receiver and tell you if it's worth the investment.</p>
+                        <a href="gear-review.html" class="card-link">Read Full Review &rarr;</a>
+                    </div>
+                    <!-- Card for a gear roundup -->
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/2a2a2a/f0f0f0?text=Antenna+Image" alt="Remtronix Antenna" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2a2a2a/f0f0f0?text=Image+Error';">
+                        <h3>The Best Antennas for 800MHz</h3>
+                        <p>Boost your reception with the right antenna. We compare the top 5 performers for urban and suburban environments.</p>
+                        <a href="#" class="card-link">See the Roundup &rarr;</a>
+                    </div>
+                    <!-- Card for essential accessories -->
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/2a2a2a/f0f0f0?text=Accessory+Image" alt="Scanner Accessory" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2a2a2a/f0f0f0?text=Image+Error';">
+                        <h3>Essential Scanner Accessories Under $50</h3>
+                        <p>From carrying cases to programming cables, these are the must-have accessories that will enhance your scanning experience.</p>
+                        <a href="#" class="card-link">View the Essentials &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Blog Posts Section -->
+        <section class="latest-log">
+            <div class="container">
+                <h2>Latest from the Scanner Log</h2>
+                <div class="log-list">
+                    <!-- Individual blog post item -->
+                    <article class="log-item">
+                        <div class="log-meta"><span>Blog Post</span> | <time datetime="2025-07-20">July 20, 2025</time></div>
+                        <h3><a href="#">P25 Phase I vs. Phase II: A Practical Explainer</a></h3>
+                        <p>Confused by the digital standards? We cut through the jargon and explain what you actually need to know to monitor modern radio systems...</p>
+                    </article>
+                    <!-- Individual blog post item -->
+                    <article class="log-item">
+                        <div class="log-meta"><span>News</span> | <time datetime="2025-07-18">July 18, 2025</time></div>
+                        <h3><a href="#">Uniden Releases New Firmware Update for SDS Series</a></h3>
+                        <p>A new update is out for the SDS100 and SDS200, bringing performance improvements and bug fixes. Here's a quick rundown of what's new...</p>
+                    </article>
+                    <!-- Individual blog post item -->
+                    <article class="log-item">
+                        <div class="log-meta"><span>Community</span> | <time datetime="2025-07-15">July 15, 2025</time></div>
+                        <h3><a href="#">Show Us Your Shack: Community Setups Vol. 1</a></h3>
+                        <p>We're kicking off a new series showcasing the amazing scanner setups from the BAAS community. First up, a clean mobile install from Mark in Ohio...</p>
+                    </article>
+                </div>
+                <div class="text-center">
+                    <a href="#" class="btn-secondary">Visit The Scanner Log</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest YouTube Videos Section -->
+        <section class="latest-videos">
+            <div class="container">
+                <h2>Latest on YouTube</h2>
+                <div class="grid-3">
+                    <!-- Placeholder for a YouTube video embed -->
+                    <div class="video-embed">
+                        <img src="https://placehold.co/400x225/2a2a2a/f0f0f0?text=YouTube+Video+1" alt="YouTube Video Thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x225/2a2a2a/f0f0f0?text=Image+Error';">
+                        <p>Programming the Uniden SDS100 - Sentinel Beginner Tutorial</p>
+                    </div>
+                    <!-- Placeholder for a YouTube video embed -->
+                    <div class="video-embed">
+                        <img src="https://placehold.co/400x225/2a2a2a/f0f0f0?text=YouTube+Video+2" alt="YouTube Video Thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x225/2a2a2a/f0f0f0?text=Image+Error';">
+                        <p>2 Uniden SDS100 Antennas I Love 👌</p>
+                    </div>
+                    <!-- Placeholder for a YouTube video embed -->
+                    <div class="video-embed">
+                        <img src="https://placehold.co/400x225/2a2a2a/f0f0f0?text=YouTube+Video+3" alt="YouTube Video Thumbnail" onerror="this.onerror=null;this.src='https://placehold.co/400x225/2a2a2a/f0f0f0?text=Image+Error';">
+                        <p>10 MUST-KNOW Websites for Scanner Enthusiasts</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Site Footer: Contains navigation, legal links, and social media -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h4>Boy and a Scanner</h4>
+                    <p>The web's most trusted resource for radio scanner hobbyists. Founded on the principle of clear, honest, and practical advice.</p>
+                    <p>&copy; 2025 Boy and a Scanner. All Rights Reserved.</p>
+                </div>
+                <div class="footer-nav">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#">The Scanner Log (Blog)</a></li>
+                        <li><a href="gear-review.html">The Gear Locker (Reviews)</a></li>
+                        <li><a href="#">The Workshop (Guides)</a></li>
+                        <li><a href="#">About / Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-legal">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Affiliate Disclaimer</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Get Your Freq On</h4>
+                    <a href="https://www.youtube.com/boyandascanner" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Update this path if you use the recommended folder structure -->
     <script src="js/script.js"></script>
 </body>
 </html>
