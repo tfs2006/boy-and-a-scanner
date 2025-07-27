@@ -416,3 +416,26 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 }
+
+/* --- Affiliate Products Section --- */
+.affiliate-products {
+    padding: 4rem 0;
+    background-color: #222;
+    text-align: center;
+}
+.product-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.product-links a {
+    margin: 0.5rem;
+}
+.affiliate-products .affiliate-disclosure {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-top: 1.5rem;
+}
+
