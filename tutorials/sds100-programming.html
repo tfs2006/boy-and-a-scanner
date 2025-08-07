@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programming the SDS100 | Boy And A Scanner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="../index.html">Boy And A Scanner</a></div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html">Tutorials</a>
+      <a href="../gear/index.html">Gear</a>
+      <a href="../about.html">About</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Programming the Uniden SDS100</h1>
+    <p>Set up and organize your digital scanner using the Sentinel software.</p>
+  </section>
+
+  <section class="section">
+    <h2>Introduction</h2>
+    <p>The Uniden SDS100 is a powerful handheld scanner capable of decoding P25, DMR and more. In this guide we’ll walk through the basics of programming the SDS100 using Uniden’s Sentinel software.</p>
+  </section>
+
+  <section class="section">
+    <h2>What You’ll Need</h2>
+    <ul>
+      <li>The Uniden SDS100 scanner</li>
+      <li>A Windows computer with Internet access</li>
+      <li>The latest version of <a href="https://uniden.com/pages/homepatrol-software" target="_blank">Uniden Sentinel software</a></li>
+      <li>A microSD card reader (if not programming directly via USB)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Steps</h2>
+    <ol>
+      <li><strong>Install Sentinel:</strong> Download and install the Sentinel software from the Uniden website.</li>
+      <li><strong>Update the Firmware:</strong> Connect your scanner via USB and select “Mass Storage” mode. In Sentinel, choose <em>Update → Update Firmware</em> to ensure your SDS100 has the latest features.</li>
+      <li><strong>Update the Database:</strong> Still in Sentinel, choose <em>Update → Update Master HPDB</em> to download the latest RadioReference database.</li>
+      <li><strong>Create a Favorites List:</strong> Go to <em>File → New Favorites List</em> and give it a name. This list will hold the systems and channels you want to monitor.</li>
+      <li><strong>Add Systems:</strong> Use the <em>Database</em> tab to browse or search for agencies in your area. Right-click a system and select <em>Append To Favorites List</em> to add it.</li>
+      <li><strong>Organize by Service Type:</strong> Once systems are in your list, you can enable or disable specific service types (police, fire, EMS, etc.) to tailor your scan.</li>
+      <li><strong>Write to Scanner:</strong> With your Favorites List complete, select <em>Scanner → Write to Scanner</em> to transfer the programming to your SDS100.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>Next Steps</h2>
+    <p>Once you’ve mastered the basics, explore Sentinel’s options like adding custom alert tones, creating location‑based scanning profiles and discovering nearby frequencies. Be sure to check out our other tutorials for more advanced topics.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Boy And A Scanner. All rights reserved.</p>
+    <p><small>Some links on this site are affiliate links, which means we may earn a commission at no extra cost to you.</small></p>
+  </footer>
+</body>
+</html>
