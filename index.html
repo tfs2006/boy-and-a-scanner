@@ -681,6 +681,9 @@
         { id: 'buy', name: 'Buy' }
       ];
       var seen = Object.create(null);
+      var pending = Object.create(null); // debounce timers by section id
+      var last = Object.create(null);    // last IO entry per section
+
       var items = targets
         .map(function(t){ var el = document.getElementById(t.id); return el ? { el: el, cfg: t } : null; })
         .filter(Boolean);
@@ -688,17 +691,30 @@
 
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
+          var id = entry.target.id;
+          last[id] = entry; // remember latest state
+
           if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            var id = entry.target.id;
-            if (seen[id]) return; // only once per pageview
-            seen[id] = true;
-            var name = entry.target.getAttribute('data-section-name') || items.find(function(i){return i.el===entry.target;}).cfg.name || id;
-            if (typeof gtag === 'function') {
-              gtag('event', 'view_section', {
-                section_id: id,
-                section_name: name
-              });
-            }
+            if (seen[id] || pending[id]) return;
+            // start tiny debounce; only fire if still >=50% visible when timer elapses
+            pending[id] = setTimeout(function(){
+              var e = last[id];
+              if (!seen[id] && e && e.isIntersecting && e.intersectionRatio >= 0.5) {
+                seen[id] = true;
+                var cfg = items.find(function(i){ return i.el === entry.target; }) || { cfg: { name: id } };
+                var name = entry.target.getAttribute('data-section-name') || (cfg.cfg && cfg.cfg.name) || id;
+                if (typeof gtag === 'function') {
+                  gtag('event', 'view_section', {
+                    section_id: id,
+                    section_name: name
+                  });
+                }
+              }
+              pending[id] = null;
+            }, 200); // 200ms debounce
+          } else {
+            // if it flips out before debounce fires, cancel
+            if (pending[id]) { clearTimeout(pending[id]); pending[id] = null; }
           }
         });
       }, { threshold: [0.5] });
