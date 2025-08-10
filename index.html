@@ -682,6 +682,7 @@
       ];
       var seen = Object.create(null);
       var pending = Object.create(null); // debounce timers by section id
+      var order = 0; // increments to record first/second/third section seen
       var last = Object.create(null);    // last IO entry per section
 
       var items = targets
@@ -706,7 +707,8 @@
                 if (typeof gtag === 'function') {
                   gtag('event', 'view_section', {
                     section_id: id,
-                    section_name: name
+                    section_name: name,
+                    order_index: ++order
                   });
                 }
               }
@@ -720,6 +722,35 @@
       }, { threshold: [0.5] });
 
       items.forEach(function(i){ io.observe(i.el); });
+    })();
+</script>
+  <script>
+    (function(){
+      var fired = {25:false,50:false,75:false,100:false};
+      function pct(){
+        var st = window.scrollY || document.documentElement.scrollTop || 0;
+        var dh = (document.documentElement.scrollHeight || 0) - window.innerHeight;
+        if (dh <= 0) return 100;
+        return Math.max(0, Math.min(100, Math.round((st / dh) * 100)));
+      }
+      function check(){
+        var p = pct();
+        [25,50,75,100].forEach(function(t){
+          if(!fired[t] && p >= t){
+            fired[t] = true;
+            if (typeof gtag === 'function') {
+              gtag('event', 'scroll_depth', { percent: t });
+            }
+          }
+        });
+      }
+      var ticking = false;
+      window.addEventListener('scroll', function(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function(){ ticking = false; check(); });
+      }, { passive: true });
+      window.addEventListener('load', check);
     })();
   </script>
 </body>
