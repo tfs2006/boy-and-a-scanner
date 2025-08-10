@@ -635,6 +635,75 @@
       }
     })();
   </script>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    (function(){
+      function getUTMContent(url){
+        try{ var u=new URL(url, location.href); return u.searchParams.get('utm_content')||''; }catch(e){ return ''; }
+      }
+      function vendorFor(url){
+        try{
+          var h=new URL(url, location.href).hostname;
+          if(h.includes('amzn.to')||h.includes('amazon.')) return 'amazon';
+          if(h.includes('shop.boyandascanner.com')) return 'baas_shop';
+          if(h.includes('youtube.com')||h.includes('youtu.be')) return 'youtube';
+          if(h.includes('buymeacoffee.com')) return 'buymeacoffee';
+          return h;
+        }catch(e){ return ''; }
+      }
+      function isOutbound(url){
+        try{ var u=new URL(url, location.href); return u.origin !== location.origin; }catch(e){ return false; }
+      }
+      document.addEventListener('click', function(e){
+        var a = e.target && e.target.closest && e.target.closest('a[href]');
+        if(!a) return;
+        var href = a.getAttribute('href') || '';
+        if(!isOutbound(href)) return;
+        var label = getUTMContent(href) || (a.textContent||'').trim().slice(0,80);
+        var vendor = vendorFor(href);
+        if(typeof gtag === 'function'){
+          gtag('event','outbound_click', {
+            event_category: 'engagement',
+            event_label: label,
+            link_url: href,
+            vendor: vendor
+            // GA4 will auto-collect page_location etc.
+          });
+        }
+      }, true);
+    })();
+  </script>
+  <script>
+    (function(){
+      var targets = [
+        { id: 'programming-guide', name: 'Programming Guide' },
+        { id: 'accessories', name: 'Accessories' },
+        { id: 'buy', name: 'Buy' }
+      ];
+      var seen = Object.create(null);
+      var items = targets
+        .map(function(t){ var el = document.getElementById(t.id); return el ? { el: el, cfg: t } : null; })
+        .filter(Boolean);
+      if (!('IntersectionObserver' in window) || items.length === 0) return;
+
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            var id = entry.target.id;
+            if (seen[id]) return; // only once per pageview
+            seen[id] = true;
+            var name = entry.target.getAttribute('data-section-name') || items.find(function(i){return i.el===entry.target;}).cfg.name || id;
+            if (typeof gtag === 'function') {
+              gtag('event', 'view_section', {
+                section_id: id,
+                section_name: name
+              });
+            }
+          }
+        });
+      }, { threshold: [0.5] });
+
+      items.forEach(function(i){ io.observe(i.el); });
+    })();
+  </script>
 </body>
 </html>
