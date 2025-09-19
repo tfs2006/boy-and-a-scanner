@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1'/>
+  <title>SDS100 Complete Manual | Boy and a Scanner</title>
+  <meta name='description' content='Complete manual for Uniden SDS100 scanner. Step-by-step instructions and guidelines.'/>
+  <style>
+:root{--bg:#0b0e14;--panel:#121826;--muted:#93a2b8;--text:#e8eef9;--accent:#36a2ff;--accent-2:#8af0ff;--ok:#22c55e;--warn:#f59e0b;--brand:#36a2ff;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#0e1220 30%,#0a0f1a);color:var(--text);line-height:1.65}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+header{position:sticky;top:0;z-index:50;background:rgba(9,13,25,.75);backdrop-filter:blur(8px);border-bottom:1px solid #1f2a44}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px}
+nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.navlink{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text);opacity:.9}
+.navlink:hover{background:#182036}
+.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0b1020;border:none;padding:12px 16px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.hero{padding:56px 24px 20px;border-bottom:1px solid #1f2a44;background:radial-gradient(1200px 400px at 50% -50%,rgba(54,162,255,.18),transparent)}
+h1{font-size:clamp(28px,4.5vw,44px);margin:0 0 12px}
+h2{font-size:clamp(22px,3vw,30px);margin:32px 0 12px}
+h3{font-size:clamp(18px,2.4vw,22px);margin:24px 0 8px}
+h4{font-size:clamp(16px,2vw,20px);margin:20px 0 8px}
+.card{background:linear-gradient(180deg,#111727,#0b0f1a);border:1px solid #1f2a44;border-radius:14px;padding:18px}
+ul{margin:0;padding-left:18px}
+ol{margin:0;padding-left:18px}
+p{margin:12px 0}
+footer{margin-top:36px;border-top:1px solid #1f2a44;padding:24px;color:var(--muted);font-size:14px}
+.kicker{display:inline-block;text-transform:uppercase;font-size:12px;letter-spacing:.15em;color:var(--accent-2)}
+</style>
+</head>
+<body>
+  <a class='skip' href='#content'>Skip to content</a>
+  <header>
+    <div class='wrap' style='display:flex;justify-content:space-between;gap:16px;align-items:center;'>
+      <div class='brand'>Boy and a Scanner</div>
+      <nav>
+        <a class='navlink' href='index.html'>Home</a>
+        <a class='navlink' href='sds100-complete-manual.html'>Manual</a>
+      </nav>
+    </div>
+  </header>
+  <section class='hero'>
+    <div class='wrap'>
+      <span class='kicker'>SDS100 Manual</span>
+      <h1>Uniden SDS100 Complete Manual</h1>
+      <p class='lead'>This comprehensive manual guides you through every feature of your SDS100 scanner. Explore setup, programming, advanced features, and troubleshooting.</p>
+    </div>
+  </section>
+  <main class='wrap'>
+    <section id='content' class='card'>
+    <h1>The Complete Uniden SDS100 Manual</h1>
+<h2>A Step-by-Step Guide for "Boy and a Scanner" Viewers</h2>
+<p><em>Created by David J Woodbury for the Boy and a Scanner YouTube Community</em></p>
+<hr>
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#first-time-setup">First Time Setup</a></li>
+<li><a href="#basic-operation">Basic Operation</a></li>
+<li><a href="#using-the-database-easy-mode">Using the Database (Easy Mode)</a></li>
+<li><a href="#creating-favorites-lists">Creating Favorites Lists</a></li>
+<li><a href="#manual-programming">Manual Programming</a></li>
+<li><a href="#trunked-system-programming">Trunked System Programming</a></li>
+<li><a href="#advanced-features">Advanced Features</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#quick-reference">Quick Reference</a></li>
+</ol>
+<hr>
+<h2>First Time Setup</h2>
+<h3>What's in the Box</h3>
+<ul>
+<li>SDS100 Scanner</li>
+<li>Lithium Ion Battery Pack</li>
+<li>USB Cable</li>
+<li>AC Adapter</li>
+<li>SMA-BNC Antenna Adapter</li>
+<li>SMA Antenna</li>
+<li>Belt Clip</li>
+<li>Hand Strap</li>
+<li>MicroSD Card (pre-installed)</li>
+</ul>
+<h3>Step 1: Install the Battery</h3>
+<ol>
+<li>Remove the battery compartment cover on the back</li>
+<li>Insert the lithium-ion battery pack (metal contacts facing down)</li>
+<li>Replace the cover until it clicks</li>
+</ol>
+<h3>Step 2: First Power On</h3>
+<ol>
+<li><strong>Press and hold the Power button</strong> (top button) for 2 seconds</li>
+<li>The scanner will boot up and display the Uniden logo</li>
+<li>You'll see loading screens - this is normal</li>
+</ol>
+<h3>Step 3: Set Your Location</h3>
+<p><strong>This is CRITICAL for the scanner to work!</strong></p>
+<h4>Method 1: ZIP Code (Easiest)</h4>
+<ol>
+<li>Press the <strong>ZIP</strong> button (top right)</li>
+<li>Select <strong>USA</strong> or <strong>Canada</strong></li>
+<li>Enter your 5-digit ZIP code using the number keys</li>
+<li>Press <strong>E</strong> to confirm</li>
+<li>The scanner will automatically load local frequencies</li>
+</ol>
+<h4>Method 2: Auto Locate</h4>
+<ol>
+<li>Press <strong>MENU</strong></li>
+<li>Scroll to <strong>Set Your Location</strong> → Press <strong>E</strong></li>
+<li>Select <strong>Auto Locate</strong> → Press <strong>E</strong></li>
+<li>Wait for the scanner to find a signal (can take 5-10 minutes)</li>
+<li>When prompted, press <strong>E</strong> to accept the location</li>
+</ol>
+<h3>Step 4: Adjust Volume and Squelch</h3>
+<ol>
+<li><strong>Tap the scroll knob</strong> to show volume</li>
+<li><strong>Turn the scroll knob</strong> to adjust (0-15)</li>
+<li><strong>Tap again</strong> to close volume display</li>
+<li><strong>Press FUNC + Tap scroll knob</strong> to show squelch</li>
+<li><strong>Turn scroll knob</strong> to adjust (2-5 is usually good)</li>
+<li><strong>Tap again</strong> to close squelch display</li>
+</ol>
+<hr>
+<h2>Basic Operation</h2>
+<h3>Understanding the Display</h3>
+<ul>
+<li><strong>Top Line</strong>: Current system/frequency</li>
+<li><strong>Middle</strong>: Department/Talk Group</li>
+<li><strong>Bottom Soft Keys</strong>: System | Dept | Channel</li>
+</ul>
+<h3>Basic Controls</h3>
+<p>| Button | Function |</p>
+<p>|--------|----------|</p>
+<p>| Power | Press/hold to turn on/off, tap for backlight |</p>
+<p>| Scroll Knob | Volume (tap first), menu navigation |</p>
+<p>| FUNC | Function key for secondary functions |</p>
+<p>| MENU | Access all programming menus |</p>
+<p>| AVOID | Skip unwanted channels |</p>
+<p>| ZIP | Set location by ZIP code |</p>
+<p>| E | Enter/Yes |</p>
+<p>| ./NO | Decimal point/No |</p>
+<h3>The Three Hold Modes</h3>
+<p>Understanding these is ESSENTIAL:</p>
+<h4>System Hold (Soft Key 1)</h4>
+<ul>
+<li><strong>What it does</strong>: Stops on this radio system only</li>
+<li><strong>When to use</strong>: When you hear something interesting and want to stay on that system</li>
+</ul>
+<h4>Department Hold (Soft Key 2)</h4>
+<ul>
+<li><strong>What it does</strong>: Stays on this department/talk group only</li>
+<li><strong>When to use</strong>: Following one specific agency (like fire dispatch)</li>
+</ul>
+<h4>Channel Hold (Soft Key 3)</h4>
+<ul>
+<li><strong>What it does</strong>: Stays on this exact frequency</li>
+<li><strong>When to use</strong>: Monitoring one specific frequency</li>
+</ul>
+<hr>
+<h2>Using the Database (Easy Mode)</h2>
+<p>The SDS100 comes with a massive database of all known radio systems in North America. This is the EASIEST way to start scanning.</p>
+<h3>Step-by-Step Database Setup</h3>
+<h4>1. Update Everything First</h4>
+<p><strong>ALWAYS do this when you get a new scanner:</strong></p>
+<ol>
+<li>Connect scanner to computer with USB cable</li>
+<li>Turn on scanner, select <strong>Mass Storage</strong></li>
+<li>Download and install <strong>Sentinel Software</strong> from Uniden.com</li>
+<li>In Sentinel: <strong>Update Firmware</strong> (wait for completion)</li>
+<li>In Sentinel: <strong>Update Master Database</strong> (wait for completion)</li>
+<li>Write updated data to scanner</li>
+</ol>
+<h4>2. Set Your Service Types</h4>
+<p><strong>This controls WHAT you hear:</strong></p>
+<ol>
+<li>Press <strong>FUNC + ZIP</strong></li>
+<li>You'll see a list of service types:</li>
+</ol>
+<ul>
+<li><strong>Law Dispatch</strong> (Police dispatch)</li>
+<li><strong>Fire Dispatch</strong> (Fire dispatch)</li>
+<li><strong>EMS Dispatch</strong> (Ambulance)</li>
+<li><strong>Law-Tac</strong> (Police tactical)</li>
+<li><strong>Fire-Tac</strong> (Fire tactical)</li>
+<li>And many more...</li>
+</ul>
+<ol>
+<li><strong>Scroll</strong> to each type you want</li>
+<li><strong>Press E</strong> to toggle ON/OFF</li>
+<li><strong>Press System</strong> to exit</li>
+</ol>
+<p><strong>Pro Tip</strong>: Start with just Dispatch channels ON, add others later.</p>
+<h4>3. Adjust Your Range</h4>
+<ol>
+<li>Press <strong>MENU</strong></li>
+<li><strong>Set Your Location</strong> → <strong>Set Range</strong></li>
+<li>Enter range in miles (10-25 is good for most areas)</li>
+<li>Press <strong>E</strong> to confirm</li>
+</ol>
+<h3>Understanding Range Settings</h3>
+<p>| Location Method | Default Range | Best For |</p>
+<p>|----------------|---------------|----------|</p>
+<p>| ZIP Code | 10 miles | Most users |</p>
+<p>| Auto Locate | 30 miles | Rural areas |</p>
+<p>| GPS | 0 miles | Traveling |</p>
+<hr>
+<h2>Creating Favorites Lists</h2>
+<p>Think of Favorites Lists like custom radio presets. You can have different lists for different purposes.</p>
+<h3>Quick Method: Add Current Database Channels</h3>
+<p>This is the FASTEST way to create a favorites list:</p>
+<ol>
+<li><strong>Let the scanner run</strong> scanning database channels for 10-15 minutes</li>
+<li>Press <strong>MENU</strong></li>
+<li><strong>Manage Favorites</strong> → <strong>New Favorites List</strong></li>
+<li><strong>Enter name</strong> (like "Local Police" or "Home Area")</li>
+<li><strong>Add Current DB Channels</strong> → Press <strong>E</strong></li>
+<li><strong>Confirm</strong> → Press <strong>E</strong></li>
+<li>Wait for it to save</li>
+</ol>
+<p><strong>What this does</strong>: Takes everything you've been hearing and saves it to your new list.</p>
+<h3>Manual Method: Using Sentinel Software</h3>
+<p><strong>This gives you more control:</strong></p>
+<h4>In Sentinel:</h4>
+<ol>
+<li><strong>Expand Database</strong> → Your State → Your County</li>
+<li><strong>Right-click</strong> the system you want</li>
+<li><strong>Append to Favorites List</strong></li>
+<li><strong>New Favorites List</strong> → Name it</li>
+<li>Repeat for other systems</li>
+<li><strong>Write to Scanner</strong></li>
+</ol>
+<h4>Organizing Your Lists:</h4>
+<ul>
+<li><strong>Local Police</strong> - Just law enforcement</li>
+<li><strong>Fire/EMS</strong> - Fire and ambulance only</li>
+<li><strong>All Local</strong> - Everything in your area</li>
+<li><strong>Travel</strong> - Systems for trips</li>
+<li><strong>Railroad</strong> - Train communications</li>
+</ul>
+<h3>Managing Favorites Lists</h3>
+<h4>Enable/Disable Lists:</h4>
+<ol>
+<li><strong>Press number keys</strong> (0-9) to toggle lists on/off</li>
+<li><strong>Enabled lists</strong> = Numbers shown in top right</li>
+<li><strong>Disabled lists</strong> = Numbers not shown</li>
+</ol>
+<h4>Quick Keys:</h4>
+<ul>
+<li><strong>0-99</strong>: Assign to frequently used lists</li>
+<li><strong>Example</strong>: Press "1" to toggle your main police list</li>
+</ul>
+<hr>
+<h2>Manual Programming</h2>
+<p>Sometimes you need to program frequencies manually. Here's how:</p>
+<h3>Quick Frequency Entry (Fastest Method)</h3>
+<ol>
+<li><strong>Hold any channel</strong> (press Channel soft key)</li>
+<li><strong>Enter the frequency</strong> (like 155.7600)</li>
+<li><strong>Press Channel soft key again</strong></li>
+<li>Scanner tunes to that frequency immediately</li>
+</ol>
+<h3>Saving Frequencies Permanently</h3>
+<h4>Method 1: Direct Save</h4>
+<ol>
+<li><strong>Tune to frequency</strong> (using method above)</li>
+<li><strong>Press E twice quickly</strong> (Quick Save)</li>
+<li><strong>Edit name</strong> if desired</li>
+<li>Frequency is saved to current favorites list</li>
+</ol>
+<h4>Method 2: Through Menu</h4>
+<ol>
+<li>Press <strong>MENU</strong></li>
+<li><strong>Manage Favorites</strong> → Select a list</li>
+<li><strong>Review/Edit System</strong> → <strong>New System</strong></li>
+<li><strong>Conventional</strong> → <strong>Confirm</strong></li>
+<li><strong>Edit Department</strong> → <strong>New Department</strong></li>
+<li><strong>Edit Channel</strong> → <strong>New Channel</strong></li>
+<li><strong>Enter frequency</strong> → Press <strong>E</strong></li>
+<li><strong>Set Name</strong> → Enter name</li>
+</ol>
+<h3>Channel Options You Can Set</h3>
+<p>For each channel, you can configure:</p>
+<ul>
+<li><strong>Name</strong>: What shows on display</li>
+<li><strong>Service Type</strong>: Police, Fire, etc.</li>
+<li><strong>Priority</strong>: Make it check more often</li>
+<li><strong>Volume Offset</strong>: Louder or quieter</li>
+<li><strong>Delay Time</strong>: How long to wait after transmission</li>
+<li><strong>Alert</strong>: Special tone/light when active</li>
+</ul>
+<hr>
+<h2>Trunked System Programming</h2>
+<p>Trunked systems are more complex but very common. Here's how to handle them:</p>
+<h3>What is Trunking?</h3>
+<ul>
+<li><strong>Normal Radio</strong>: Each agency gets one frequency</li>
+<li><strong>Trunked Radio</strong>: Many agencies share many frequencies</li>
+<li><strong>Computer Controls</strong>: Assigns frequencies automatically</li>
+<li><strong>Talk Groups</strong>: Like departments (Fire Ops = Talk Group 123)</li>
+</ul>
+<h3>Programming P25 Systems (Most Common)</h3>
+<p><strong>You need to know:</strong></p>
+<ul>
+<li><strong>Control Channel Frequencies</strong> (from RadioReference.com)</li>
+<li><strong>Talk Group IDs</strong> (TGIDs)</li>
+<li><strong>System Type</strong> (P25 Phase 1 or 2)</li>
+</ul>
+<h4>Step by Step:</h4>
+<ol>
+<li><strong>Get System Info</strong> from RadioReference.com</li>
+</ol>
+<ul>
+<li>Look up your county</li>
+<li>Find the P25 system</li>
+<li>Note control frequencies (red = primary, blue = backup)</li>
+<li>Note Talk Group IDs for agencies you want</li>
+</ul>
+<ol>
+<li><strong>Create New System</strong>:</li>
+</ol>
+<ul>
+<li><strong>MENU</strong> → <strong>Manage Favorites</strong> → Select list</li>
+<li><strong>Review/Edit System</strong> → <strong>New System</strong></li>
+<li><strong>P25 Trunk</strong> → <strong>Confirm</strong></li>
+<li><strong>Name the system</strong></li>
+</ul>
+<ol>
+<li><strong>System Settings</strong>:</li>
+</ol>
+<ul>
+<li><strong>Edit Sys Option</strong> → <strong>ID Search</strong> → <strong>ON</strong></li>
+<li>This lets it find new talk groups automatically</li>
+</ul>
+<ol>
+<li><strong>Add Site</strong> (Frequencies):</li>
+</ol>
+<ul>
+<li><strong>Edit Site</strong> → <strong>New Site</strong></li>
+<li><strong>Name it</strong> (like "Main Site")</li>
+<li><strong>Set Frequencies</strong>: Enter control channels</li>
+<li><strong>Set Modulation</strong>: Usually <strong>AUTO</strong></li>
+</ul>
+<ol>
+<li><strong>Add Departments</strong>:</li>
+</ol>
+<ul>
+<li><strong>Edit Department</strong> → <strong>New Department</strong></li>
+<li><strong>Name it</strong> (like "Police Dispatch")</li>
+<li><strong>Edit Channel</strong> → <strong>New Channel</strong></li>
+<li><strong>Enter Talk Group ID</strong> (from RadioReference)</li>
+<li><strong>Set Name</strong> for the talk group</li>
+</ul>
+<h3>DMR/MotoTRBO Systems (Optional Upgrade Required)</h3>
+<p>These require a paid upgrade but work similarly:</p>
+<ol>
+<li><strong>Buy upgrade code</strong> from Uniden</li>
+<li><strong>Enter code</strong>: MENU → Settings → Upgrade</li>
+<li><strong>Create system</strong>: <strong>MotoTRBO Trunk</strong> type</li>
+<li><strong>Add frequency and Color Code</strong></li>
+</ol>
+<h3>Discovery Mode (Finding Unknown Systems)</h3>
+<p>If you find an unknown trunked system:</p>
+<ol>
+<li><strong>MENU</strong> → <strong>Discovery</strong> → <strong>Trunking Discovery</strong></li>
+<li><strong>New Session</strong> → Name it</li>
+<li><strong>Select system to monitor</strong></li>
+<li><strong>Start Discovery</strong></li>
+<li><strong>Let it run</strong> - it records everything</li>
+<li><strong>Review results</strong> later to identify talk groups</li>
+</ol>
+<hr>
+<h2>Advanced Features</h2>
+<h3>Close Call (RF Capture)</h3>
+<p>Finds strong nearby signals automatically:</p>
+<h4>Setup:</h4>
+<ol>
+<li><strong>FUNC + Search key 1</strong> (or MENU → Search → Close Call)</li>
+<li><strong>Set CC Mode</strong>:</li>
+</ol>
+<ul>
+<li><strong>Off</strong>: Close Call disabled</li>
+<li><strong>CC DND</strong>: Only when not receiving other signals</li>
+<li><strong>CC Priority</strong>: Interrupts other traffic</li>
+</ul>
+<h4>Band Selection:</h4>
+<ol>
+<li>In Close Call mode, <strong>press 0-6</strong> to toggle bands</li>
+<li><strong>0</strong>: 25-54 MHz (VHF Low)</li>
+<li><strong>1</strong>: 144-174 MHz (VHF High)</li>
+<li><strong>2</strong>: 406-420 MHz (Federal)</li>
+<li><strong>3</strong>: 450-470 MHz (UHF Business)</li>
+<li><strong>4</strong>: 470-512 MHz (UHF T-Band)</li>
+<li><strong>5</strong>: 806-960 MHz (800/900 MHz)</li>
+</ol>
+<h3>Custom Searches</h3>
+<p>Search specific frequency ranges:</p>
+<ol>
+<li><strong>MENU</strong> → <strong>Search For</strong> → <strong>Edit Custom</strong></li>
+<li><strong>Select Custom 0-9</strong></li>
+<li><strong>Set Frequency Range</strong> (like 460.000-470.000)</li>
+<li><strong>Set Step Size</strong> (usually 12.5 kHz)</li>
+<li><strong>Set Modulation</strong> (usually NFM)</li>
+<li><strong>Search with Scan</strong>: ON to include during scanning</li>
+</ol>
+<h3>GPS Setup</h3>
+<p>For automatic location updates while traveling:</p>
+<h4>Using BC-SGPS Kit:</h4>
+<ol>
+<li><strong>Connect GPS unit</strong> to scanner USB port</li>
+<li><strong>MENU</strong> → <strong>Set Your Location</strong> → <strong>Set Up GPS</strong></li>
+<li><strong>Set Serial Port</strong>: <strong>9600</strong> (for BC-SGPS)</li>
+<li><strong>Location Format</strong>: <strong>DMS</strong> or <strong>DEG</strong></li>
+<li><strong>GPS icon</strong> shows when connected</li>
+</ol>
+<p><strong>GPS automatically updates your location and loads new frequencies as you travel.</strong></p>
+<h3>Weather Alerts</h3>
+<h4>Setup Weather Monitoring:</h4>
+<ol>
+<li><strong>MENU</strong> → <strong>WX Operation</strong> → <strong>Program SAME</strong></li>
+<li><strong>Enter your county FIPS code</strong> (find on NOAA website)</li>
+<li><strong>Weather Alert</strong>: <strong>Named FIPS Code</strong></li>
+<li><strong>Back to scanning</strong></li>
+</ol>
+<h4>Enable Weather Priority:</h4>
+<ol>
+<li><strong>Hold any channel</strong></li>
+<li><strong>FUNC + 6</strong> (WX button)</li>
+<li><strong>WX symbol</strong> appears on display</li>
+<li><strong>Scanner checks weather alerts</strong> while scanning</li>
+</ol>
+<h3>Fire Tone-Out</h3>
+<p>Monitor fire department paging tones:</p>
+<ol>
+<li><strong>MENU</strong> → <strong>Tone-Out-For</strong> → <strong>Tone-Out Setup</strong></li>
+<li><strong>Select slot 0-31</strong></li>
+<li><strong>Set Frequency</strong> of fire dispatch</li>
+<li><strong>Set Tone A and B</strong> (get from RadioReference)</li>
+<li><strong>Set Alert</strong> tone and light</li>
+<li><strong>Tone-Out Standby</strong> to activate</li>
+</ol>
+<h3>Priority Scanning</h3>
+<p>Make certain channels check more often:</p>
+<h4>Set Priority Channels:</h4>
+<ol>
+<li><strong>Hold on desired channel</strong></li>
+<li><strong>MENU</strong> → <strong>Program this channel</strong></li>
+<li><strong>Set Priority</strong>: <strong>ON</strong></li>
+</ol>
+<h4>Enable Priority:</h4>
+<ol>
+<li><strong>FUNC + ./NO</strong> (PRI button)</li>
+<li><strong>Choose mode</strong>:</li>
+</ol>
+<ul>
+<li><strong>Priority Scan</strong>: Interrupts other traffic</li>
+<li><strong>Priority DND</strong>: Checks between transmissions</li>
+</ul>
+<h3>Recording and Replay</h3>
+<h4>Replay Last Transmissions:</h4>
+<ul>
+<li><strong>Press REPLAY</strong> to hear last 30 seconds to 4 minutes</li>
+<li><strong>Turn scroll knob</strong> to select recordings</li>
+<li><strong>Press CHANNEL</strong> to pause/resume</li>
+</ul>
+<h4>Start Recording:</h4>
+<ul>
+<li><strong>FUNC + REPLAY</strong> to start/stop recording sessions</li>
+<li><strong>Hold REPLAY</strong> to review saved recordings</li>
+<li><strong>Recordings saved</strong> to microSD card</li>
+</ul>
+<hr>
+<h2>Troubleshooting</h2>
+<h3>"Nothing to Scan" Error</h3>
+<p><strong>This means the scanner has no active channels. Fix it:</strong></p>
+<ol>
+<li><strong>Check Location</strong>: MENU → Set Your Location → verify ZIP code</li>
+<li><strong>Check Service Types</strong>: FUNC + ZIP → turn ON desired types</li>
+<li><strong>Check Lists</strong>: Press number keys to enable favorites lists</li>
+<li><strong>Check Database</strong>: MENU → Set Scan Selection → Select Lists → Full Database ON</li>
+<li><strong>Check Range</strong>: MENU → Set Range → increase to 25+ miles</li>
+</ol>
+<h3>Poor Reception</h3>
+<ol>
+<li><strong>Check antenna connection</strong> - should be tight</li>
+<li><strong>Try different location</strong> - away from electronics</li>
+<li><strong>Extend antenna fully</strong></li>
+<li><strong>Check squelch</strong> - should be 2-5, not higher</li>
+<li><strong>Check attenuator</strong> - FUNC + 4 (should be OFF unless needed)</li>
+</ol>
+<h3>Scanner Stops on Noise</h3>
+<ol>
+<li><strong>Increase squelch</strong> - FUNC + tap scroll knob</li>
+<li><strong>Check location</strong> - make sure ZIP code is correct</li>
+<li><strong>Avoid noisy channels</strong> - press AVOID twice on bad channels</li>
+</ol>
+<h3>Missing Transmissions</h3>
+<ol>
+<li><strong>Check delay time</strong> - MENU → channel options → increase delay</li>
+<li><strong>Disable Close Call</strong> if interfering</li>
+<li><strong>Check priority settings</strong> - may be interrupting</li>
+<li><strong>Verify frequencies</strong> on RadioReference.com</li>
+</ol>
+<h3>Battery Issues</h3>
+<ol>
+<li><strong>Charge indicator</strong> - red = charging, green = done</li>
+<li><strong>Won't charge</strong> - check USB power (needs 1A minimum)</li>
+<li><strong>Short battery life</strong> - replace after 2-3 years</li>
+<li><strong>Scanner gets hot</strong> - normal during charging, stops if too hot</li>
+</ol>
+<h3>Firmware/Software Issues</h3>
+<ol>
+<li><strong>Update firmware</strong> regularly through Sentinel</li>
+<li><strong>Update database</strong> weekly for best coverage</li>
+<li><strong>Clear user data</strong> if major issues - MENU → Settings → Restore Options</li>
+<li><strong>Factory reset</strong> - hold down scroll knob while powering on</li>
+</ol>
+<hr>
+<h2>Quick Reference</h2>
+<h3>Essential Button Combinations</h3>
+<p>| Function | Buttons |</p>
+<p>|----------|---------|</p>
+<p>| Volume | Tap scroll knob, turn |</p>
+<p>| Squelch | FUNC + tap scroll, turn |</p>
+<p>| Backlight | Tap Power |</p>
+<p>| Service Types | FUNC + ZIP |</p>
+<p>| Priority | FUNC + ./NO |</p>
+<p>| Weather Priority | FUNC + 6 |</p>
+<p>| Display Mode | FUNC + 9 |</p>
+<p>| Attenuation | FUNC + 4 |</p>
+<p>| Close Call | FUNC + Search keys |</p>
+<p>| Recording | FUNC + REPLAY |</p>
+<p>| Lock/Unlock | FUNC + POWER |</p>
+<h3>Menu Shortcuts</h3>
+<p>| Path | Function |</p>
+<p>|------|----------|</p>
+<p>| MENU → Set Scan Selection | Enable/disable what scans |</p>
+<p>| MENU → Manage Favorites | Create and edit favorites lists |</p>
+<p>| MENU → Set Your Location | Change ZIP code or GPS setup |</p>
+<p>| MENU → Search For | Custom searches and Close Call |</p>
+<p>| MENU → Discovery | Find unknown systems |</p>
+<p>| MENU → WX Operation | Weather alerts and scanning |</p>
+<p>| MENU → Display Options | Customize what you see |</p>
+<p>| MENU → Settings | Clock, battery, upgrades |</p>
+<h3>Service Types Quick Guide</h3>
+<p>| Type | What It Is |</p>
+<p>|------|------------|</p>
+<p>| Law Dispatch | Police dispatch channels |</p>
+<p>| Fire Dispatch | Fire department dispatch |</p>
+<p>| EMS Dispatch | Ambulance dispatch |</p>
+<p>| Law-Tac | Police tactical/on-scene |</p>
+<p>| Fire-Tac | Fire tactical/fireground |</p>
+<p>| EMS-Tac | Ambulance on-scene |</p>
+<p>| Multi-Dispatch | Combined dispatch |</p>
+<p>| Federal | FBI, DEA, Border Patrol |</p>
+<p>| Aircraft | Air traffic control |</p>
+<p>| Railroad | Train communications |</p>
+<p>| Business | Private companies |</p>
+<p>| Public Works | City/county services |</p>
+<h3>Frequency Bands</h3>
+<p>| Band | Range | Common Use |</p>
+<p>|------|-------|------------|</p>
+<p>| VHF Low | 30-50 MHz | Some fire, forestry |</p>
+<p>| VHF High | 144-174 MHz | Police, fire, EMS |</p>
+<p>| UHF | 450-470 MHz | Business, some public safety |</p>
+<p>| 700/800 MHz | 700-800 MHz | P25 trunked systems |</p>
+<p>| 800/900 MHz | 806-960 MHz | Trunked systems |</p>
+<h3>Common Trunked System Types</h3>
+<p>| Type | Description |</p>
+<p>|------|-------------|</p>
+<p>| P25 Phase 1 | Most common digital system |</p>
+<p>| P25 Phase 2 | Newer digital, more efficient |</p>
+<p>| Motorola | Older but still common |</p>
+<p>| EDACS | Mostly older systems |</p>
+<p>| DMR | Business/amateur (upgrade needed) |</p>
+<p>| NXDN | Newer digital (upgrade needed) |</p>
+<hr>
+<h2>Conclusion</h2>
+<p>This manual covers everything you need to know to successfully operate your Uniden SDS100. The key to success is:</p>
+<ol>
+<li><strong>Start simple</strong> - use the database first</li>
+<li><strong>Set your location</strong> correctly</li>
+<li><strong>Choose appropriate service types</strong></li>
+<li><strong>Learn the three hold modes</strong></li>
+<li><strong>Practice with favorites lists</strong></li>
+<li><strong>Gradually add advanced features</strong></li>
+</ol>
+<p>Remember, scanning is a hobby that rewards patience and experimentation. Don't be afraid to try different settings and see what works best in your area.</p>
+<p>For more detailed tutorials and real-world examples, check out the "Boy and a Scanner" YouTube channel where we demonstrate these techniques with actual systems and scenarios.</p>
+<p><strong>Happy Scanning!</strong></p>
+<p><em>Cheers,</em>  </p>
+<p><em>David J. Woodbury</em>  </p>
+<p><em>Boy and a Scanner</em></p>
+<hr>
+<p><em>This manual is a living document. Updates and improvements will be posted on the Boy and a Scanner YouTube channel.</em></p>
+    </section>
+  </main>
+  <footer>
+    <div class='wrap'>
+      &copy; 2025 Boy and a Scanner. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
