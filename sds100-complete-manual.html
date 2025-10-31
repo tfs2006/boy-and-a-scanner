@@ -28,28 +28,54 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#0e1220 30%,#0a0f1a);color:var(--text);line-height:1.65}
-a{color:var(--accent)}
+a{color:var(--accent);transition:color 0.2s ease}
+a:hover{color:var(--accent-2)}
 .wrap{max-width:1100px;margin:0 auto;padding:24px}
-header{position:sticky;top:0;z-index:50;background:rgba(9,13,25,.75);backdrop-filter:blur(8px);border-bottom:1px solid #1f2a44}
-.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px}
+
+/* Scroll progress bar */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:100;transition:width 0.1s ease;width:0}
+
+header{position:sticky;top:0;z-index:50;background:rgba(9,13,25,.92);backdrop-filter:blur(12px);border-bottom:1px solid #1f2a44;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:box-shadow 0.3s ease}
+header.scrolled{box-shadow:0 4px 30px rgba(54,162,255,0.1)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px;transition:transform 0.2s ease}
+.brand:hover{transform:scale(1.02)}
 nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.navlink{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text);opacity:.9}
-.navlink:hover{background:#182036}
-.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0b1020;border:none;padding:12px 16px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.hero{padding:56px 24px 20px;border-bottom:1px solid #1f2a44;background:radial-gradient(1200px 400px at 50% -50%,rgba(54,162,255,.18),transparent)}
-h1{font-size:clamp(28px,4.5vw,44px);margin:0 0 12px}
+.navlink{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text);opacity:.9;transition:all 0.2s ease;position:relative}
+.navlink::after{content:'';position:absolute;bottom:5px;left:50%;width:0;height:2px;background:var(--accent);transition:width 0.2s ease,left 0.2s ease}
+.navlink:hover{background:#182036;opacity:1}
+.navlink:hover::after{width:60%;left:20%}
+.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0b1020;border:none;padding:12px 16px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(54,162,255,0.3)}
+.cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(54,162,255,0.5);color:#0b1020}
+.hero{padding:56px 24px 20px;border-bottom:1px solid #1f2a44;background:radial-gradient(1200px 400px at 50% -50%,rgba(54,162,255,.18),transparent);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(54,162,255,0.05) 0%,transparent 70%);animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:0.8;transform:scale(1.1)}}
+h1{font-size:clamp(28px,4.5vw,44px);margin:0 0 12px;animation:fadeInUp 0.6s ease}
 h2{font-size:clamp(22px,3vw,30px);margin:32px 0 12px}
 h3{font-size:clamp(18px,2.4vw,22px);margin:24px 0 8px}
 h4{font-size:clamp(16px,2vw,20px);margin:20px 0 8px}
-.card{background:linear-gradient(180deg,#111727,#0b0f1a);border:1px solid #1f2a44;border-radius:14px;padding:18px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.card{background:linear-gradient(180deg,#111727,#0b0f1a);border:1px solid #1f2a44;border-radius:14px;padding:18px;transition:all 0.3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(54,162,255,0.15);border-color:#2a4a7a}
 ul{margin:0;padding-left:18px}
 ol{margin:0;padding-left:18px}
+ol li{transition:all 0.2s ease}
+ol li:hover{color:var(--accent-2)}
 p{margin:12px 0}
+table{width:100%;border-collapse:collapse;margin:16px 0}
+table th,table td{padding:10px;border:1px solid #1f2a44;text-align:left}
+table th{background:#0f1630;font-weight:700}
+table tr:hover{background:rgba(54,162,255,0.05)}
+code,pre{background:#0d1427;border:1px solid #243259;border-radius:6px;padding:2px 6px;font-family:ui-monospace,monospace}
+pre{padding:12px;overflow-x:auto}
 footer{margin-top:36px;border-top:1px solid #1f2a44;padding:24px;color:var(--muted);font-size:14px}
-.kicker{display:inline-block;text-transform:uppercase;font-size:12px;letter-spacing:.15em;color:var(--accent-2)}
+.kicker{display:inline-block;text-transform:uppercase;font-size:12px;letter-spacing:.15em;color:var(--accent-2);animation:fadeInUp 0.4s ease}
+.back-to-top{position:fixed;right:16px;bottom:16px;opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:90;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#0b1020;border:none;padding:12px 16px;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(54,162,255,0.3)}
+.back-to-top.visible{opacity:1;visibility:visible}
+.back-to-top:hover{transform:translateY(-4px);box-shadow:0 6px 20px rgba(54,162,255,0.5)}
 </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
   <a class='skip' href='#content'>Skip to content</a>
   <header>
     <div class='wrap' style='display:flex;justify-content:space-between;gap:16px;align-items:center;'>
@@ -617,5 +643,42 @@ footer{margin-top:36px;border-top:1px solid #1f2a44;padding:24px;color:var(--mut
       &copy; 2025 Boy and a Scanner. All rights reserved.
     </div>
   </footer>
+  <a class='back-to-top' href='#top' onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Top</a>
+  <script>
+    (function(){
+      // Scroll progress bar
+      var progressBar = document.getElementById('scroll-progress');
+      var header = document.querySelector('header');
+      var backToTop = document.querySelector('.back-to-top');
+      
+      function updateScrollProgress(){
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        if(progressBar) progressBar.style.width = scrolled + '%';
+        
+        // Add shadow to header when scrolled
+        if(header){
+          if(winScroll > 10){
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        }
+        
+        // Show/hide back to top button
+        if(backToTop){
+          if(winScroll > 500){
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+        }
+      }
+      
+      window.addEventListener('scroll', updateScrollProgress, {passive: true});
+      window.addEventListener('load', updateScrollProgress);
+    })();
+  </script>
 </body>
 </html>
