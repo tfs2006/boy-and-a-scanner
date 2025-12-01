@@ -22,8 +22,16 @@
   <meta name="twitter:title" content="Uniden SDS100: Beginner Guide, Programming & Accessories" />
   <meta name="twitter:description" content="Learn the Uniden SDS100 fast: beginner setup, manual & Sentinel programming for P25, DMR, NXDN, plus best antennas and where to buy." />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="robots" content="index,follow" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large" />
   <meta name="theme-color" content="#0b0e14" />
+  
+  <!-- GEO: AI/LLM Citation Metadata -->
+  <meta name="citation_title" content="Uniden SDS100: Complete Beginner Guide, Programming & Best Accessories (2025)" />
+  <meta name="citation_author" content="Boy and a Scanner" />
+  <meta name="citation_date" content="2025-12-01" />
+  <meta name="citation_public_url" content="https://boyandascanner.com/" />
+  <meta name="article:published_time" content="2024-01-15T00:00:00Z" />
+  <meta name="article:modified_time" content="2025-12-01T00:00:00Z" />
   <style>
     :root{
       --bg:#0b0e14;--panel:#121826;--muted:#93a2b8;--text:#e8eef9;--accent:#36a2ff;--accent-2:#8af0ff;--ok:#22c55e;--warn:#f59e0b;--brand:#36a2ff;
@@ -138,6 +146,7 @@
   </style>
   
   <!-- FAQ Schema (helps long-tail discoverability) -->
+  <!-- Enhanced FAQ Schema for GEO - AI-Optimized Q&A -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -148,7 +157,7 @@
         "name": "What is the Uniden SDS100?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The Uniden SDS100 is a handheld digital trunking scanner with a software-defined radio (True I/Q) receiver designed to handle modern P25 systems and challenging simulcast environments."
+          "text": "The Uniden SDS100 is a handheld digital trunking scanner with a software-defined radio (True I/Q) receiver designed to handle modern P25 systems and challenging simulcast environments. It costs approximately $699.99 and is Uniden's flagship portable scanner."
         }
       },
       {
@@ -156,7 +165,7 @@
         "name": "Is the SDS100 beginner-friendly?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. With a built-in RadioReference-based database and ZIP code scanning, the SDS100 can be scanning local channels within minutes. Advanced users can customize with Uniden Sentinel software."
+          "text": "Yes. With a built-in RadioReference-based database and ZIP code scanning, the SDS100 can be scanning local channels within minutes. Just enter your ZIP code and it finds nearby systems automatically. Advanced users can customize with Uniden Sentinel software."
         }
       },
       {
@@ -164,18 +173,119 @@
         "name": "Does the SDS100 support DMR or NXDN?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Out of the box, SDS100 supports analog and APCO P25 Phase I/II. DMR, NXDN, and ProVoice are available via optional paid upgrades from Uniden."
+          "text": "Out of the box, SDS100 supports analog and APCO P25 Phase I/II. DMR, NXDN, and ProVoice are available via optional paid upgrades from Uniden, costing approximately $50-75 each. Upgrade keys are purchased at my.uniden.com."
         }
       },
       {
         "@type": "Question",
-        "name": "Best accessories for the SDS100?",
+        "name": "What are the best accessories for the SDS100?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Popular upgrades include a Remtronix 800 MHz antenna for public-safety trunked systems, a wideband discone for home use, a telescoping whip for VHF/UHF, and SMA–BNC adapters for external antennas."
+          "text": "Popular upgrades include a Remtronix 800 MHz antenna for public-safety trunked systems, a wideband discone for home use, a telescoping whip for VHF/UHF, and SMA–BNC adapters for external antennas. The stock antenna works but upgrading improves reception significantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does the Uniden SDS100 cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Uniden SDS100 typically costs around $699.99 USD. It's available on Amazon and other electronics retailers. Prices may vary during sales periods."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is True I/Q technology in the SDS100?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "True I/Q is Uniden's software-defined radio (SDR) technology that samples the entire signal including phase information. This allows the SDS100 to decode difficult simulcast signals that cause distortion on traditional scanners. It's a major advantage in urban areas with overlapping tower coverage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the SDS100 have a waterfall display?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as of firmware version 1.23.01 released in December 2023, the SDS100 gained a waterfall display feature. This shows real-time RF activity visually, helping you spot signals and interference patterns."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "SDS100 vs SDS200: Which should I buy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SDS100 ($699.99) is handheld and portable, while the SDS200 ($749.99) is a base/mobile unit with a louder speaker and Ethernet connectivity. Choose SDS100 for portability, or SDS200 for home/vehicle use with better audio output."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I program the SDS100?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The easiest method is ZIP code scanning: Menu → Program System → Quick Key Search → enter your ZIP. For custom programming, download Uniden Sentinel software (free, Windows), connect via USB, and import systems from RadioReference.com. Sentinel lets you create Favorites Lists and customize settings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What frequencies does the SDS100 cover?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SDS100 covers 25-512 MHz, 758-824 MHz, 849-869 MHz, and 894-960 MHz. This includes VHF, UHF, 700 MHz, 800 MHz, and 900 MHz public safety bands. It does not cover cellular frequencies (blocked by law in the US)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the SDS100 have GPS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SDS100 does not have built-in GPS but supports an optional external GPS receiver. With GPS, it enables location-based scanning and automatic range switching. The newer SDS150 includes built-in GPS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I update SDS100 firmware?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Download the latest firmware from Uniden's support page, connect your SDS100 via USB, and use Uniden Sentinel software to apply the update. Current firmware is version 1.23.01 (December 2023) which added the waterfall display feature."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the SDS100 waterproof?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SDS100 is water-resistant (IPX4 rated) but not fully waterproof. It can handle splashes and light rain but should not be submerged. Use a protective case in wet conditions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What battery does the SDS100 use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SDS100 uses a rechargeable BP-SDS100 lithium-ion battery pack providing approximately 4-6 hours of operation. It can also run on 3 AA batteries with an optional adapter for extended field use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I listen to encrypted radio with the SDS100?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, the SDS100 cannot decode encrypted transmissions. While it can receive P25, DMR, and NXDN digital signals, any encryption applied by agencies will result in silence or garbled audio. More agencies are moving to encryption, so check your local systems first."
         }
       }
     ]
+  }
+  </script>
+  <!-- Speakable Schema for Voice Assistants -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Uniden SDS100 Complete Guide: Setup, Programming & Accessories",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".quick-facts", ".hero .lead", "#overview .card p"]
+    },
+    "url": "https://boyandascanner.com/"
   }
   </script>
   <script type="application/ld+json">
@@ -246,7 +356,22 @@
     <div class="wrap">
       <span class="kicker">Uniden SDS100</span>
       <h1>Uniden SDS100: Beginner Guide, Programming & Accessories</h1>
-      <p class="lead">Built for today’s digital radio systems, the <strong>SDS100</strong> is a flagship handheld police scanner using True I/Q SDR technology to tackle tough simulcast areas with clear audio. This page is your fast, no-fluff guide—crafted by <em>Boy and a Scanner</em>—to help you decide, set up, and get better reception.</p>
+      <p class="lead">Built for today's digital radio systems, the <strong>SDS100</strong> is a flagship handheld police scanner using True I/Q SDR technology to tackle tough simulcast areas with clear audio. This page is your fast, no-fluff guide—crafted by <em>Boy and a Scanner</em>—to help you decide, set up, and get better reception.</p>
+      
+      <!-- Quick Facts Box for AI/GEO Extraction -->
+      <div class="quick-facts" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:2px solid #0f3460;border-radius:12px;padding:20px;margin:20px 0;box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+        <h3 style="color:#e94560;margin:0 0 12px 0;font-size:1.1rem;">📋 Quick Facts: Uniden SDS100</h3>
+        <ul style="margin:0;padding-left:20px;line-height:1.8;">
+          <li><strong>Price:</strong> $699.99 USD (handheld digital scanner)</li>
+          <li><strong>Technology:</strong> True I/Q SDR (software-defined radio)</li>
+          <li><strong>Protocols:</strong> P25 Phase I/II built-in; DMR, NXDN, ProVoice optional ($50-75 each)</li>
+          <li><strong>Latest Firmware:</strong> v1.23.01 (December 2023) - adds waterfall display</li>
+          <li><strong>GPS:</strong> External GPS required (unlike SDS150 with built-in GPS)</li>
+          <li><strong>Best For:</strong> Portable monitoring, simulcast areas, public safety scanning</li>
+          <li><strong>Programming:</strong> ZIP code scanning built-in, or use free Uniden Sentinel software</li>
+        </ul>
+      </div>
+      
       <div class="toc">
         <a href="#overview">What is SDS100?</a>
         <a href="#features">Key Features</a>
