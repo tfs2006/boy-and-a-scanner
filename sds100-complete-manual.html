@@ -28,7 +28,7 @@
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:image" content="https://boyandascanner.com/og-image.svg" />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📻</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="theme-color" content="#0b0e14"/>
 
   <!-- GEO: AI/LLM Citation Metadata -->
@@ -96,8 +96,10 @@ a:hover{color:var(--accent-2)}
 
 header{position:sticky;top:0;z-index:50;background:rgba(9,13,25,.92);backdrop-filter:blur(12px);border-bottom:1px solid #1f2a44;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:box-shadow 0.3s ease}
 header.scrolled{box-shadow:0 4px 30px rgba(54,162,255,0.1)}
-.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.2px;transition:transform 0.2s ease}
-.brand:hover{transform:scale(1.02)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px;transition:transform 0.2s ease;text-decoration:none;color:var(--text)}
+.brand:hover{transform:scale(1.02);color:var(--text)}
+.brand img{width:22px;height:22px;display:block}
+.brand-text{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.08em;text-transform:uppercase}
 nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .navlink{padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text);opacity:.9;transition:all 0.2s ease;position:relative}
 .navlink::after{content:'';position:absolute;bottom:5px;left:50%;width:0;height:2px;background:var(--accent);transition:width 0.2s ease,left 0.2s ease}
@@ -150,7 +152,10 @@ section{scroll-margin-top:80px}
   <a class='skip' href='#content'>Skip to content</a>
   <header>
     <div class='wrap' style='display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;'>
-      <a class='brand' href='/'>📻 Boy and a Scanner</a>
+      <a class='brand' href='/'>
+        <img src="/brand-mark.svg" width="22" height="22" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
       <nav>
         <a class='navlink' href='/'>Home</a>
         <a class='navlink' href='/sds100-complete-manual.html'>Manual</a>
