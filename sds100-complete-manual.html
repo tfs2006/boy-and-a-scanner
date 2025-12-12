@@ -415,66 +415,110 @@ footer{margin-top:36px;border-top:1px solid #1f2a44;padding:24px;color:var(--mut
 <li><strong>Computer Controls</strong>: Assigns frequencies automatically</li>
 <li><strong>Talk Groups</strong>: Like departments (Fire Ops = Talk Group 123)</li>
 </ul>
-<h3>Programming P25 Systems (Most Common)</h3>
-<p><strong>You need to know:</strong></p>
+<h3>Before You Start (Required Info Checklist)</h3>
+<p><strong>Most “manual programming” failures happen because one key piece of info is missing.</strong> Use this checklist before you start building a Favorites List.</p>
 <ul>
-<li><strong>Control Channel Frequencies</strong> (from RadioReference.com)</li>
-<li><strong>Talk Group IDs</strong> (TGIDs)</li>
-<li><strong>System Type</strong> (P25 Phase 1 or 2)</li>
+<li><strong>P25 trunked:</strong> site/control channel frequencies + your local site name; optional TGIDs (talkgroup IDs) if you want ID Scan.</li>
+<li><strong>P25 one-frequency:</strong> a single frequency (and enough signal strength for clean decode).</li>
+<li><strong>DMR one-frequency:</strong> frequency; scanner can discover Color Code/Slot/TG while receiving, but you need activity on-air.</li>
+<li><strong>DMR trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III):</strong> system/site frequencies + <strong>LCNs</strong> (Logical Channel Numbers). If LCNs are unknown, use <em>LCN Finder</em> where supported.</li>
+<li><strong>NXDN one-frequency:</strong> frequency; scanner can discover RAN/TG when receiving, but you need activity on-air.</li>
+<li><strong>NXDN trunked:</strong> site frequencies + <strong>LCNs</strong> (and enough traffic to validate mapping).</li>
+<li><strong>Analog trunking (Motorola / EDACS / LTR):</strong> system frequencies (and for EDACS/LTR, the correct channel order/LCN-like mapping).</li>
 </ul>
-<h4>Step by Step:</h4>
+
+<div class='card'>
+<h3>Step-by-Step: P25 Trunked System (Most Common Public Safety)</h3>
+<p><strong>You need:</strong> control channel/site frequencies + talkgroup IDs (optional but recommended for a clean setup). Use RadioReference for current data.</p>
 <ol>
-<li><strong>Get System Info</strong> from RadioReference.com</li>
+<li><strong>Create a Favorites List</strong> (if you don’t already have one): MENU → Manage Favorites → New Favorites List → name it.</li>
+<li><strong>Create the system:</strong> Manage Favorites → select your list → Review/Edit System → New System → <strong>P25 Trunk</strong> → Confirm → name the system.</li>
+<li><strong>Add a site (tower):</strong> Edit Site → New Site → name it (e.g., “Simulcast” or your nearest site).</li>
+<li><strong>Enter site frequencies:</strong> Edit Site → Set Frequencies → enter the listed control/alternate control channels for that site.</li>
+<li><strong>Choose scanning mode:</strong>
+  <ul>
+    <li><strong>ID Search</strong> = hear/discover any active talkgroup (good for exploring).</li>
+    <li><strong>ID Scan</strong> = hear only talkgroups you saved (best once you’ve built your list).</li>
+  </ul>
+</li>
+<li><strong>Add a department:</strong> Edit Department → New Department → name it (Police / Fire / EMS).</li>
+<li><strong>Add talkgroups (optional but recommended):</strong> Edit Channel → New Channel → enter TGID → set name/avoid/service type as desired.</li>
+<li><strong>Test:</strong> Start scanning. If you see traffic but no audio, verify the site frequencies and confirm your area isn’t fully encrypted.</li>
 </ol>
+</div>
+
+<div class='card'>
+<h3>Step-by-Step: P25 One-Frequency (Digital on a Single Channel)</h3>
+<p><strong>You need:</strong> one frequency. This is common for small agencies, utilities, or special-use channels.</p>
+<ol>
+<li>MENU → Manage Favorites → select list → Review/Edit System → New System → <strong>P25 One Frequency</strong> → Confirm.</li>
+<li>Edit Department → New Department → name it.</li>
+<li>Edit Channel → New Channel → enter the frequency → set name.</li>
+<li>Scan and verify decode. If audio is broken, you likely need a better signal (move/antenna) or the channel is encrypted.</li>
+</ol>
+</div>
+
+<div class='card'>
+<h3>Step-by-Step: DMR One-Frequency (Upgrade Required)</h3>
+<p><strong>Requires:</strong> Uniden DMR upgrade key. <strong>You need:</strong> one frequency. The scanner can learn Color Code/Slot/TG during active traffic.</p>
+<ol>
+<li>Confirm the DMR upgrade is installed: MENU → Settings → Upgrade (verify DMR shows enabled).</li>
+<li>MENU → Manage Favorites → select list → Review/Edit System → New System → <strong>DMR One Frequency</strong> → Confirm.</li>
+<li>Edit Department → New Department → name it.</li>
+<li>Edit Channel → New Channel → enter the frequency → set name.</li>
+<li>Scan with <strong>ID Search</strong> first so the radio can show/discover TG/Slot/Color Code as traffic appears.</li>
+<li>Once you identify the talkgroups you care about, you can refine (avoid unwanted TGs, rename, set service types).</li>
+</ol>
+</div>
+
+<div class='card'>
+<h3>Step-by-Step: DMR Trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III) (Upgrade Required)</h3>
+<p><strong>Requires:</strong> Uniden DMR upgrade key. <strong>You need:</strong> site frequencies + correct <strong>LCNs</strong>. Without LCNs, trunked DMR usually won’t track correctly.</p>
+<ol>
+<li>Get the system details from RadioReference (system type, site frequencies, and LCNs for your site).</li>
+<li>MENU → Manage Favorites → select list → Review/Edit System → New System → choose the appropriate <strong>MotoTRBO/DMR trunk</strong> type offered by the SDS100 → Confirm.</li>
+<li>Edit Site → New Site → name it → Set Frequencies (enter all site frequencies).</li>
+<li>Enter <strong>LCNs</strong> for each frequency as required by the site configuration.</li>
+<li>If LCNs are unknown, use the scanner’s <em>LCN Finder</em> (when available) during active traffic to determine mapping.</li>
+<li>Add departments/talkgroups as you identify them, or scan in discovery/ID Search style first and refine later.</li>
+</ol>
+<p><strong>Reality check:</strong> DMR trunking is very sensitive to correct LCN mapping. If it won’t follow conversations, LCNs are the first thing to re-check.</p>
+</div>
+
+<div class='card'>
+<h3>Step-by-Step: NXDN One-Frequency (Upgrade Required)</h3>
+<p><strong>Requires:</strong> Uniden NXDN upgrade key. <strong>You need:</strong> one frequency. The scanner can identify RAN/TG during active traffic.</p>
+<ol>
+<li>Confirm NXDN upgrade is installed: MENU → Settings → Upgrade (verify NXDN enabled).</li>
+<li>MENU → Manage Favorites → select list → Review/Edit System → New System → <strong>NXDN One Frequency</strong> → Confirm.</li>
+<li>Edit Department → New Department → name it.</li>
+<li>Edit Channel → New Channel → enter the frequency → set name.</li>
+<li>Scan with discovery/ID Search behavior first, then lock down once you identify the talkgroups you want.</li>
+</ol>
+</div>
+
+<div class='card'>
+<h3>Step-by-Step: NXDN Trunked (Upgrade Required)</h3>
+<p><strong>Requires:</strong> Uniden NXDN upgrade key. <strong>You need:</strong> site frequencies + correct <strong>LCNs</strong> (often listed on RadioReference for the site).</p>
+<ol>
+<li>Get NXDN trunking system/site details from RadioReference (frequencies + LCNs for the site you can receive).</li>
+<li>MENU → Manage Favorites → select list → Review/Edit System → New System → choose the appropriate <strong>NXDN trunk</strong> type → Confirm.</li>
+<li>Edit Site → New Site → Set Frequencies → enter all site frequencies.</li>
+<li>Enter the matching <strong>LCNs</strong> for each frequency (required for proper tracking).</li>
+<li>Add departments/talkgroups once identified, or use Discovery Mode to learn what’s active.</li>
+</ol>
+</div>
+
+<div class='card'>
+<h3>Other System Types the SDS100 Can Scan (Common)</h3>
+<p>These show up in many areas and can still be worth programming manually when you know the frequencies.</p>
 <ul>
-<li>Look up your county</li>
-<li>Find the P25 system</li>
-<li>Note control frequencies (red = primary, blue = backup)</li>
-<li>Note Talk Group IDs for agencies you want</li>
+<li><strong>Conventional analog (FM/NFM/AM):</strong> best for local fire ground, ham repeaters, airband, NOAA weather.</li>
+<li><strong>Motorola analog trunking:</strong> older public safety/utility systems in some regions.</li>
+<li><strong>EDACS / LTR:</strong> older trunking used by businesses/industrials; channel order can matter.</li>
 </ul>
-<ol>
-<li><strong>Create New System</strong>:</li>
-</ol>
-<ul>
-<li><strong>MENU</strong> → <strong>Manage Favorites</strong> → Select list</li>
-<li><strong>Review/Edit System</strong> → <strong>New System</strong></li>
-<li><strong>P25 Trunk</strong> → <strong>Confirm</strong></li>
-<li><strong>Name the system</strong></li>
-</ul>
-<ol>
-<li><strong>System Settings</strong>:</li>
-</ol>
-<ul>
-<li><strong>Edit Sys Option</strong> → <strong>ID Search</strong> → <strong>ON</strong></li>
-<li>This lets it find new talk groups automatically</li>
-</ul>
-<ol>
-<li><strong>Add Site</strong> (Frequencies):</li>
-</ol>
-<ul>
-<li><strong>Edit Site</strong> → <strong>New Site</strong></li>
-<li><strong>Name it</strong> (like "Main Site")</li>
-<li><strong>Set Frequencies</strong>: Enter control channels</li>
-<li><strong>Set Modulation</strong>: Usually <strong>AUTO</strong></li>
-</ul>
-<ol>
-<li><strong>Add Departments</strong>:</li>
-</ol>
-<ul>
-<li><strong>Edit Department</strong> → <strong>New Department</strong></li>
-<li><strong>Name it</strong> (like "Police Dispatch")</li>
-<li><strong>Edit Channel</strong> → <strong>New Channel</strong></li>
-<li><strong>Enter Talk Group ID</strong> (from RadioReference)</li>
-<li><strong>Set Name</strong> for the talk group</li>
-</ul>
-<h3>DMR/MotoTRBO Systems (Optional Upgrade Required)</h3>
-<p>These require a paid upgrade but work similarly:</p>
-<ol>
-<li><strong>Buy upgrade code</strong> from Uniden</li>
-<li><strong>Enter code</strong>: MENU → Settings → Upgrade</li>
-<li><strong>Create system</strong>: <strong>MotoTRBO Trunk</strong> type</li>
-<li><strong>Add frequency and Color Code</strong></li>
-</ol>
+<p><strong>Best practice:</strong> If you’re unsure about exact trunking flavor or channel order, build it in Sentinel from the database first, then tweak manually on the scanner.</p>
+</div>
 <h3>Discovery Mode (Finding Unknown Systems)</h3>
 <p>If you find an unknown trunked system:</p>
 <ol>
