@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Block spammy WordPress-style search query URLs that sometimes get discovered externally.
+# Your pages already declare canonicals, but this reduces crawl noise in Search Console.
+Disallow: /*?s=
+Disallow: /*&s=
+Disallow: /*?*s=
+
 Sitemap: https://boyandascanner.com/sitemap.xml
