@@ -138,6 +138,22 @@
     /* Accessibility */
     :focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
     @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+    /* Skip link (keyboard users) */
+    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;padding:10px 12px;background:#0e1528;border:1px solid #223058;border-radius:8px;z-index:2000}
+    section{scroll-margin-top:80px}
+
+    /* FAQ accordion styling */
+    details{border:1px solid #1f2a44;border-radius:12px;background:linear-gradient(180deg,#0e1426,#0b111f);padding:12px;transition:all 0.3s ease;margin-bottom:10px}
+    details:hover{border-color:#2a4a7a;box-shadow:0 4px 12px rgba(54,162,255,0.1)}
+    details[open]{background:linear-gradient(180deg,#111829,#0c1221);border-color:#36a2ff}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700;color:#e8eef9;list-style:none;transition:color 0.2s ease;position:relative;padding-left:24px}
+    summary::before{content:'▶';position:absolute;left:0;transition:transform 0.3s ease;color:var(--accent)}
+    details[open] summary::before{transform:rotate(90deg)}
+    summary:hover{color:var(--accent-2)}
+    summary::-webkit-details-marker{display:none}
     
     /* Print styles */
     @media print{
@@ -259,6 +275,7 @@
 </head>
 <body>
   <div id="scroll-progress"></div>
+  <a class="skip" href="#content">Skip to content</a>
   <header>
     <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;">
       <a class="brand" href="/">📻 Boy and a Scanner</a>
@@ -279,7 +296,7 @@
     </div>
   </section>
 
-  <main class="wrap">
+  <main class="wrap" id="content">
     
     <!-- GEO: Quick Facts Comparison Box -->
     <div class="card" style="margin-bottom:20px;background:linear-gradient(180deg,#0d1528,#0a0f1a);border-left:4px solid var(--accent);">
