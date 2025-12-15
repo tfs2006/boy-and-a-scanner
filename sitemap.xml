@@ -72,4 +72,22 @@
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
+      <url>
+        <loc>https://boyandascanner.com/sds100-vhf-high-telescoping-whip-antenna.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://boyandascanner.com/sds100-triband-antenna.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://boyandascanner.com/sds100-uhf-whip-antenna.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
 </urlset>
