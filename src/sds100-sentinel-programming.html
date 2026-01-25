@@ -1,0 +1,104 @@
+---
+layout: base.njk
+title: "Uniden SDS100 Sentinel Programming Guide (2025) | Boy and a Scanner"
+description: "Step-by-step SDS100 Sentinel programming: update database and firmware, create Favorites Lists, set Quick Keys, and fix common issues like Nothing to Scan."
+---
+<main class="wrap" id="content">
+<section class="card" id="basics">
+      <h2>What Sentinel Does (and Why It’s Worth It)</h2>
+      <ul>
+        <li><strong>Updates:</strong> Download the latest RadioReference-based database and apply firmware updates when available.</li>
+        <li><strong>Programming:</strong> Build Favorites Lists with exactly what you want to scan (systems, sites, departments, channels).</li>
+        <li><strong>Control:</strong> Use Quick Keys, Avoids, and Location Control to make scanning predictable.</li>
+      </ul>
+      <p class="note">Sentinel is Windows-first. If you’re not on Windows, you can still manage the microSD via other workflows, but Sentinel is the simplest path for most users.</p>
+    </section>
+
+    <section class="card" id="steps" style="margin-top:18px">
+      <h2>Step-by-Step: The Standard Sentinel Workflow</h2>
+      <ol>
+        <li><strong>Install Sentinel</strong> (from Uniden) and launch it.</li>
+        <li><strong>Update the database:</strong> In Sentinel, run the database update so your agency/site/talkgroup data is current.</li>
+        <li><strong>Connect the SDS100 via USB</strong> and select <strong>Mass Storage</strong> mode on the scanner.</li>
+        <li><strong>Read from scanner</strong> (optional but recommended if you’ve made changes on the radio): pull current settings and lists into Sentinel.</li>
+        <li><strong>Create a Favorites List</strong> and add your system(s) and the site(s) you can actually receive.</li>
+        <li><strong>Set Service Types</strong> appropriately (e.g., Law Dispatch, Fire Dispatch, EMS Dispatch).</li>
+        <li><strong>Assign Quick Keys</strong> so you can turn lists/systems on and off quickly.</li>
+        <li><strong>Write to scanner:</strong> Send Favorites Lists and settings to the scanner/SD card.</li>
+        <li><strong>Safely eject</strong> the scanner/SD from Windows, unplug USB, and start scanning.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>Tip:</strong> If your Favorites List scans in Sentinel’s mind but the radio says <em>Nothing to Scan</em>, jump to the troubleshooting section below.
+      </div>
+    </section>
+
+    <section class="card" id="favorites" style="margin-top:18px">
+      <h2>Favorites Lists: The 3 Settings That Matter Most</h2>
+      <ul>
+        <li><strong>Quick Keys:</strong> If the Quick Key is off, the list/system won’t scan.</li>
+        <li><strong>Service Types:</strong> If you don’t enable the right Service Types, it won’t scan—even if everything is programmed correctly.</li>
+        <li><strong>Location Control:</strong> If enabled, range/location settings can hide what you programmed.</li>
+      </ul>
+      <p class="note">For troubleshooting, temporarily disable Location Control for a list and enable the common Dispatch Service Types to confirm you can receive traffic.</p>
+    </section>
+
+    <section class="card" id="backup" style="margin-top:18px">
+      <h2>Backup (Highly Recommended)</h2>
+      <p>Before you experiment, create a backup of your configuration.</p>
+      <ul>
+        <li><strong>Sentinel profile backup:</strong> Save a copy of your Sentinel profile/config on your PC.</li>
+        <li><strong>microSD backup:</strong> Periodically copy the SDS100 SD card contents to a safe folder.</li>
+      </ul>
+      <p class="note">If something breaks, restoring from backup is faster than re-building Favorites Lists from scratch.</p>
+    </section>
+
+    <section class="card" id="troubleshooting" style="margin-top:18px">
+      <h2>Troubleshooting: “Nothing to Scan” (Fast Fixes)</h2>
+      <ul>
+        <li><strong>Enable the Favorites List:</strong> Make sure the list is turned on for scanning.</li>
+        <li><strong>Turn on Service Types:</strong> Enable dispatch types first (Law/Fire/EMS Dispatch).</li>
+        <li><strong>Check Quick Keys:</strong> Confirm your Quick Key numbers are enabled on the radio.</li>
+        <li><strong>Review Avoids:</strong> Clear Avoids temporarily to test.</li>
+        <li><strong>Location Control:</strong> Turn it off for the list to remove range filtering while testing.</li>
+      </ul>
+      <div class="note">If you’re also dealing with garbled P25 audio, see the <a href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>.</div>
+    </section>
+
+    <section id="faq" style="margin-top:18px">
+      <h2>Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>What is Uniden Sentinel used for on the SDS100?</summary>
+        <p>Uniden Sentinel is the official PC software used to update the SDS100 database and firmware and to build, edit, and write Favorites Lists to the scanner (systems, sites, departments, and channels).</p>
+      </details>
+
+      <details>
+        <summary>Do I need a RadioReference subscription to use Sentinel?</summary>
+        <p>Not for basic use. You can update the built-in database and program Favorites Lists in Sentinel without a subscription. Some advanced importing options may depend on RadioReference features in your workflow, but most beginners can start without one.</p>
+      </details>
+
+      <details>
+        <summary>Why does my SDS100 say “Nothing to Scan” after programming?</summary>
+        <p>Common causes are: the Favorites List is not enabled for scanning, Quick Keys are off, Service Types are disabled, Location Control/range is excluding items, or everything is avoided. Start by enabling the list and turning on the correct Service Types.</p>
+      </details>
+
+      <details>
+        <summary>How do I write a Favorites List from Sentinel to the SDS100?</summary>
+        <p>Connect the SDS100 via USB, select Mass Storage mode, then in Sentinel use the write-to-scanner function to send your Favorites Lists and settings. Safely eject the device when finished, then disconnect USB and scan.</p>
+      </details>
+
+      <details>
+        <summary>Should I update the database or firmware first?</summary>
+        <p>In practice, do both. A simple routine is: update Sentinel itself if prompted, update the database, then update firmware when available. After updates, write your Favorites Lists/settings to the scanner as needed.</p>
+      </details>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>More SDS100 Guides</h2>
+      <ul>
+        <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
+        <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
+        <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
+      </ul>
+    </section>
+</main>

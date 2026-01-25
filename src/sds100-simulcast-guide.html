@@ -1,0 +1,74 @@
+---
+layout: base.njk
+title: "Uniden SDS100 Simulcast Fix Guide (2025) | Boy and a Scanner"
+description: "Fix garbled P25 audio on simulcast systems: practical SDS100 tips for antenna choice, placement, attenuation, and settings to improve decoding."
+---
+<main class="wrap" id="content">
+<section class="card" id="what-is">
+      <h2>What “Simulcast Distortion” Is (Plain English)</h2>
+      <p>Many public-safety P25 systems use multiple transmitters on the same frequencies to cover a wide area. In some locations, your scanner hears <em>more than one tower at once</em>. If those signals arrive out of sync, decoding can suffer—resulting in garbled audio, clipped words, or missed transmissions.</p>
+      <p class="note">The SDS100 is built for tough simulcast, but your antenna and location still matter a lot.</p>
+    </section>
+
+    <section class="card" id="checklist" style="margin-top:18px">
+      <h2>Quick Fix Checklist (Try in Order)</h2>
+      <ol>
+        <li><strong>Move the scanner</strong> (window vs interior wall, upstairs vs downstairs). Small changes can pick a single tower more cleanly.</li>
+        <li><strong>Try a smaller 700/800 antenna</strong> for 700/800 MHz systems (less overload, fewer unwanted signals).</li>
+        <li><strong>Avoid high-gain wideband antennas indoors</strong> if they make decoding worse; they can bring in more competing towers.</li>
+        <li><strong>Try attenuation</strong> if you’re close to a tower or you suspect overload (turn it back off if it hurts).</li>
+        <li><strong>Reduce variables</strong>: temporarily disable extra systems and scan only the problem system to evaluate improvements.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>Important:</strong> A “stronger” signal is not always a “better” simulcast signal. Clean decoding usually means you’re favoring one tower.
+      </div>
+    </section>
+
+    <section class="card" id="gear" style="margin-top:18px">
+      <h2>Recommended Gear (Simple)</h2>
+      <ul>
+        <li><strong>700/800 MHz antenna:</strong> Often the best starting point for public-safety P25 on 700/800 MHz.</li>
+        <li><strong>Outdoor/attic antenna (home setups):</strong> Can help if it favors one site cleanly, but can also make simulcast worse if it “hears everything.”</li>
+        <li><strong>Directional antenna (advanced):</strong> Useful when you want to aim at one tower and reject others.</li>
+      </ul>
+      <p class="note">Accessory recommendations are also listed on the <a href="/#shop">homepage shop section</a>.</p>
+    </section>
+
+    <section id="faq" style="margin-top:18px">
+      <h2>Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>Why does my SDS100 sound garbled on P25 simulcast?</summary>
+        <p>On many P25 simulcast systems, your scanner can receive the same signal from multiple towers at slightly different times. That timing mismatch (multipath) can cause distortion or missed words. The SDS100’s True I/Q design helps, but antenna choice, placement, and a few settings can still make a big difference.</p>
+      </details>
+
+      <details>
+        <summary>What’s the fastest simulcast fix to try first?</summary>
+        <p>Start with the simplest physical changes: move the radio a few feet, try a smaller 700/800 MHz antenna, and avoid using a high-gain wideband antenna indoors. In simulcast areas, less signal (but cleaner signal) often decodes better.</p>
+      </details>
+
+      <details>
+        <summary>Should I turn on attenuation for simulcast?</summary>
+        <p>Sometimes. If you’re very close to a tower or your signal is overloaded, attenuation can reduce distortion by lowering the strongest signals. If attenuation makes reception worse, turn it back off—simulcast tuning is highly location-dependent.</p>
+      </details>
+
+      <details>
+        <summary>Is an 800 MHz antenna better for SDS100 simulcast?</summary>
+        <p>For many public-safety P25 systems on 700/800 MHz, a purpose-built 700/800 MHz antenna can improve decoding because it reduces out-of-band noise and overload compared to a wideband antenna. The best antenna depends on your local bands and setup.</p>
+      </details>
+
+      <details>
+        <summary>Can the SDS100 monitor encrypted P25 talkgroups?</summary>
+        <p>No. The SDS100 can receive P25 signals, but it cannot decrypt encrypted talkgroups. If your local agencies are encrypted, no scanner will decode that audio.</p>
+      </details>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>Next Steps</h2>
+      <ul>
+        <li><a href="/sds100-complete-manual.html">Read the complete SDS100 manual</a> (full setup, programming, troubleshooting)</li>
+        <li><a href="/sds100-vs-sds200.html">Compare SDS100 vs SDS150 vs SDS200</a> (which model fits your use case)</li>
+        <li><a href="/">Go back to the SDS100 homepage hub</a></li>
+      </ul>
+    </section>
+</main>

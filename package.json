@@ -1,0 +1,24 @@
+{
+  "name": "boy-and-a-scanner-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tfs2006/boy-and-a-scanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tfs2006/boy-and-a-scanner/issues"
+  },
+  "homepage": "https://github.com/tfs2006/boy-and-a-scanner#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
