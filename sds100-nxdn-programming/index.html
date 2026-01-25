@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5730788559971348"
+     crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner</title>
+  <meta name="description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://boyandascanner.com/sds100-nxdn-programming/" />
+  
+  <meta property="og:title" content="Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://boyandascanner.com/sds100-nxdn-programming/" />
+  <meta property="og:site_name" content="Boy and a Scanner" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Boy and a Scanner" />
+  
+  <link rel="stylesheet" href="/css/style.css" />
+  
+  <meta name="theme-color" content="#0b0e14" />
+  
+  <!-- Global structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://boyandascanner.com/#organization",
+        "name": "Boy and a Scanner",
+        "url": "https://boyandascanner.com/",
+        "sameAs": [
+          "https://www.youtube.com/@BoyAndAScanner",
+          "https://www.amazon.com/shop/boyandascanner",
+          "https://shop.boyandascanner.com/",
+          "https://buymeacoffee.com/boyandascanner"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://boyandascanner.com/#website",
+        "name": "Boy and a Scanner",
+        "url": "https://boyandascanner.com/",
+        "publisher": {"@id":"https://boyandascanner.com/#organization"},
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K5THVB68YY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-K5THVB68YY', { 'anonymize_ip': true });
+  </script>
+</head>
+<body>
+  <div id="scroll-progress"></div>
+  <a class="skip" href="#content">Skip to content</a>
+  
+  <div class="stripe-pricing-wrap">
+    <div class="wrap">
+      <p class="stripe-pricing-note">Support Boy and a Scanner and grab a knob today! Cheers!</p>
+      <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+      <stripe-pricing-table pricing-table-id="prctbl_1SqIMZJmkrRj3jnnYYs8PiRW"
+        publishable-key="pk_live_51HD9b4JmkrRj3jnn4b5mZy5BkLqguhI0CLlttfoDdLtP4NkM44RI1w85YAvcLXSCjHMiLQw26SYqnDUhfQaCEsKL00zZIUf913">
+      </stripe-pricing-table>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;">
+      <a class="brand" href="/">
+        <img src="/brand-mark.svg" width="22" height="22" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav">Menu</button>
+      <nav id="topnav">
+        
+          <a class='navlink' href='/'>Home</a>
+        
+        
+       <a class="navlink" href="/sds100-complete-manual.html">Manual</a>
+       <a class="navlink" href="/sds100-sentinel-programming.html">Sentinel</a>
+       <a class="navlink" href="/sds100-p25-programming.html">P25</a>
+       <a class="navlink" href="/sds100-dmr-programming.html">DMR</a>
+       <a class="navlink" href="/sds100-nxdn-programming.html">NXDN</a>
+       <a class="navlink" href="/sds100-provoice-programming.html">ProVoice</a>
+       <a class="navlink" href="/uniden-sds150.html">SDS150</a>
+       <a class="navlink" href="/sds100-simulcast-guide.html">Simulcast Fix</a>
+       <!-- More links can be added here or dynamically managed -->
+       <a class="cta" href="#shop">Shop My Picks →</a>
+        
+       <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+<section class="card" id="basics">
+      <h2>NXDN Basics (What the SDS100 Needs)</h2>
+      <p>NXDN is a digital voice format used by many businesses and industrial systems. For the SDS100, there are two common cases:</p>
+      <ul>
+        <li><strong>NXDN One-Frequency (conventional):</strong> You program a single frequency and listen to traffic on it.</li>
+        <li><strong>NXDN Trunked:</strong> You program a site (multiple frequencies) and the scanner follows conversations across channels.</li>
+      </ul>
+      <div class="callout warning">
+        <strong>Before you start:</strong>
+        <ul>
+          <li>Confirm <strong>NXDN upgrade</strong> is enabled: MENU → Settings → Upgrade (NXDN should show enabled).</li>
+          <li>Confirm whether your target system is <strong>one-frequency</strong> or <strong>trunked</strong> (wrong system type is a common setup failure).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="one-frequency" style="margin-top:18px">
+      <h2>Step-by-Step: NXDN One-Frequency (Upgrade Required)</h2>
+      <p><strong>You need:</strong> one frequency. If known, RAN and Talkgroup IDs can refine what you hear, but you can often start without them and let the scanner display them during active traffic.</p>
+      <ol>
+        <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
+        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → <strong>NXDN One Frequency</strong>.</li>
+        <li><strong>Department:</strong> Edit Department → New Department (name it).</li>
+        <li><strong>Channel:</strong> Edit Channel → New Channel → enter the frequency.</li>
+        <li><strong>Scan and observe:</strong> Start scanning and watch the display for NXDN parameters (RAN / TGID) when traffic appears.</li>
+        <li><strong>Refine:</strong> Once you know the talkgroups you want, avoid the noise and name items cleanly.</li>
+      </ol>
+      <p class="note">If you see traffic but it’s silent, jump to troubleshooting below—encryption is common on some systems.</p>
+    </section>
+
+    <section class="card" id="trunked" style="margin-top:18px">
+      <h2>Step-by-Step: NXDN Trunked (Upgrade Required)</h2>
+      <p><strong>You need:</strong> the correct trunking type, site frequencies, and <strong>LCNs</strong> for the site you can receive.</p>
+      <ol>
+        <li><strong>Get the system details:</strong> Use RadioReference to collect site frequencies and LCNs for your nearest site.</li>
+        <li><strong>Create a Favorites List</strong> and then <strong>New System</strong> → choose the NXDN trunk system type offered by the SDS100.</li>
+        <li><strong>Add a site</strong> and enter all site frequencies.</li>
+        <li><strong>Enter LCNs</strong> for each frequency. This mapping is required for proper tracking.</li>
+        <li><strong>Validate with traffic:</strong> Start scanning; if it won’t follow conversations, re-check the LCN mapping first.</li>
+        <li><strong>LCN Finder (if available):</strong> If you don’t have LCNs, use LCN Finder where supported during active traffic to determine mapping.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>Reality check:</strong> Trunked NXDN programming is sensitive to correct LCNs. If it won’t follow, treat LCNs as the first suspect.
+      </div>
+    </section>
+
+    <section class="card" id="sentinel" style="margin-top:18px">
+      <h2>Sentinel vs Manual: Which is Better for NXDN?</h2>
+      <ul>
+        <li><strong>Sentinel (recommended):</strong> Fastest way to pull correct system/site data from the database, then write clean Favorites Lists.</li>
+        <li><strong>Manual (on-radio):</strong> Great for quick one-frequency NXDN in the field, or small edits after you’ve built the list in Sentinel.</li>
+      </ul>
+      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a>, then come back here for NXDN-specific details.</p>
+    </section>
+
+    <section class="card" id="troubleshooting" style="margin-top:18px">
+      <h2>Troubleshooting: NXDN “No Audio” and Other Common Issues</h2>
+      <ul>
+        <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear intelligible audio.</li>
+        <li><strong>Wrong system type:</strong> Make sure you didn’t program a trunked system as one-frequency (or vice versa).</li>
+        <li><strong>LCNs:</strong> For trunked systems, incorrect or missing LCNs prevent proper following.</li>
+        <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is enabled to scan.</li>
+        <li><strong>Signal quality:</strong> NXDN needs a clean signal. If decode is broken, try a small move or better antenna placement.</li>
+      </ul>
+    </section>
+
+    <section id="faq" style="margin-top:18px">
+      <h2>Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>Does the SDS100 need the NXDN upgrade to listen to NXDN?</summary>
+        <p>Yes. The Uniden SDS100 requires the optional NXDN upgrade key to decode NXDN (including conventional NXDN and NXDN trunked systems).</p>
+      </details>
+
+      <details>
+        <summary>What information do I need to program NXDN one-frequency on an SDS100?</summary>
+        <p>At minimum, you need the frequency. If known, RAN and Talkgroup ID help you narrow what you hear. If you don’t know them, you can often start with a basic setup and let the scanner display NXDN parameters when traffic is active.</p>
+      </details>
+
+      <details>
+        <summary>Why won’t my SDS100 follow NXDN trunked conversations?</summary>
+        <p>The most common cause is incorrect LCN mapping or incomplete site frequencies. NXDN trunking requires correct Logical Channel Numbers (LCNs) for the site you receive. Verify the site frequencies/LCNs and use LCN Finder where supported.</p>
+      </details>
+
+      <details>
+        <summary>I see NXDN activity but hear no audio—what’s the usual reason?</summary>
+        <p>Common causes are encryption on that talkgroup, wrong system type (trunked vs one-frequency), wrong site or LCNs, or the scanner isn’t set to scan the right items (Quick Keys/Service Types/Avoids).</p>
+      </details>
+
+      <details>
+        <summary>Can the SDS100 monitor encrypted NXDN talkgroups?</summary>
+        <p>No. If an NXDN talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
+      </details>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>More SDS100 Guides</h2>
+      <ul>
+        <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
+        <li><a href="/sds100-p25-programming.html">SDS100 P25 Programming Guide</a></li>
+        <li><a href="/sds100-dmr-programming.html">SDS100 DMR Programming Guide</a></li>
+        <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
+        <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
+        <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
+      </ul>
+    </section>
+</main>
+
+
+  <div class="stickybar">
+    <div class="wrap">
+      <a class="cta" href="https://amzn.to/3UTaSS5" target="_blank" rel="nofollow sponsored noopener">Buy SD100 Now</a>
+      <a class="btn" href="#shop">Accessories</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div>© <span id="year"></span> Boy and a Scanner. All rights reserved. <script>document.getElementById('year').textContent = new Date().getFullYear();</script></div>
+        <div class="note">Affiliate Disclaimer: Some links on this page are affiliate links. If you click and purchase, I may earn a commission at no additional cost to you. I only recommend products I believe provide value. Thank you for your support! – BAAS</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="navlink" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_store" target="_blank" rel="noopener">BAAS Store</a>
+          <a class="navlink" href="https://www.youtube.com/@BoyAndAScanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_youtube" target="_blank" rel="noopener">YouTube</a>
+          <a class="navlink" href="https://buymeacoffee.com/boyandascanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_bmac" target="_blank" rel="noopener">Buy Me a Coffee</a>
+          <a class="navlink" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <a class='back-to-top' href='#top' onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Top</a>
+  
+  <script>
+    (function(){
+      // Scroll progress bar
+      var progressBar = document.getElementById('scroll-progress');
+      var header = document.querySelector('header');
+      var backToTop = document.querySelector('.back-to-top');
+      var navToggle = document.getElementById('navToggle');
+      var topnav = document.getElementById('topnav');
+      
+      function updateScrollProgress(){
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        if(progressBar) progressBar.style.width = scrolled + "%";
+        
+        if (winScroll > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        
+        if (backToTop) {
+           if (winScroll > 300) {
+             backToTop.classList.add('visible');
+             // remove opacity:0 logic if using class
+           } else {
+             backToTop.classList.remove('visible');
+           }
+        }
+      }
+      
+      window.addEventListener('scroll', updateScrollProgress);
+      
+      if(navToggle){
+        navToggle.addEventListener('click', function(){
+           var expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+           navToggle.setAttribute('aria-expanded', !expanded);
+           document.body.classList.toggle('show-nav');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

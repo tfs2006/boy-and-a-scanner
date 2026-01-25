@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5730788559971348"
+     crossorigin="anonymous"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Uniden SDS100 ProVoice Programming Guide (EDACS) (2025) | Boy and a Scanner</title>
+  <meta name="description" content="Step-by-step SDS100 ProVoice programming (EDACS): what the ProVoice upgrade does, how to program EDACS correctly (LCN order matters), and troubleshooting when you see talkgroups but hear no audio." />
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://boyandascanner.com/sds100-provoice-programming/" />
+  
+  <meta property="og:title" content="Uniden SDS100 ProVoice Programming Guide (EDACS) (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="Step-by-step SDS100 ProVoice programming (EDACS): what the ProVoice upgrade does, how to program EDACS correctly (LCN order matters), and troubleshooting when you see talkgroups but hear no audio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://boyandascanner.com/sds100-provoice-programming/" />
+  <meta property="og:site_name" content="Boy and a Scanner" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Boy and a Scanner" />
+  
+  <link rel="stylesheet" href="/css/style.css" />
+  
+  <meta name="theme-color" content="#0b0e14" />
+  
+  <!-- Global structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://boyandascanner.com/#organization",
+        "name": "Boy and a Scanner",
+        "url": "https://boyandascanner.com/",
+        "sameAs": [
+          "https://www.youtube.com/@BoyAndAScanner",
+          "https://www.amazon.com/shop/boyandascanner",
+          "https://shop.boyandascanner.com/",
+          "https://buymeacoffee.com/boyandascanner"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://boyandascanner.com/#website",
+        "name": "Boy and a Scanner",
+        "url": "https://boyandascanner.com/",
+        "publisher": {"@id":"https://boyandascanner.com/#organization"},
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K5THVB68YY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-K5THVB68YY', { 'anonymize_ip': true });
+  </script>
+</head>
+<body>
+  <div id="scroll-progress"></div>
+  <a class="skip" href="#content">Skip to content</a>
+  
+  <div class="stripe-pricing-wrap">
+    <div class="wrap">
+      <p class="stripe-pricing-note">Support Boy and a Scanner and grab a knob today! Cheers!</p>
+      <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+      <stripe-pricing-table pricing-table-id="prctbl_1SqIMZJmkrRj3jnnYYs8PiRW"
+        publishable-key="pk_live_51HD9b4JmkrRj3jnn4b5mZy5BkLqguhI0CLlttfoDdLtP4NkM44RI1w85YAvcLXSCjHMiLQw26SYqnDUhfQaCEsKL00zZIUf913">
+      </stripe-pricing-table>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;">
+      <a class="brand" href="/">
+        <img src="/brand-mark.svg" width="22" height="22" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav">Menu</button>
+      <nav id="topnav">
+        
+          <a class='navlink' href='/'>Home</a>
+        
+        
+       <a class="navlink" href="/sds100-complete-manual.html">Manual</a>
+       <a class="navlink" href="/sds100-sentinel-programming.html">Sentinel</a>
+       <a class="navlink" href="/sds100-p25-programming.html">P25</a>
+       <a class="navlink" href="/sds100-dmr-programming.html">DMR</a>
+       <a class="navlink" href="/sds100-nxdn-programming.html">NXDN</a>
+       <a class="navlink" href="/sds100-provoice-programming.html">ProVoice</a>
+       <a class="navlink" href="/uniden-sds150.html">SDS150</a>
+       <a class="navlink" href="/sds100-simulcast-guide.html">Simulcast Fix</a>
+       <!-- More links can be added here or dynamically managed -->
+       <a class="cta" href="#shop">Shop My Picks →</a>
+        
+       <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+<section class="card" id="basics">
+      <h2>ProVoice Basics (Plain English)</h2>
+      <ul>
+        <li><strong>ProVoice is a voice format</strong> used on some EDACS trunked systems.</li>
+        <li>The SDS100 can track EDACS systems, but it needs the <strong>ProVoice upgrade</strong> to decode ProVoice voice.</li>
+        <li><strong>EDACS uses LCN order</strong>: each frequency must be placed into the correct channel number position.</li>
+      </ul>
+      <div class="callout warning">
+        <strong>Before you start:</strong>
+        <ul>
+          <li>Confirm <strong>ProVoice upgrade</strong> is enabled: MENU → Settings → Upgrade (ProVoice should show enabled).</li>
+          <li>Confirm your target is still <strong>EDACS</strong>. Many systems have migrated to P25.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="steps" style="margin-top:18px">
+      <h2>Step-by-Step: Program EDACS ProVoice on the SDS100</h2>
+      <p><strong>You need:</strong> EDACS system type, the correct site frequencies, and the correct <strong>LCN order</strong>. If you don’t have LCNs, RadioReference is the fastest path.</p>
+      <ol>
+        <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
+        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → choose the EDACS system type for your target.</li>
+        <li><strong>Edit Site → Set Frequencies:</strong> Enter each frequency into its correct <strong>LCN slot</strong> (LCN 01, LCN 02, etc.).</li>
+        <li><strong>Add talkgroups:</strong> Create a Department and add Talkgroup IDs (or use ID Search to discover active ones).</li>
+        <li><strong>Scan and refine:</strong> Name and avoid what you don’t want, then switch from discovery to focused scanning.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>Most common mistake:</strong> entering EDACS frequencies out of LCN order. Even if you have all the right frequencies, the wrong order breaks tracking.
+      </div>
+    </section>
+
+    <section class="card" id="sentinel" style="margin-top:18px">
+      <h2>Sentinel vs Manual: Which is Better for ProVoice?</h2>
+      <ul>
+        <li><strong>Sentinel (recommended):</strong> Easier to build and maintain Favorites Lists, and cleaner to edit LCN order without mistakes.</li>
+        <li><strong>Manual (on-radio):</strong> Possible, but more error-prone for EDACS because LCN order must be perfect.</li>
+      </ul>
+      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a> for the general workflow, then use this page for ProVoice specifics.</p>
+    </section>
+
+    <section class="card" id="troubleshooting" style="margin-top:18px">
+      <h2>Troubleshooting: ProVoice “No Audio” and Tracking Issues</h2>
+      <ul>
+        <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear intelligible audio.</li>
+        <li><strong>LCN order:</strong> Re-check every frequency is in the correct LCN slot for EDACS.</li>
+        <li><strong>Wrong system type:</strong> EDACS Wide vs Narrow matters depending on the system.</li>
+        <li><strong>Wrong site or incomplete frequencies:</strong> Make sure you entered the site you can actually receive.</li>
+        <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is enabled to scan.</li>
+      </ul>
+      <p class="note">If you see “Nothing to Scan,” it’s usually Quick Keys, Avoids, or Service Types—see the <a href="/sds100-sentinel-programming.html">Sentinel guide</a> for the clean fix sequence.</p>
+    </section>
+
+    <section id="faq" style="margin-top:18px">
+      <h2>Frequently Asked Questions</h2>
+
+      <details open>
+        <summary>Does the SDS100 need the ProVoice upgrade to listen to ProVoice?</summary>
+        <p>Yes. The Uniden SDS100 requires the optional ProVoice upgrade key to decode EDACS ProVoice voice traffic.</p>
+      </details>
+
+      <details>
+        <summary>What do I need to program an EDACS ProVoice system on the SDS100?</summary>
+        <p>You need the correct EDACS system type, all site frequencies, and the correct Logical Channel Number (LCN) order. LCN order is critical for EDACS tracking. Talkgroups help you focus, but you can often start with ID Search to discover active groups.</p>
+      </details>
+
+      <details>
+        <summary>Why does my SDS100 stop on EDACS talkgroups but I hear no audio?</summary>
+        <p>Common causes include encryption on that talkgroup, a wrong EDACS system type, incorrect or missing LCN order, or the wrong site/frequencies for your area. Also check Avoids/Quick Keys/Service Types so the scanner is actually scanning your ProVoice system.</p>
+      </details>
+
+      <details>
+        <summary>How important is LCN order for EDACS ProVoice?</summary>
+        <p>Very important. EDACS requires frequencies to be entered in the correct LCN positions; a single swapped channel can prevent proper tracking.</p>
+      </details>
+
+      <details>
+        <summary>Can the SDS100 monitor encrypted ProVoice?</summary>
+        <p>No. If a ProVoice talkgroup is encrypted, the SDS100 cannot decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
+      </details>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>More SDS100 Guides</h2>
+      <ul>
+        <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
+        <li><a href="/sds100-p25-programming.html">SDS100 P25 Programming Guide</a></li>
+        <li><a href="/sds100-dmr-programming.html">SDS100 DMR Programming Guide</a></li>
+        <li><a href="/sds100-nxdn-programming.html">SDS100 NXDN Programming Guide</a></li>
+        <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
+        <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
+        <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
+      </ul>
+    </section>
+</main>
+
+
+  <div class="stickybar">
+    <div class="wrap">
+      <a class="cta" href="https://amzn.to/3UTaSS5" target="_blank" rel="nofollow sponsored noopener">Buy SD100 Now</a>
+      <a class="btn" href="#shop">Accessories</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div>© <span id="year"></span> Boy and a Scanner. All rights reserved. <script>document.getElementById('year').textContent = new Date().getFullYear();</script></div>
+        <div class="note">Affiliate Disclaimer: Some links on this page are affiliate links. If you click and purchase, I may earn a commission at no additional cost to you. I only recommend products I believe provide value. Thank you for your support! – BAAS</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="navlink" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_store" target="_blank" rel="noopener">BAAS Store</a>
+          <a class="navlink" href="https://www.youtube.com/@BoyAndAScanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_youtube" target="_blank" rel="noopener">YouTube</a>
+          <a class="navlink" href="https://buymeacoffee.com/boyandascanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_bmac" target="_blank" rel="noopener">Buy Me a Coffee</a>
+          <a class="navlink" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <a class='back-to-top' href='#top' onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Top</a>
+  
+  <script>
+    (function(){
+      // Scroll progress bar
+      var progressBar = document.getElementById('scroll-progress');
+      var header = document.querySelector('header');
+      var backToTop = document.querySelector('.back-to-top');
+      var navToggle = document.getElementById('navToggle');
+      var topnav = document.getElementById('topnav');
+      
+      function updateScrollProgress(){
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        if(progressBar) progressBar.style.width = scrolled + "%";
+        
+        if (winScroll > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        
+        if (backToTop) {
+           if (winScroll > 300) {
+             backToTop.classList.add('visible');
+             // remove opacity:0 logic if using class
+           } else {
+             backToTop.classList.remove('visible');
+           }
+        }
+      }
+      
+      window.addEventListener('scroll', updateScrollProgress);
+      
+      if(navToggle){
+        navToggle.addEventListener('click', function(){
+           var expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+           navToggle.setAttribute('aria-expanded', !expanded);
+           document.body.classList.toggle('show-nav');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
