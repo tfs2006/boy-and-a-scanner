@@ -728,3 +728,89 @@ section {
 .stickybar .wrap {
   padding-bottom: 0
 }
+
+/* Wizard Styles */
+.wizard-container {
+  padding: 30px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
+.wizard-step {
+  display: none;
+  animation: fadeIn 0.3s ease
+}
+
+.wizard-step.active {
+  display: block
+}
+
+.wizard-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0
+}
+
+.wizard-btn {
+  background: #141b2e;
+  border: 2px solid #243259;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text)
+}
+
+.wizard-btn:hover {
+  border-color: var(--accent);
+  background: #182036;
+  transform: translateY(-2px)
+}
+
+.wizard-btn .icon {
+  font-size: 24px
+}
+
+.wizard-btn .label {
+  font-weight: 700;
+  font-size: 18px
+}
+
+.wizard-btn .desc {
+  font-size: 14px;
+  color: var(--muted)
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+
+#progress-bar {
+  height: 6px;
+  background: #1f2a44;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden
+}
+
+#progress-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 33%;
+  transition: width 0.4s ease
+}

@@ -1,0 +1,147 @@
+---
+layout: base.njk
+title: "Antenna Finder | Boy and a Scanner"
+description: "Not sure which antenna to buy for your Uniden SDS100? Answer two quick questions to find the perfect
+match."
+---
+<div class="wrap">
+    <span class="kicker">Tools</span>
+    <h1>Antenna Finder</h1>
+    <p class="lead">Find the perfect antenna for your scanning needs in less than 30 seconds.</p>
+
+    <div class="wizard-container card">
+        <div id="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+
+        <!-- Step 1: Usage -->
+        <div id="step-1" class="wizard-step active">
+            <h2>How do you primarily use your scanner?</h2>
+            <div class="wizard-options">
+                <button class="wizard-btn" onclick="nextStep(1, 'portable')">
+                    <span class="icon">🚶</span>
+                    <span class="label">Handheld / Portable</span>
+                    <span class="desc">Walking around, in the car, or travel.</span>
+                </button>
+                <button class="wizard-btn" onclick="nextStep(1, 'base')">
+                    <span class="icon">🏠</span>
+                    <span class="label">Home Base Station</span>
+                    <span class="desc">Sitting on a desk, creating a permanent setup.</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Content -->
+        <div id="step-2" class="wizard-step">
+            <h2>What do you mostly listen to?</h2>
+            <div class="wizard-options">
+                <button class="wizard-btn" onclick="showResult('p25')">
+                    <span class="icon">🚓</span>
+                    <span class="label">Police & Fire (P25)</span>
+                    <span class="desc">Digital trunking systems (700/800 MHz).</span>
+                </button>
+                <button class="wizard-btn" onclick="showResult('air')">
+                    <span class="icon">✈️</span>
+                    <span class="label">Aviation & Rail</span>
+                    <span class="desc">Civil airband, military air, trains (VHF/UHF).</span>
+                </button>
+                <button class="wizard-btn" onclick="showResult('all')">
+                    <span class="icon">🌍</span>
+                    <span class="label">Everything</span>
+                    <span class="desc">A mix of everything in my area.</span>
+                </button>
+            </div>
+            <div style="margin-top:16px"><button class="btn btn-outline" onclick="resetWizard()">← Back</button></div>
+        </div>
+
+        <!-- Result -->
+        <div id="result" class="wizard-step">
+            <div id="result-content"></div>
+            <div style="margin-top:24px;text-align:center;">
+                <button class="btn btn-outline" onclick="resetWizard()">Start Over</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let state = {
+        use: null,
+        content: null
+    };
+
+    const products = {
+        remtronix: {
+            title: "Remtronix 800 MHz Antenna",
+            desc: "The absolute gold standard for P25 digital systems. If you monitor police/fire on 700/800 MHz, this is the single best upgrade you can buy.",
+            link: "https://amzn.to/3zeY4yw?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_remtronix",
+            img: "📶"
+        },
+        telescoping: {
+            title: "VHF/UHF Telescoping Whip",
+            desc: "Perfect for aviation, rail, and older analog systems. You can tune it by extending/retracting the antenna to match the frequency.",
+            link: "https://amzn.to/3MSsmtT?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_telescoping",
+            img: "🔭"
+        },
+        discone: {
+            title: "Wideband Discone Antenna",
+            desc: "The ultimate home base antenna. Mount this on your roof or in your attic for massive range across all bands.",
+            link: "https://amzn.to/4gVG25p?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_discone",
+            img: "📡"
+        },
+        stock: {
+            title: "Remtronix 800 MHz (Recommended)",
+            desc: "Even for mixed use, the Remtronix is usually better than the stock antenna for 800 MHz, while still OK on other bands. For true wideband, stick with stock or get a Triband.",
+            link: "https://amzn.to/3zeY4yw?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_mixed",
+            img: "📶"
+        }
+    };
+
+    function nextStep(current, answer) {
+        if (current === 1) {
+            state.use = answer;
+            document.getElementById('step-1').classList.remove('active');
+            document.getElementById('step-2').classList.add('active');
+            document.getElementById('progress-fill').style.width = '66%';
+        }
+    }
+
+    function showResult(answer) {
+        state.content = answer;
+        document.getElementById('step-2').classList.remove('active');
+        document.getElementById('result').classList.add('active');
+        document.getElementById('progress-fill').style.width = '100%';
+
+        let productKey = 'stock';
+
+        // Logic Tree
+        if (state.use === 'base') {
+            productKey = 'discone';
+        } else {
+            // Portable
+            if (answer === 'p25') productKey = 'remtronix';
+            else if (answer === 'air') productKey = 'telescoping';
+            else productKey = 'remtronix'; // Default recommend Remtronix as best upgrade
+        }
+
+        const p = products[productKey];
+        const html = `
+      <div style="text-align:center">
+        <div style="font-size:48px;margin-bottom:16px">${p.img}</div>
+        <div class="kicker">Top Recommendation</div>
+        <h2 style="margin:8px 0 16px">${p.title}</h2>
+        <p style="font-size:18px;color:var(--text);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">${p.desc}</p>
+        <a class="cta btn-lg btn-primary" href="${p.link}" target="_blank" rel="nofollow sponsored noopener">View on Amazon →</a>
+      </div>
+    `;
+
+        document.getElementById('result-content').innerHTML = html;
+    }
+
+    function resetWizard() {
+        state = { use: null, content: null };
+        document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-1').classList.add('active');
+        document.getElementById('progress-fill').style.width = '33%';
+    }
+</script>
