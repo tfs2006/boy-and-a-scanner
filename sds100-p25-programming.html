@@ -8,16 +8,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <title>Uniden SDS150 Guide: Specs, Features, Setup &amp; Why It’s Worth It (2025) | Boy and a Scanner</title>
-  <meta name="description" content="A fact-checked Uniden SDS150 guide: verified specs/features (True I/Q, built-in GPS, U/AWARE app, waterfall), what’s in the box, who it’s for, and quick setup tips." />
+  <title>Uniden SDS100 P25 Programming Guide (2025) | Boy and a Scanner</title>
+  <meta name="description" content="Step-by-step SDS100 P25 programming: trunked P25 Phase I/II basics, what a control channel is, ID Scan vs ID Search, site selection, and troubleshooting (Nothing to Scan, no audio, simulcast)." />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://boyandascanner.com/uniden-sds150/" />
+  <link rel="canonical" href="https://boyandascanner.com/sds100-p25-programming.html" />
   
-  <meta property="og:title" content="Uniden SDS150 Guide: Specs, Features, Setup &amp; Why It’s Worth It (2025) | Boy and a Scanner" />
-  <meta property="og:description" content="A fact-checked Uniden SDS150 guide: verified specs/features (True I/Q, built-in GPS, U/AWARE app, waterfall), what’s in the box, who it’s for, and quick setup tips." />
+  <meta property="og:title" content="Uniden SDS100 P25 Programming Guide (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="Step-by-step SDS100 P25 programming: trunked P25 Phase I/II basics, what a control channel is, ID Scan vs ID Search, site selection, and troubleshooting (Nothing to Scan, no audio, simulcast)." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://boyandascanner.com/uniden-sds150/" />
+  <meta property="og:url" content="https://boyandascanner.com/sds100-p25-programming.html" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
@@ -110,117 +110,107 @@
   </header>
 
   <main class="wrap" id="content">
-<section class="card" id="who-its-for">
-      <h2>Who the SDS150 is for (and who should skip it)</h2>
-      <div class="split">
-        <div>
-          <h3>Get it if you want the experience</h3>
-          <ul>
-            <li><strong>Travel scanning without the headache:</strong> built-in GPS supports location-based scanning with USA/Canada database.</li>
-            <li><strong>Less cable clutter:</strong> GPS is built-in and U/AWARE connectivity uses BLE.</li>
-            <li><strong>Confidence in tough RF:</strong> Uniden positions True I/Q™ as simulcast-focused performance.</li>
-            <li><strong>Desk-ready out of the box:</strong> a charge cradle is included (with extra battery slot).</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Skip it if…</h3>
-          <ul>
-            <li>You want the lowest-cost True I/Q handheld—consider the <a href="/">SDS100</a>.</li>
-            <li>You don’t need GPS/BLE features and prefer to spend on antennas instead.</li>
-            <li>Your area is mostly conventional analog and you don’t need premium features.</li>
-          </ul>
-        </div>
+<section class="card" id="basics">
+      <h2>P25 Basics (Plain English)</h2>
+      <ul>
+        <li><strong>P25 Conventional:</strong> One agency stays on one frequency. You can program it like a normal channel.</li>
+        <li><strong>P25 Trunked:</strong> One system uses many frequencies. The <strong>control channel</strong> tells the radios where to go for each conversation (talkgroup).</li>
+      </ul>
+      <div class="callout">
+        <strong>Terms you’ll see:</strong>
+        <ul>
+          <li><strong>System:</strong> The overall trunked network (county/state system).</li>
+          <li><strong>Site:</strong> A tower/cell you receive (often the most important part).</li>
+          <li><strong>Talkgroup (TGID):</strong> A “channel” on trunking (Police Dispatch, Fire Tac, etc.).</li>
+          <li><strong>ID Search vs ID Scan:</strong> Search = discover all TGs, Scan = only TGs you saved.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="card" id="verified-specs" style="margin-top:18px">
-      <h2>Verified SDS150 specs & features (from Uniden)</h2>
-      <ul>
-        <li><strong>True I/Q™ handheld scanner</strong> (marketed for digital/simulcast performance).</li>
-        <li><strong>Built-in GPS receiver</strong>.</li>
-        <li><strong>U/AWARE app connectivity</strong> via Bluetooth® low energy (BLE).</li>
-        <li><strong>Waterfall feature included</strong>.</li>
-        <li><strong>Multi-system support:</strong> TrunkTracker X; APCO P25 Phase I & II; Motorola, EDACS, LTR; plus paid upgrades for DMR Tier III / Hytera XPT / Single-Channel DMR; NXDN 4800/9600; EDACS ProVoice.</li>
-        <li><strong>Location-based scanning</strong> with USA/CANADA radio database.</li>
-        <li><strong>Rugged & water-resistant:</strong> JIS4/IPX4.</li>
-        <li><strong>USB Type-C®</strong> charging and PC programming.</li>
-        <li><strong>Frequency coverage:</strong> 25–512 MHz, 758–824 MHz, 849–869 MHz, 894–960 MHz, 1240–1300 MHz.</li>
-      </ul>
-      <div class="callout warning">
-        <strong>Paid upgrades note:</strong> Uniden indicates paid upgrades are required for DMR, NXDN, and ProVoice.
-      </div>
-    </section>
-
-    <section class="card" id="in-the-box" style="margin-top:18px">
-      <h2>What’s in the box (per Uniden’s listing)</h2>
-      <ul>
-        <li>SDS150 radio scanner</li>
-        <li>Charging cradle with extra battery charging slot (extra battery sold separately)</li>
-        <li>Lithium-ion battery pack</li>
-        <li>AC adaptor with USB-C port</li>
-        <li>USB-C to USB-C cable</li>
-        <li>microSD™ card (installed; expandable)</li>
-        <li>SMA type antenna</li>
-        <li>SMA to BNC antenna adaptor</li>
-        <li>Belt clip & hand strap</li>
-      </ul>
-    </section>
-
-    <section class="card" id="setup" style="margin-top:18px">
-      <h2>Quick setup (low-friction checklist)</h2>
+    <section class="card" id="trunked" style="margin-top:18px">
+      <h2>Step-by-Step: P25 Trunked (Most Common Public Safety)</h2>
+      <p><strong>You need:</strong> the correct site frequencies for the tower you can receive (control channel / alternate control channels). Talkgroups are optional if you start in ID Search.</p>
       <ol>
-        <li>Charge fully and power on.</li>
-        <li>Do a quick location-based scan while stationary, then test again while moving (GPS-based scanning is the point).</li>
-        <li>Install Sentinel on Windows and do a database update (Uniden mentions weekly updates via Sentinel).</li>
-        <li>Create a small Favorites List for your core systems so you can toggle what you want quickly.</li>
-        <li>If you’re in simulcast areas, treat antenna choice/placement as part of setup (see the <a href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>).</li>
+        <li><strong>Create a Favorites List</strong>: MENU → Manage Favorites → New Favorites List.</li>
+        <li><strong>New system:</strong> Open that list → Review/Edit System → New System → <strong>P25 Trunk</strong> → name it.</li>
+        <li><strong>Add a site:</strong> Edit Site → New Site → name it (closest site/tower).</li>
+        <li><strong>Enter site frequencies:</strong> Edit Site → Set Frequencies → enter the listed control/voice frequencies for that site.</li>
+        <li><strong>Choose mode:</strong> Start with <strong>ID Search</strong> to discover active TGs. Switch to <strong>ID Scan</strong> once you’ve saved what you want.</li>
+        <li><strong>Add departments/talkgroups (optional):</strong> Edit Department → New Department → Edit Channel → New Channel (enter TGIDs you want for a clean setup).</li>
+        <li><strong>Scan and refine:</strong> Use Avoid/Hold to clean up, and confirm you’re receiving the best site.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>If it’s garbled:</strong> You may be dealing with simulcast. Try the <a href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>.
+      </div>
+    </section>
+
+    <section class="card" id="one-frequency" style="margin-top:18px">
+      <h2>Step-by-Step: P25 One-Frequency (Digital on a Single Channel)</h2>
+      <p><strong>You need:</strong> one frequency. This is common for smaller agencies or special-use channels.</p>
+      <ol>
+        <li>MENU → Manage Favorites → select list → Review/Edit System → New System → <strong>P25 One Frequency</strong>.</li>
+        <li>Edit Department → New Department → name it.</li>
+        <li>Edit Channel → New Channel → enter the frequency → set name.</li>
+        <li>Scan and verify decode. If audio is broken, improve signal quality (move/antenna) or verify it isn’t encrypted.</li>
       </ol>
     </section>
 
-    <section class="card" id="buy" style="margin-top:18px">
-      <h2>Ready to buy?</h2>
-      <p>When you buy the SDS150, you’re buying more than coverage—you’re buying <strong>less friction</strong>: less cable mess, less “where am I scanning,” and more time actually listening.</p>
-      <div class="cta-row">
-        <a class="cta" href="https://uniden.com/j8nfsi" target="_blank" rel="nofollow sponsored noopener">Buy the SDS150 →</a>
-        <a class="btn" href="/sds100-vs-sds200.html">Compare models →</a>
-      </div>
-      <p class="note" style="margin-top:10px">Price/availability can change; the button links to the current Uniden listing.</p>
+    <section class="card" id="sentinel" style="margin-top:18px">
+      <h2>Sentinel vs Manual: Fastest Path for P25</h2>
+      <ul>
+        <li><strong>Sentinel (recommended):</strong> Easiest way to pull correct systems/sites from the database, then write a clean Favorites List.</li>
+        <li><strong>Manual (on-radio):</strong> Best for quick edits, quick holds, and field programming when you already know the correct data.</li>
+      </ul>
+      <p class="note">If you’re on Windows, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a> and then use this page to understand what matters for P25 (sites, control channels, and ID Search/Scan).</p>
+    </section>
+
+    <section class="card" id="troubleshooting" style="margin-top:18px">
+      <h2>Troubleshooting: “Nothing to Scan”, No Audio, and Bad Decode</h2>
+      <ul>
+        <li><strong>Nothing to Scan:</strong> Check Service Types, Quick Keys, Avoids, and Location Control.</li>
+        <li><strong>Wrong site:</strong> If you programmed the wrong site, the system may show nothing or stop with no voice. Confirm the nearest/strongest site.</li>
+        <li><strong>Encryption:</strong> Encrypted talkgroups can’t be monitored (you may see activity with no intelligible audio).</li>
+        <li><strong>Simulcast distortion:</strong> Try small moves and a smaller 700/800 MHz antenna; see the simulcast guide for step-by-step fixes.</li>
+      </ul>
+      <div class="note">Deep dive for garbled audio: <a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a>.</div>
     </section>
 
     <section id="faq" style="margin-top:18px">
       <h2>Frequently Asked Questions</h2>
 
       <details open>
-        <summary>Is the Uniden SDS150 good for simulcast?</summary>
-        <p>Uniden advertises the SDS150 as a True I/Q™ handheld scanner designed for strong digital performance in simulcast areas. Real-world results still depend on your signal environment and antenna choices.</p>
+        <summary>Do I need an upgrade key for P25 on the SDS100?</summary>
+        <p>No. APCO P25 Phase I and Phase II are included on the SDS100. Optional upgrade keys are for formats like DMR, NXDN, and ProVoice.</p>
       </details>
 
       <details>
-        <summary>Does the SDS150 have built-in GPS and Bluetooth?</summary>
-        <p>Yes. Uniden lists a built-in GPS receiver and U/AWARE app connectivity via Bluetooth® low energy (BLE) as key SDS150 features.</p>
+        <summary>What is a P25 control channel and why does it matter?</summary>
+        <p>On a P25 trunked system, the control channel is a continuously-transmitting data channel that tells radios (and scanners) what voice frequency to tune to for each talkgroup. If you don’t have the correct site/control channel data, trunk tracking usually won’t work.</p>
       </details>
 
       <details>
-        <summary>Does the SDS150 include DMR, NXDN, and ProVoice?</summary>
-        <p>DMR, NXDN, and EDACS ProVoice are listed as supported formats with paid upgrades required. P25 Phase I/II support is listed as included.</p>
+        <summary>What’s the difference between ID Scan and ID Search on the SDS100?</summary>
+        <p>ID Search lets you hear/discover any active talkgroup on the system. ID Scan restricts audio to only the talkgroups you saved. Use ID Search to explore, then switch to ID Scan for a clean, focused setup.</p>
       </details>
 
       <details>
-        <summary>What frequency range does the SDS150 cover?</summary>
-        <p>Uniden lists coverage as 25–512 MHz, 758–824 MHz, 849–869 MHz, 894–960 MHz, and 1240–1300 MHz.</p>
+        <summary>Why do I see talkgroup activity but hear no audio on P25?</summary>
+        <p>The most common cause is encryption. If a talkgroup is encrypted, the SDS100 cannot decode intelligible audio. Other causes include weak/garbled decode (simulcast), wrong site frequencies, or scanning restrictions (service types, avoids, quick keys).</p>
+      </details>
+
+      <details>
+        <summary>How do I improve P25 simulcast decoding on the SDS100?</summary>
+        <p>Start with physical changes: move the radio a few feet, try a smaller 700/800 MHz antenna, and avoid high-gain wideband antennas indoors. If needed, lock onto the best site and review safe settings like attenuation.</p>
       </details>
     </section>
 
     <section class="card" style="margin-top:18px">
-      <h2>More guides on Boy and a Scanner</h2>
+      <h2>More SDS100 Guides</h2>
       <ul>
-        <li><a href="/">SDS100 Beginner Guide (home hub)</a></li>
         <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
-        <li><a href="/sds100-p25-programming.html">SDS100 P25 Programming Guide</a></li>
         <li><a href="/sds100-dmr-programming.html">SDS100 DMR Programming Guide</a></li>
-        <li><a href="/sds100-nxdn-programming.html">SDS100 NXDN Programming Guide</a></li>
-        <li><a href="/sds100-provoice-programming.html">SDS100 ProVoice Programming Guide</a></li>
         <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
+        <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
         <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
       </ul>
     </section>

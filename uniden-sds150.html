@@ -8,16 +8,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <title>Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner</title>
-  <meta name="description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
+  <title>Uniden SDS150 Guide: Specs, Features, Setup &amp; Why It’s Worth It (2025) | Boy and a Scanner</title>
+  <meta name="description" content="A fact-checked Uniden SDS150 guide: verified specs/features (True I/Q, built-in GPS, U/AWARE app, waterfall), what’s in the box, who it’s for, and quick setup tips." />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://boyandascanner.com/sds100-nxdn-programming/" />
+  <link rel="canonical" href="https://boyandascanner.com/uniden-sds150.html" />
   
-  <meta property="og:title" content="Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner" />
-  <meta property="og:description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
+  <meta property="og:title" content="Uniden SDS150 Guide: Specs, Features, Setup &amp; Why It’s Worth It (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="A fact-checked Uniden SDS150 guide: verified specs/features (True I/Q, built-in GPS, U/AWARE app, waterfall), what’s in the box, who it’s for, and quick setup tips." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://boyandascanner.com/sds100-nxdn-programming/" />
+  <meta property="og:url" content="https://boyandascanner.com/uniden-sds150.html" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
@@ -110,109 +110,117 @@
   </header>
 
   <main class="wrap" id="content">
-<section class="card" id="basics">
-      <h2>NXDN Basics (What the SDS100 Needs)</h2>
-      <p>NXDN is a digital voice format used by many businesses and industrial systems. For the SDS100, there are two common cases:</p>
-      <ul>
-        <li><strong>NXDN One-Frequency (conventional):</strong> You program a single frequency and listen to traffic on it.</li>
-        <li><strong>NXDN Trunked:</strong> You program a site (multiple frequencies) and the scanner follows conversations across channels.</li>
-      </ul>
-      <div class="callout warning">
-        <strong>Before you start:</strong>
-        <ul>
-          <li>Confirm <strong>NXDN upgrade</strong> is enabled: MENU → Settings → Upgrade (NXDN should show enabled).</li>
-          <li>Confirm whether your target system is <strong>one-frequency</strong> or <strong>trunked</strong> (wrong system type is a common setup failure).</li>
-        </ul>
+<section class="card" id="who-its-for">
+      <h2>Who the SDS150 is for (and who should skip it)</h2>
+      <div class="split">
+        <div>
+          <h3>Get it if you want the experience</h3>
+          <ul>
+            <li><strong>Travel scanning without the headache:</strong> built-in GPS supports location-based scanning with USA/Canada database.</li>
+            <li><strong>Less cable clutter:</strong> GPS is built-in and U/AWARE connectivity uses BLE.</li>
+            <li><strong>Confidence in tough RF:</strong> Uniden positions True I/Q™ as simulcast-focused performance.</li>
+            <li><strong>Desk-ready out of the box:</strong> a charge cradle is included (with extra battery slot).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Skip it if…</h3>
+          <ul>
+            <li>You want the lowest-cost True I/Q handheld—consider the <a href="/">SDS100</a>.</li>
+            <li>You don’t need GPS/BLE features and prefer to spend on antennas instead.</li>
+            <li>Your area is mostly conventional analog and you don’t need premium features.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <section class="card" id="one-frequency" style="margin-top:18px">
-      <h2>Step-by-Step: NXDN One-Frequency (Upgrade Required)</h2>
-      <p><strong>You need:</strong> one frequency. If known, RAN and Talkgroup IDs can refine what you hear, but you can often start without them and let the scanner display them during active traffic.</p>
-      <ol>
-        <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
-        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → <strong>NXDN One Frequency</strong>.</li>
-        <li><strong>Department:</strong> Edit Department → New Department (name it).</li>
-        <li><strong>Channel:</strong> Edit Channel → New Channel → enter the frequency.</li>
-        <li><strong>Scan and observe:</strong> Start scanning and watch the display for NXDN parameters (RAN / TGID) when traffic appears.</li>
-        <li><strong>Refine:</strong> Once you know the talkgroups you want, avoid the noise and name items cleanly.</li>
-      </ol>
-      <p class="note">If you see traffic but it’s silent, jump to troubleshooting below—encryption is common on some systems.</p>
-    </section>
-
-    <section class="card" id="trunked" style="margin-top:18px">
-      <h2>Step-by-Step: NXDN Trunked (Upgrade Required)</h2>
-      <p><strong>You need:</strong> the correct trunking type, site frequencies, and <strong>LCNs</strong> for the site you can receive.</p>
-      <ol>
-        <li><strong>Get the system details:</strong> Use RadioReference to collect site frequencies and LCNs for your nearest site.</li>
-        <li><strong>Create a Favorites List</strong> and then <strong>New System</strong> → choose the NXDN trunk system type offered by the SDS100.</li>
-        <li><strong>Add a site</strong> and enter all site frequencies.</li>
-        <li><strong>Enter LCNs</strong> for each frequency. This mapping is required for proper tracking.</li>
-        <li><strong>Validate with traffic:</strong> Start scanning; if it won’t follow conversations, re-check the LCN mapping first.</li>
-        <li><strong>LCN Finder (if available):</strong> If you don’t have LCNs, use LCN Finder where supported during active traffic to determine mapping.</li>
-      </ol>
+    <section class="card" id="verified-specs" style="margin-top:18px">
+      <h2>Verified SDS150 specs & features (from Uniden)</h2>
+      <ul>
+        <li><strong>True I/Q™ handheld scanner</strong> (marketed for digital/simulcast performance).</li>
+        <li><strong>Built-in GPS receiver</strong>.</li>
+        <li><strong>U/AWARE app connectivity</strong> via Bluetooth® low energy (BLE).</li>
+        <li><strong>Waterfall feature included</strong>.</li>
+        <li><strong>Multi-system support:</strong> TrunkTracker X; APCO P25 Phase I & II; Motorola, EDACS, LTR; plus paid upgrades for DMR Tier III / Hytera XPT / Single-Channel DMR; NXDN 4800/9600; EDACS ProVoice.</li>
+        <li><strong>Location-based scanning</strong> with USA/CANADA radio database.</li>
+        <li><strong>Rugged & water-resistant:</strong> JIS4/IPX4.</li>
+        <li><strong>USB Type-C®</strong> charging and PC programming.</li>
+        <li><strong>Frequency coverage:</strong> 25–512 MHz, 758–824 MHz, 849–869 MHz, 894–960 MHz, 1240–1300 MHz.</li>
+      </ul>
       <div class="callout warning">
-        <strong>Reality check:</strong> Trunked NXDN programming is sensitive to correct LCNs. If it won’t follow, treat LCNs as the first suspect.
+        <strong>Paid upgrades note:</strong> Uniden indicates paid upgrades are required for DMR, NXDN, and ProVoice.
       </div>
     </section>
 
-    <section class="card" id="sentinel" style="margin-top:18px">
-      <h2>Sentinel vs Manual: Which is Better for NXDN?</h2>
+    <section class="card" id="in-the-box" style="margin-top:18px">
+      <h2>What’s in the box (per Uniden’s listing)</h2>
       <ul>
-        <li><strong>Sentinel (recommended):</strong> Fastest way to pull correct system/site data from the database, then write clean Favorites Lists.</li>
-        <li><strong>Manual (on-radio):</strong> Great for quick one-frequency NXDN in the field, or small edits after you’ve built the list in Sentinel.</li>
+        <li>SDS150 radio scanner</li>
+        <li>Charging cradle with extra battery charging slot (extra battery sold separately)</li>
+        <li>Lithium-ion battery pack</li>
+        <li>AC adaptor with USB-C port</li>
+        <li>USB-C to USB-C cable</li>
+        <li>microSD™ card (installed; expandable)</li>
+        <li>SMA type antenna</li>
+        <li>SMA to BNC antenna adaptor</li>
+        <li>Belt clip & hand strap</li>
       </ul>
-      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a>, then come back here for NXDN-specific details.</p>
     </section>
 
-    <section class="card" id="troubleshooting" style="margin-top:18px">
-      <h2>Troubleshooting: NXDN “No Audio” and Other Common Issues</h2>
-      <ul>
-        <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear intelligible audio.</li>
-        <li><strong>Wrong system type:</strong> Make sure you didn’t program a trunked system as one-frequency (or vice versa).</li>
-        <li><strong>LCNs:</strong> For trunked systems, incorrect or missing LCNs prevent proper following.</li>
-        <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is enabled to scan.</li>
-        <li><strong>Signal quality:</strong> NXDN needs a clean signal. If decode is broken, try a small move or better antenna placement.</li>
-      </ul>
+    <section class="card" id="setup" style="margin-top:18px">
+      <h2>Quick setup (low-friction checklist)</h2>
+      <ol>
+        <li>Charge fully and power on.</li>
+        <li>Do a quick location-based scan while stationary, then test again while moving (GPS-based scanning is the point).</li>
+        <li>Install Sentinel on Windows and do a database update (Uniden mentions weekly updates via Sentinel).</li>
+        <li>Create a small Favorites List for your core systems so you can toggle what you want quickly.</li>
+        <li>If you’re in simulcast areas, treat antenna choice/placement as part of setup (see the <a href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>).</li>
+      </ol>
+    </section>
+
+    <section class="card" id="buy" style="margin-top:18px">
+      <h2>Ready to buy?</h2>
+      <p>When you buy the SDS150, you’re buying more than coverage—you’re buying <strong>less friction</strong>: less cable mess, less “where am I scanning,” and more time actually listening.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://uniden.com/j8nfsi" target="_blank" rel="nofollow sponsored noopener">Buy the SDS150 →</a>
+        <a class="btn" href="/sds100-vs-sds200.html">Compare models →</a>
+      </div>
+      <p class="note" style="margin-top:10px">Price/availability can change; the button links to the current Uniden listing.</p>
     </section>
 
     <section id="faq" style="margin-top:18px">
       <h2>Frequently Asked Questions</h2>
 
       <details open>
-        <summary>Does the SDS100 need the NXDN upgrade to listen to NXDN?</summary>
-        <p>Yes. The Uniden SDS100 requires the optional NXDN upgrade key to decode NXDN (including conventional NXDN and NXDN trunked systems).</p>
+        <summary>Is the Uniden SDS150 good for simulcast?</summary>
+        <p>Uniden advertises the SDS150 as a True I/Q™ handheld scanner designed for strong digital performance in simulcast areas. Real-world results still depend on your signal environment and antenna choices.</p>
       </details>
 
       <details>
-        <summary>What information do I need to program NXDN one-frequency on an SDS100?</summary>
-        <p>At minimum, you need the frequency. If known, RAN and Talkgroup ID help you narrow what you hear. If you don’t know them, you can often start with a basic setup and let the scanner display NXDN parameters when traffic is active.</p>
+        <summary>Does the SDS150 have built-in GPS and Bluetooth?</summary>
+        <p>Yes. Uniden lists a built-in GPS receiver and U/AWARE app connectivity via Bluetooth® low energy (BLE) as key SDS150 features.</p>
       </details>
 
       <details>
-        <summary>Why won’t my SDS100 follow NXDN trunked conversations?</summary>
-        <p>The most common cause is incorrect LCN mapping or incomplete site frequencies. NXDN trunking requires correct Logical Channel Numbers (LCNs) for the site you receive. Verify the site frequencies/LCNs and use LCN Finder where supported.</p>
+        <summary>Does the SDS150 include DMR, NXDN, and ProVoice?</summary>
+        <p>DMR, NXDN, and EDACS ProVoice are listed as supported formats with paid upgrades required. P25 Phase I/II support is listed as included.</p>
       </details>
 
       <details>
-        <summary>I see NXDN activity but hear no audio—what’s the usual reason?</summary>
-        <p>Common causes are encryption on that talkgroup, wrong system type (trunked vs one-frequency), wrong site or LCNs, or the scanner isn’t set to scan the right items (Quick Keys/Service Types/Avoids).</p>
-      </details>
-
-      <details>
-        <summary>Can the SDS100 monitor encrypted NXDN talkgroups?</summary>
-        <p>No. If an NXDN talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
+        <summary>What frequency range does the SDS150 cover?</summary>
+        <p>Uniden lists coverage as 25–512 MHz, 758–824 MHz, 849–869 MHz, 894–960 MHz, and 1240–1300 MHz.</p>
       </details>
     </section>
 
     <section class="card" style="margin-top:18px">
-      <h2>More SDS100 Guides</h2>
+      <h2>More guides on Boy and a Scanner</h2>
       <ul>
+        <li><a href="/">SDS100 Beginner Guide (home hub)</a></li>
         <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
         <li><a href="/sds100-p25-programming.html">SDS100 P25 Programming Guide</a></li>
         <li><a href="/sds100-dmr-programming.html">SDS100 DMR Programming Guide</a></li>
+        <li><a href="/sds100-nxdn-programming.html">SDS100 NXDN Programming Guide</a></li>
+        <li><a href="/sds100-provoice-programming.html">SDS100 ProVoice Programming Guide</a></li>
         <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
-        <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
         <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
       </ul>
     </section>

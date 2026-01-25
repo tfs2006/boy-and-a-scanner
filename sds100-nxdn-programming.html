@@ -8,16 +8,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <title>Uniden SDS100 ProVoice Programming Guide (EDACS) (2025) | Boy and a Scanner</title>
-  <meta name="description" content="Step-by-step SDS100 ProVoice programming (EDACS): what the ProVoice upgrade does, how to program EDACS correctly (LCN order matters), and troubleshooting when you see talkgroups but hear no audio." />
+  <title>Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner</title>
+  <meta name="description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://boyandascanner.com/sds100-provoice-programming/" />
+  <link rel="canonical" href="https://boyandascanner.com/sds100-nxdn-programming.html" />
   
-  <meta property="og:title" content="Uniden SDS100 ProVoice Programming Guide (EDACS) (2025) | Boy and a Scanner" />
-  <meta property="og:description" content="Step-by-step SDS100 ProVoice programming (EDACS): what the ProVoice upgrade does, how to program EDACS correctly (LCN order matters), and troubleshooting when you see talkgroups but hear no audio." />
+  <meta property="og:title" content="Uniden SDS100 NXDN Programming Guide (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="Step-by-step SDS100 NXDN programming: NXDN one-frequency and trunked basics, what info you need (RAN/TGID/LCN), and troubleshooting when you see activity but hear no audio." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://boyandascanner.com/sds100-provoice-programming/" />
+  <meta property="og:url" content="https://boyandascanner.com/sds100-nxdn-programming.html" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
@@ -111,83 +111,97 @@
 
   <main class="wrap" id="content">
 <section class="card" id="basics">
-      <h2>ProVoice Basics (Plain English)</h2>
+      <h2>NXDN Basics (What the SDS100 Needs)</h2>
+      <p>NXDN is a digital voice format used by many businesses and industrial systems. For the SDS100, there are two common cases:</p>
       <ul>
-        <li><strong>ProVoice is a voice format</strong> used on some EDACS trunked systems.</li>
-        <li>The SDS100 can track EDACS systems, but it needs the <strong>ProVoice upgrade</strong> to decode ProVoice voice.</li>
-        <li><strong>EDACS uses LCN order</strong>: each frequency must be placed into the correct channel number position.</li>
+        <li><strong>NXDN One-Frequency (conventional):</strong> You program a single frequency and listen to traffic on it.</li>
+        <li><strong>NXDN Trunked:</strong> You program a site (multiple frequencies) and the scanner follows conversations across channels.</li>
       </ul>
       <div class="callout warning">
         <strong>Before you start:</strong>
         <ul>
-          <li>Confirm <strong>ProVoice upgrade</strong> is enabled: MENU → Settings → Upgrade (ProVoice should show enabled).</li>
-          <li>Confirm your target is still <strong>EDACS</strong>. Many systems have migrated to P25.</li>
+          <li>Confirm <strong>NXDN upgrade</strong> is enabled: MENU → Settings → Upgrade (NXDN should show enabled).</li>
+          <li>Confirm whether your target system is <strong>one-frequency</strong> or <strong>trunked</strong> (wrong system type is a common setup failure).</li>
         </ul>
       </div>
     </section>
 
-    <section class="card" id="steps" style="margin-top:18px">
-      <h2>Step-by-Step: Program EDACS ProVoice on the SDS100</h2>
-      <p><strong>You need:</strong> EDACS system type, the correct site frequencies, and the correct <strong>LCN order</strong>. If you don’t have LCNs, RadioReference is the fastest path.</p>
+    <section class="card" id="one-frequency" style="margin-top:18px">
+      <h2>Step-by-Step: NXDN One-Frequency (Upgrade Required)</h2>
+      <p><strong>You need:</strong> one frequency. If known, RAN and Talkgroup IDs can refine what you hear, but you can often start without them and let the scanner display them during active traffic.</p>
       <ol>
         <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
-        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → choose the EDACS system type for your target.</li>
-        <li><strong>Edit Site → Set Frequencies:</strong> Enter each frequency into its correct <strong>LCN slot</strong> (LCN 01, LCN 02, etc.).</li>
-        <li><strong>Add talkgroups:</strong> Create a Department and add Talkgroup IDs (or use ID Search to discover active ones).</li>
-        <li><strong>Scan and refine:</strong> Name and avoid what you don’t want, then switch from discovery to focused scanning.</li>
+        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → <strong>NXDN One Frequency</strong>.</li>
+        <li><strong>Department:</strong> Edit Department → New Department (name it).</li>
+        <li><strong>Channel:</strong> Edit Channel → New Channel → enter the frequency.</li>
+        <li><strong>Scan and observe:</strong> Start scanning and watch the display for NXDN parameters (RAN / TGID) when traffic appears.</li>
+        <li><strong>Refine:</strong> Once you know the talkgroups you want, avoid the noise and name items cleanly.</li>
+      </ol>
+      <p class="note">If you see traffic but it’s silent, jump to troubleshooting below—encryption is common on some systems.</p>
+    </section>
+
+    <section class="card" id="trunked" style="margin-top:18px">
+      <h2>Step-by-Step: NXDN Trunked (Upgrade Required)</h2>
+      <p><strong>You need:</strong> the correct trunking type, site frequencies, and <strong>LCNs</strong> for the site you can receive.</p>
+      <ol>
+        <li><strong>Get the system details:</strong> Use RadioReference to collect site frequencies and LCNs for your nearest site.</li>
+        <li><strong>Create a Favorites List</strong> and then <strong>New System</strong> → choose the NXDN trunk system type offered by the SDS100.</li>
+        <li><strong>Add a site</strong> and enter all site frequencies.</li>
+        <li><strong>Enter LCNs</strong> for each frequency. This mapping is required for proper tracking.</li>
+        <li><strong>Validate with traffic:</strong> Start scanning; if it won’t follow conversations, re-check the LCN mapping first.</li>
+        <li><strong>LCN Finder (if available):</strong> If you don’t have LCNs, use LCN Finder where supported during active traffic to determine mapping.</li>
       </ol>
       <div class="callout warning">
-        <strong>Most common mistake:</strong> entering EDACS frequencies out of LCN order. Even if you have all the right frequencies, the wrong order breaks tracking.
+        <strong>Reality check:</strong> Trunked NXDN programming is sensitive to correct LCNs. If it won’t follow, treat LCNs as the first suspect.
       </div>
     </section>
 
     <section class="card" id="sentinel" style="margin-top:18px">
-      <h2>Sentinel vs Manual: Which is Better for ProVoice?</h2>
+      <h2>Sentinel vs Manual: Which is Better for NXDN?</h2>
       <ul>
-        <li><strong>Sentinel (recommended):</strong> Easier to build and maintain Favorites Lists, and cleaner to edit LCN order without mistakes.</li>
-        <li><strong>Manual (on-radio):</strong> Possible, but more error-prone for EDACS because LCN order must be perfect.</li>
+        <li><strong>Sentinel (recommended):</strong> Fastest way to pull correct system/site data from the database, then write clean Favorites Lists.</li>
+        <li><strong>Manual (on-radio):</strong> Great for quick one-frequency NXDN in the field, or small edits after you’ve built the list in Sentinel.</li>
       </ul>
-      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a> for the general workflow, then use this page for ProVoice specifics.</p>
+      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a>, then come back here for NXDN-specific details.</p>
     </section>
 
     <section class="card" id="troubleshooting" style="margin-top:18px">
-      <h2>Troubleshooting: ProVoice “No Audio” and Tracking Issues</h2>
+      <h2>Troubleshooting: NXDN “No Audio” and Other Common Issues</h2>
       <ul>
         <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear intelligible audio.</li>
-        <li><strong>LCN order:</strong> Re-check every frequency is in the correct LCN slot for EDACS.</li>
-        <li><strong>Wrong system type:</strong> EDACS Wide vs Narrow matters depending on the system.</li>
-        <li><strong>Wrong site or incomplete frequencies:</strong> Make sure you entered the site you can actually receive.</li>
+        <li><strong>Wrong system type:</strong> Make sure you didn’t program a trunked system as one-frequency (or vice versa).</li>
+        <li><strong>LCNs:</strong> For trunked systems, incorrect or missing LCNs prevent proper following.</li>
         <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is enabled to scan.</li>
+        <li><strong>Signal quality:</strong> NXDN needs a clean signal. If decode is broken, try a small move or better antenna placement.</li>
       </ul>
-      <p class="note">If you see “Nothing to Scan,” it’s usually Quick Keys, Avoids, or Service Types—see the <a href="/sds100-sentinel-programming.html">Sentinel guide</a> for the clean fix sequence.</p>
     </section>
 
     <section id="faq" style="margin-top:18px">
       <h2>Frequently Asked Questions</h2>
 
       <details open>
-        <summary>Does the SDS100 need the ProVoice upgrade to listen to ProVoice?</summary>
-        <p>Yes. The Uniden SDS100 requires the optional ProVoice upgrade key to decode EDACS ProVoice voice traffic.</p>
+        <summary>Does the SDS100 need the NXDN upgrade to listen to NXDN?</summary>
+        <p>Yes. The Uniden SDS100 requires the optional NXDN upgrade key to decode NXDN (including conventional NXDN and NXDN trunked systems).</p>
       </details>
 
       <details>
-        <summary>What do I need to program an EDACS ProVoice system on the SDS100?</summary>
-        <p>You need the correct EDACS system type, all site frequencies, and the correct Logical Channel Number (LCN) order. LCN order is critical for EDACS tracking. Talkgroups help you focus, but you can often start with ID Search to discover active groups.</p>
+        <summary>What information do I need to program NXDN one-frequency on an SDS100?</summary>
+        <p>At minimum, you need the frequency. If known, RAN and Talkgroup ID help you narrow what you hear. If you don’t know them, you can often start with a basic setup and let the scanner display NXDN parameters when traffic is active.</p>
       </details>
 
       <details>
-        <summary>Why does my SDS100 stop on EDACS talkgroups but I hear no audio?</summary>
-        <p>Common causes include encryption on that talkgroup, a wrong EDACS system type, incorrect or missing LCN order, or the wrong site/frequencies for your area. Also check Avoids/Quick Keys/Service Types so the scanner is actually scanning your ProVoice system.</p>
+        <summary>Why won’t my SDS100 follow NXDN trunked conversations?</summary>
+        <p>The most common cause is incorrect LCN mapping or incomplete site frequencies. NXDN trunking requires correct Logical Channel Numbers (LCNs) for the site you receive. Verify the site frequencies/LCNs and use LCN Finder where supported.</p>
       </details>
 
       <details>
-        <summary>How important is LCN order for EDACS ProVoice?</summary>
-        <p>Very important. EDACS requires frequencies to be entered in the correct LCN positions; a single swapped channel can prevent proper tracking.</p>
+        <summary>I see NXDN activity but hear no audio—what’s the usual reason?</summary>
+        <p>Common causes are encryption on that talkgroup, wrong system type (trunked vs one-frequency), wrong site or LCNs, or the scanner isn’t set to scan the right items (Quick Keys/Service Types/Avoids).</p>
       </details>
 
       <details>
-        <summary>Can the SDS100 monitor encrypted ProVoice?</summary>
-        <p>No. If a ProVoice talkgroup is encrypted, the SDS100 cannot decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
+        <summary>Can the SDS100 monitor encrypted NXDN talkgroups?</summary>
+        <p>No. If an NXDN talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
       </details>
     </section>
 
@@ -197,7 +211,6 @@
         <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
         <li><a href="/sds100-p25-programming.html">SDS100 P25 Programming Guide</a></li>
         <li><a href="/sds100-dmr-programming.html">SDS100 DMR Programming Guide</a></li>
-        <li><a href="/sds100-nxdn-programming.html">SDS100 NXDN Programming Guide</a></li>
         <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
         <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
         <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>

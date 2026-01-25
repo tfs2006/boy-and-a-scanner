@@ -8,16 +8,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <title>Uniden SDS100 Sentinel Programming Guide (2025) | Boy and a Scanner</title>
-  <meta name="description" content="Step-by-step SDS100 Sentinel programming: update database and firmware, create Favorites Lists, set Quick Keys, and fix common issues like Nothing to Scan." />
+  <title>Uniden SDS100 DMR Programming Guide (2025) | Boy and a Scanner</title>
+  <meta name="description" content="Step-by-step SDS100 DMR programming: one-frequency DMR and MotoTRBO trunking basics, what info you need (Color Code/Slot/TGID/LCN), and troubleshooting when you get no audio." />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href="https://boyandascanner.com/sds100-sentinel-programming/" />
+  <link rel="canonical" href="https://boyandascanner.com/sds100-dmr-programming.html" />
   
-  <meta property="og:title" content="Uniden SDS100 Sentinel Programming Guide (2025) | Boy and a Scanner" />
-  <meta property="og:description" content="Step-by-step SDS100 Sentinel programming: update database and firmware, create Favorites Lists, set Quick Keys, and fix common issues like Nothing to Scan." />
+  <meta property="og:title" content="Uniden SDS100 DMR Programming Guide (2025) | Boy and a Scanner" />
+  <meta property="og:description" content="Step-by-step SDS100 DMR programming: one-frequency DMR and MotoTRBO trunking basics, what info you need (Color Code/Slot/TGID/LCN), and troubleshooting when you get no audio." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://boyandascanner.com/sds100-sentinel-programming/" />
+  <meta property="og:url" content="https://boyandascanner.com/sds100-dmr-programming.html" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
@@ -111,61 +111,68 @@
 
   <main class="wrap" id="content">
 <section class="card" id="basics">
-      <h2>What Sentinel Does (and Why It’s Worth It)</h2>
+      <h2>DMR Basics (What the SDS100 Needs)</h2>
+      <p>DMR is a digital voice format used by many businesses, utilities, schools, and some public safety. For the SDS100, there are two common cases:</p>
       <ul>
-        <li><strong>Updates:</strong> Download the latest RadioReference-based database and apply firmware updates when available.</li>
-        <li><strong>Programming:</strong> Build Favorites Lists with exactly what you want to scan (systems, sites, departments, channels).</li>
-        <li><strong>Control:</strong> Use Quick Keys, Avoids, and Location Control to make scanning predictable.</li>
+        <li><strong>DMR One-Frequency (conventional):</strong> You program a single frequency and listen to traffic on it.</li>
+        <li><strong>DMR Trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III):</strong> You program a site (multiple frequencies) and the scanner follows conversations across channels.</li>
       </ul>
-      <p class="note">Sentinel is Windows-first. If you’re not on Windows, you can still manage the microSD via other workflows, but Sentinel is the simplest path for most users.</p>
-    </section>
-
-    <section class="card" id="steps" style="margin-top:18px">
-      <h2>Step-by-Step: The Standard Sentinel Workflow</h2>
-      <ol>
-        <li><strong>Install Sentinel</strong> (from Uniden) and launch it.</li>
-        <li><strong>Update the database:</strong> In Sentinel, run the database update so your agency/site/talkgroup data is current.</li>
-        <li><strong>Connect the SDS100 via USB</strong> and select <strong>Mass Storage</strong> mode on the scanner.</li>
-        <li><strong>Read from scanner</strong> (optional but recommended if you’ve made changes on the radio): pull current settings and lists into Sentinel.</li>
-        <li><strong>Create a Favorites List</strong> and add your system(s) and the site(s) you can actually receive.</li>
-        <li><strong>Set Service Types</strong> appropriately (e.g., Law Dispatch, Fire Dispatch, EMS Dispatch).</li>
-        <li><strong>Assign Quick Keys</strong> so you can turn lists/systems on and off quickly.</li>
-        <li><strong>Write to scanner:</strong> Send Favorites Lists and settings to the scanner/SD card.</li>
-        <li><strong>Safely eject</strong> the scanner/SD from Windows, unplug USB, and start scanning.</li>
-      </ol>
       <div class="callout warning">
-        <strong>Tip:</strong> If your Favorites List scans in Sentinel’s mind but the radio says <em>Nothing to Scan</em>, jump to the troubleshooting section below.
+        <strong>Before you start:</strong>
+        <ul>
+          <li>Confirm <strong>DMR upgrade</strong> is enabled: MENU → Settings → Upgrade (DMR should show enabled).</li>
+          <li>Confirm whether your target system is <strong>one-frequency</strong> or <strong>trunked</strong> (this is the #1 place people pick the wrong system type).</li>
+        </ul>
       </div>
     </section>
 
-    <section class="card" id="favorites" style="margin-top:18px">
-      <h2>Favorites Lists: The 3 Settings That Matter Most</h2>
-      <ul>
-        <li><strong>Quick Keys:</strong> If the Quick Key is off, the list/system won’t scan.</li>
-        <li><strong>Service Types:</strong> If you don’t enable the right Service Types, it won’t scan—even if everything is programmed correctly.</li>
-        <li><strong>Location Control:</strong> If enabled, range/location settings can hide what you programmed.</li>
-      </ul>
-      <p class="note">For troubleshooting, temporarily disable Location Control for a list and enable the common Dispatch Service Types to confirm you can receive traffic.</p>
+    <section class="card" id="one-frequency" style="margin-top:18px">
+      <h2>Step-by-Step: DMR One-Frequency (Upgrade Required)</h2>
+      <p><strong>You need:</strong> one frequency. If known, Color Code/Slot/TGID can refine what you hear, but you can often start without them and let the scanner display them during active traffic.</p>
+      <ol>
+        <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
+        <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → <strong>DMR One Frequency</strong>.</li>
+        <li><strong>Department:</strong> Edit Department → New Department (name it).</li>
+        <li><strong>Channel:</strong> Edit Channel → New Channel → enter the frequency.</li>
+        <li><strong>Scan and observe:</strong> Start scanning and watch the display for DMR parameters (Color Code / Slot / TGID) when traffic appears.</li>
+        <li><strong>Refine:</strong> Once you know the talkgroups you want, avoid or lock out the noise and name channels/talkgroups cleanly.</li>
+      </ol>
+      <p class="note">If you see traffic but it’s silent, jump to troubleshooting below—encryption is common on some business systems.</p>
     </section>
 
-    <section class="card" id="backup" style="margin-top:18px">
-      <h2>Backup (Highly Recommended)</h2>
-      <p>Before you experiment, create a backup of your configuration.</p>
+    <section class="card" id="trunked" style="margin-top:18px">
+      <h2>Step-by-Step: DMR Trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III)</h2>
+      <p><strong>You need:</strong> the correct trunking type, site frequencies, and <strong>LCNs</strong> for the site you can receive.</p>
+      <ol>
+        <li><strong>Get the system details:</strong> Use RadioReference to confirm the trunking flavor and to collect site frequencies and LCNs for your nearest site.</li>
+        <li><strong>Create a Favorites List</strong> and then <strong>New System</strong> → choose the appropriate DMR/MotoTRBO trunk system type offered by the SDS100.</li>
+        <li><strong>Add a site</strong> and enter all site frequencies.</li>
+        <li><strong>Enter LCNs</strong> for each frequency. This mapping is required for proper tracking.</li>
+        <li><strong>Validate with traffic:</strong> Start scanning; if it won’t follow conversations, re-check the LCN mapping first.</li>
+        <li><strong>LCN Finder (if available):</strong> If you don’t have LCNs, use LCN Finder where supported during active traffic to determine mapping.</li>
+      </ol>
+      <div class="callout warning">
+        <strong>Reality check:</strong> Trunked DMR programming is sensitive to correct LCNs. If your system stops on talkgroups but voice is chopped or doesn’t follow, treat LCNs as the first suspect.
+      </div>
+    </section>
+
+    <section class="card" id="sentinel" style="margin-top:18px">
+      <h2>Sentinel vs Manual: Which is Better for DMR?</h2>
       <ul>
-        <li><strong>Sentinel profile backup:</strong> Save a copy of your Sentinel profile/config on your PC.</li>
-        <li><strong>microSD backup:</strong> Periodically copy the SDS100 SD card contents to a safe folder.</li>
+        <li><strong>Sentinel (recommended):</strong> Fastest way to pull correct system types and site data from the database, then write clean Favorites Lists.</li>
+        <li><strong>Manual (on-radio):</strong> Great for quick one-frequency DMR in the field, or small edits after you’ve built the list in Sentinel.</li>
       </ul>
-      <p class="note">If something breaks, restoring from backup is faster than re-building Favorites Lists from scratch.</p>
+      <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a>, then come back here for DMR-specific details.</p>
     </section>
 
     <section class="card" id="troubleshooting" style="margin-top:18px">
-      <h2>Troubleshooting: “Nothing to Scan” (Fast Fixes)</h2>
+      <h2>Troubleshooting: DMR “No Audio” and Other Common Issues</h2>
       <ul>
-        <li><strong>Enable the Favorites List:</strong> Make sure the list is turned on for scanning.</li>
-        <li><strong>Turn on Service Types:</strong> Enable dispatch types first (Law/Fire/EMS Dispatch).</li>
-        <li><strong>Check Quick Keys:</strong> Confirm your Quick Key numbers are enabled on the radio.</li>
-        <li><strong>Review Avoids:</strong> Clear Avoids temporarily to test.</li>
-        <li><strong>Location Control:</strong> Turn it off for the list to remove range filtering while testing.</li>
+        <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear intelligible audio.</li>
+        <li><strong>Wrong system type:</strong> Make sure you didn’t program a trunked system as one-frequency (or vice versa).</li>
+        <li><strong>LCNs:</strong> For trunked systems, incorrect or missing LCNs prevent proper following.</li>
+        <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is enabled to scan.</li>
+        <li><strong>Signal quality:</strong> DMR needs a clean signal. If decode is broken, try a small move or a better antenna placement.</li>
       </ul>
       <div class="note">If you’re also dealing with garbled P25 audio, see the <a href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>.</div>
     </section>
@@ -174,34 +181,35 @@
       <h2>Frequently Asked Questions</h2>
 
       <details open>
-        <summary>What is Uniden Sentinel used for on the SDS100?</summary>
-        <p>Uniden Sentinel is the official PC software used to update the SDS100 database and firmware and to build, edit, and write Favorites Lists to the scanner (systems, sites, departments, and channels).</p>
+        <summary>Does the SDS100 need the DMR upgrade to listen to DMR?</summary>
+        <p>Yes. The Uniden SDS100 requires the optional DMR upgrade key to decode DMR (including conventional DMR and MotoTRBO trunked systems).</p>
       </details>
 
       <details>
-        <summary>Do I need a RadioReference subscription to use Sentinel?</summary>
-        <p>Not for basic use. You can update the built-in database and program Favorites Lists in Sentinel without a subscription. Some advanced importing options may depend on RadioReference features in your workflow, but most beginners can start without one.</p>
+        <summary>What information do I need to program DMR one-frequency on an SDS100?</summary>
+        <p>At minimum, you need the frequency. If you know them, Color Code, Time Slot, and Talkgroup ID help you narrow what you hear. If you don’t know them, you can often start with Search/ID Search behavior and let the scanner display the parameters when traffic is active.</p>
       </details>
 
       <details>
-        <summary>Why does my SDS100 say “Nothing to Scan” after programming?</summary>
-        <p>Common causes are: the Favorites List is not enabled for scanning, Quick Keys are off, Service Types are disabled, Location Control/range is excluding items, or everything is avoided. Start by enabling the list and turning on the correct Service Types.</p>
+        <summary>Why won’t my SDS100 follow DMR trunked conversations?</summary>
+        <p>The most common cause is incorrect LCN mapping or incomplete site frequencies. DMR trunking is sensitive to correct Logical Channel Numbers (LCNs). Verify the site frequencies/LCNs for your specific site and use LCN Finder where supported.</p>
       </details>
 
       <details>
-        <summary>How do I write a Favorites List from Sentinel to the SDS100?</summary>
-        <p>Connect the SDS100 via USB, select Mass Storage mode, then in Sentinel use the write-to-scanner function to send your Favorites Lists and settings. Safely eject the device when finished, then disconnect USB and scan.</p>
+        <summary>I see DMR activity but hear no audio—what’s the usual reason?</summary>
+        <p>Common causes are encryption on that talkgroup, missing/incorrect system type (trunked vs one-frequency), wrong site or LCNs, or the scanner isn’t set to scan the right items (Quick Keys/Service Types/Avoids).</p>
       </details>
 
       <details>
-        <summary>Should I update the database or firmware first?</summary>
-        <p>In practice, do both. A simple routine is: update Sentinel itself if prompted, update the database, then update firmware when available. After updates, write your Favorites Lists/settings to the scanner as needed.</p>
+        <summary>Can the SDS100 monitor encrypted DMR talkgroups?</summary>
+        <p>No. If a DMR talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but you won’t hear clear voice.</p>
       </details>
     </section>
 
     <section class="card" style="margin-top:18px">
       <h2>More SDS100 Guides</h2>
       <ul>
+        <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
         <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
         <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
         <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
