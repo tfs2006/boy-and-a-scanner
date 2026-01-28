@@ -1,0 +1,221 @@
+---
+layout: base.njk
+title: "Uniden SDS100 Priority Scan Tutorial | Beginner Guide"
+description: "Master Priority Scan on your Uniden SDS100. Learn the difference between Priority DND and Priority Scan,
+how to mark channels, and expert settings."
+---
+<div class="wrap">
+    <span class="kicker">Tutorials</span>
+    <h1>The Complete Uniden SDS100 Priority Scan Tutorial</h1>
+    <p class="lead">A Beginner-Friendly Step-by-Step Guide to monitoring your most important channels.</p>
+
+    <div class="card" style="margin-bottom:24px">
+        <h2>What Is Priority Scan? (Understanding the Basics)</h2>
+        <p>Think of Priority Scan as a way to tell your scanner: "Hey, I have some really important channels I want to
+            keep tabs on, even while I'm listening to other stuff." It's designed for the times when you want to monitor
+            multiple channels but have a few that are more important than the rest.</p>
+        <p>Here's the simple explanation: <strong>Priority Scan lets you mark certain channels as "priority
+                channels."</strong> Your scanner will periodically stop what it's doing and quickly check those priority
+            channels to see if anything is happening on them. If activity is detected, the scanner alerts you. Then it
+            goes back to normal scanning.</p>
+        <p>For example, you might want to listen to your entire county's communications, but if a specific hospital or
+            fire station goes active, you want to know about it immediately. You'd mark that hospital channel as
+            priority, and the scanner would keep checking it throughout your scanning session.</p>
+    </div>
+
+    <section id="difference" style="margin-bottom:32px">
+        <h2>How Priority Scan Differs from Close Call</h2>
+        <p>These are two completely different features, and it's important to understand the difference because they
+            work in opposite ways.</p>
+
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
+            <tr style="border-bottom:2px solid var(--border)">
+                <th style="text-align:left;padding:8px">Feature</th>
+                <th style="text-align:left;padding:8px">Priority Scan</th>
+                <th style="text-align:left;padding:8px">Close Call</th>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:8px"><strong>What it monitors</strong></td>
+                <td style="padding:8px">Channels YOU specifically mark</td>
+                <td style="padding:8px">ALL strong signals nearby</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:8px"><strong>How it finds things</strong></td>
+                <td style="padding:8px">Checks only selected channels</td>
+                <td style="padding:8px">Detects ANY transmission</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:8px"><strong>Setup required?</strong></td>
+                <td style="padding:8px">Yes - mark channels first</td>
+                <td style="padding:8px">No - automatic</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+                <td style="padding:8px"><strong>Good for</strong></td>
+                <td style="padding:8px">Specific important channels</td>
+                <td style="padding:8px">Discovering new frequencies</td>
+            </tr>
+        </table>
+        <p class="note"><strong>In short:</strong> Priority Scan = I already know what I want to listen for. Close Call
+            = I want to find out what's transmitting near me.</p>
+    </section>
+
+    <section id="modes" style="margin-bottom:32px">
+        <h2>The Three Priority Scan Modes</h2>
+        <p>Your SDS100 has three different Priority Scan modes. Understanding each one is key to using this feature
+            effectively.</p>
+
+        <div class="grid cols-3">
+            <div class="card">
+                <h3>Mode 1: Priority Scan</h3>
+                <p><strong>What it does:</strong> Checks priority channels on a regular schedule (usually every 2
+                    seconds). Interrupts regular scanning to check.</p>
+                <p><strong>When to use it:</strong> When you must catch every single transmission. More aggressive.</p>
+                <p><strong>Trade-off:</strong> Interrupts your listening every 2 seconds.</p>
+            </div>
+            <div class="card">
+                <h3>Mode 2: Priority DND</h3>
+                <p><strong>What it does:</strong> "Do Not Disturb". Checks priority channels only during silence gaps
+                    between other transmissions.</p>
+                <p><strong>When to use it:</strong> Most popular mode. Balances priority checking with smooth listening.
+                </p>
+                <p><strong>Trade-off:</strong> Might miss activity if regular channels are very busy (no gaps).</p>
+            </div>
+            <div class="card">
+                <h3>Mode 3: Off</h3>
+                <p><strong>What it does:</strong> Disabled completely.</p>
+                <p><strong>When to use it:</strong> Normal scanning with no interruptions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="enable-quick" class="card" style="margin-bottom:32px">
+        <h2>How to Enable Priority Scan (The Quick Method)</h2>
+        <p>This is the fastest way to turn Priority Scan on and off while you're already scanning.</p>
+        <ol class="nice">
+            <li><strong>Identify the Button:</strong> Look for "PRY" or "Pri" (Priority) at the bottom of the display.
+                Or use the shortcut: <strong>Func + Period (.)</strong>.</li>
+            <li><strong>Press the Button:</strong>
+                <ul>
+                    <li><strong>Method A:</strong> Press the "PRY" soft key below the screen.</li>
+                    <li><strong>Method B:</strong> Hold Green Function + Press Period (.) / No.</li>
+                </ul>
+            </li>
+            <li><strong>Cycle Through Modes:</strong> It cycles: <strong>Off → Priority DND → Priority Scan →
+                    Off</strong>.</li>
+            <li><strong>Watch the Display:</strong> Stop when you see the mode you want.
+                <ul>
+                    <li>"Pri DND" = Do Not Disturb (Recommended)</li>
+                    <li>"Pri" or "Priority Scan" = Aggressive mode</li>
+                </ul>
+            </li>
+            <li><strong>Confirm:</strong> An indicator will appear on the status bar showing priority is active.</li>
+        </ol>
+        <p class="note"><strong>Speed tip:</strong> This cycles very quickly, so be ready to release the button!</p>
+    </section>
+
+    <section id="enable-menu" class="card" style="margin-bottom:32px">
+        <h2>How to Enable Priority Scan (The Menu Method)</h2>
+        <p>If you prefer more control, use the menu:</p>
+        <ol class="nice">
+            <li>Press <strong>Menu</strong>.</li>
+            <li>Scroll to <strong>Priority Scan</strong> and select it.</li>
+            <li>Select <strong>Set Priority</strong>.</li>
+            <li>Choose your mode: <strong>Off</strong>, <strong>Priority DND</strong>, or <strong>Priority
+                    Scan</strong>.</li>
+            <li>Press the volume knob to confirm.</li>
+            <li>Press Menu to exit.</li>
+        </ol>
+        <div class="callout">
+            <strong>Other Menu Settings:</strong><br>
+            <strong>Set Interval:</strong> How often to check (default 2 sec). Lower = safer but more interrupts.<br>
+            <strong>Max CHs/Pri-Scan:</strong> How many priority channels to check per interval (default 10-20).
+        </div>
+    </section>
+
+    <section id="set-channels" style="margin-bottom:32px">
+        <h2>How to Set Priority on Your Channels</h2>
+        <p class="note"><strong>Critical:</strong> Priority Scan only works if you have actually marked channels as
+            priority! Otherwise it does nothing.</p>
+
+        <div class="grid cols-2">
+            <div class="card">
+                <h3>For Conventional Channels</h3>
+                <ol>
+                    <li>Menu → <strong>Manage Favorites</strong>.</li>
+                    <li>Select your List → System → Department → Channel.</li>
+                    <li>Select <strong>Edit Channel</strong>.</li>
+                    <li>Find <strong>Set Priority</strong>.</li>
+                    <li>Set to <strong>On</strong>.</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h3>For Trunked Systems</h3>
+                <p><strong>Step 1: Enable System Priority</strong></p>
+                <ol>
+                    <li>Menu → Manage Favorites → Your Trunked System.</li>
+                    <li>Select <strong>Edit System</strong>.</li>
+                    <li>Set <strong>Priority ID Scan</strong> to <strong>On</strong>.</li>
+                </ol>
+                <p><strong>Step 2: Mark Talkgroups</strong></p>
+                <ol>
+                    <li>Go back to Department → Channel (Talkgroup).</li>
+                    <li>Edit Channel → Set <strong>Set Priority</strong> to <strong>On</strong>.</li>
+                </ol>
+                <p class="note" style="font-size:0.9em">Note: Trunked priority is always active once the system setting
+                    is On; you can't toggle it easily with the quick button like conventional.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="troubleshooting" style="margin-bottom:32px">
+        <h2>Troubleshooting: When It's Not Working</h2>
+        <ul class="nice">
+            <li><strong>No alerts?</strong> Check if Priority Mode is ON (DND or Scan). Verify you actually marked
+                channels as Priority in the menu.</li>
+            <li><strong>Too many interruptions?</strong> You're likely in "Priority Scan" mode. Switch to "Priority DND"
+                to only check during silence.</li>
+            <li><strong>Trunked system not working?</strong> Did you enable "Priority ID Scan" in the <em>System</em>
+                settings? That is required for trunking.</li>
+            <li><strong>Saved setting disappeared?</strong> Ensure you are scanning the Favorites List where you saved
+                the priority channel.</li>
+        </ul>
+    </section>
+
+    <section id="tips" class="card">
+        <h2>Tips for Success</h2>
+        <ul class="nice">
+            <li><strong>Start with DND:</strong> It's the best balance for most users.</li>
+            <li><strong>Keep it small:</strong> Don't mark 50 channels. Stick to your top 5-10 critical ones (Dispatch
+                channels).</li>
+            <li><strong>Use Favorites Lists:</strong> Create a specific list just for priority channels if you want to
+                switch to "exclusive" monitoring.</li>
+            <li><strong>Test it:</strong> Before relying on it, force a transmission or wait for a busy time to ensure
+                your priority settings trigger an alert.</li>
+        </ul>
+    </section>
+
+    <section id="quick-ref" class="card"
+        style="margin-top:32px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border:2px solid #0f3460;">
+        <h2 style="color:#e94560">Quick Reference Card</h2>
+        <div class="grid cols-2">
+            <div>
+                <h3 style="margin-top:0">Quick Toggle</h3>
+                <p>Press <strong>Func + Period (.)</strong> to cycle modes.</p>
+                <ul class="nice" style="color:var(--text-light)">
+                    <li><strong>Pri DND:</strong> Checks in gaps (Best)</li>
+                    <li><strong>Pri Scan:</strong> Checks every 2s (Aggressive)</li>
+                    <li><strong>Off:</strong> Disabled</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="margin-top:0">Trunking Rule</h3>
+                <p style="color:var(--text-light)">For trunked systems, you MUST enable <strong>Priority ID
+                        Scan</strong> in the <em>Edit System</em> menu first!</p>
+            </div>
+        </div>
+    </section>
+
+    <p class="note" style="margin-top:32px"><strong>Final Thoughts:</strong> Once you master Priority Scan, you can
+        relax and scan broadly, knowing your SDS100 will jump to the action on your most important channels
+        automatically.</p>
+</div>
