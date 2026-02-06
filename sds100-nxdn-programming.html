@@ -67,25 +67,27 @@
     gtag('config', 'G-K5THVB68YY', { 'anonymize_ip': true });
   </script>
 </head>
-<body>
+<body id="top">
   <div id="scroll-progress"></div>
   <a class="skip" href="#content">Skip to content</a>
   
-  <div style="background: linear-gradient(180deg, #0e1528, #0b111f); border-bottom: 1px solid #1f2a44; border-top: 1px solid #1f2a44; text-align: center; padding: 20px 0;">
+  <div class="promo-banner">
     <div class="wrap">
       <a href="https://shop.boyandascanner.com" target="_blank" rel="noopener">
-        <img src="/baas-spiral-xl-promo-v2.jpeg" alt="BAAS Spiral XL Support" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); display: inline-block;" />
+        <img src="/baas-spiral-xl-promo-v2.jpeg" alt="BAAS Spiral XL Support" loading="eager" width="720" />
       </a>
     </div>
   </div>
 
   <header>
-    <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;">
+    <div class="wrap header-inner">
       <a class="brand" href="/">
-        <img src="/brand-mark.svg" width="22" height="22" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <img src="/brand-mark.svg" width="24" height="24" alt="Boy and a Scanner" decoding="async" loading="eager" />
         <span class="brand-text">Boy and a Scanner</span>
       </a>
-      <button id="navToggle" aria-expanded="false" aria-controls="topnav">Menu</button>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav" aria-label="Toggle navigation">
+        <span class="hamburger"><span></span><span></span><span></span></span>
+      </button>
       <nav id="topnav">
         
           <a class='navlink' href='/'>Home</a>
@@ -108,6 +110,7 @@
       </nav>
     </div>
   </header>
+  <div class="nav-overlay"></div>
 
   <main class="wrap" id="content">
 <section class="card" id="basics">
@@ -228,10 +231,10 @@
 
   <footer>
     <div class="wrap">
-      <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="footer-inner">
         <div>© <span id="year"></span> Boy and a Scanner. All rights reserved. <script>document.getElementById('year').textContent = new Date().getFullYear();</script></div>
         <div class="note">Affiliate Disclaimer: Some links on this page are affiliate links. If you click and purchase, I may earn a commission at no additional cost to you. I only recommend products I believe provide value. Thank you for your support! – BAAS</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div class="footer-links">
           <a class="navlink" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_store" target="_blank" rel="noopener">BAAS Store</a>
           <a class="navlink" href="https://www.youtube.com/@BoyAndAScanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_youtube" target="_blank" rel="noopener">YouTube</a>
           <a class="navlink" href="https://buymeacoffee.com/boyandascanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_bmac" target="_blank" rel="noopener">Buy Me a Coffee</a>
@@ -251,6 +254,7 @@
       var backToTop = document.querySelector('.back-to-top');
       var navToggle = document.getElementById('navToggle');
       var topnav = document.getElementById('topnav');
+      var navOverlay = document.querySelector('.nav-overlay');
       
       function updateScrollProgress(){
         var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -276,6 +280,11 @@
       
       window.addEventListener('scroll', updateScrollProgress);
       
+      function closeNav() {
+        document.body.classList.remove('show-nav');
+        if(navToggle) navToggle.setAttribute('aria-expanded', 'false');
+      }
+
       if(navToggle){
         navToggle.addEventListener('click', function(){
            var expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
@@ -290,12 +299,26 @@
         links.forEach(function(link){
           link.addEventListener('click', function(){
             if(document.body.classList.contains('show-nav')){
-               document.body.classList.remove('show-nav');
-               if(navToggle) navToggle.setAttribute('aria-expanded', 'false');
+               closeNav();
             }
           });
         });
       }
+
+      // Close nav when clicking overlay
+      if(navOverlay) {
+        navOverlay.addEventListener('click', function(){
+          closeNav();
+        });
+      }
+
+      // Close nav on Escape key
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && document.body.classList.contains('show-nav')){
+          closeNav();
+          navToggle.focus();
+        }
+      });
     })();
   </script>
 </body>
