@@ -45,10 +45,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Lock body scroll when mobile nav is open */
-body.show-nav {
-  overflow: hidden;
-}
+/* Body scroll lock removed — dropdown menu scrolls with page */
 
 img {
   max-width: 100%;
@@ -163,10 +160,7 @@ header {
   transition: box-shadow 0.3s ease;
 }
 
-/* When nav is open, raise header above overlay so toggle + drawer are clickable */
-body.show-nav header {
-  z-index: 106;
-}
+/* No z-index boost needed — dropdown lives inside header */
 
 header.scrolled {
   box-shadow: 0 4px 30px rgba(54, 162, 255, 0.1);
@@ -330,32 +324,22 @@ nav#topnav {
     display: inline-flex;
   }
 
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
   nav#topnav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(300px, 85vw);
-    background: rgba(11, 14, 20, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    display: none;
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
-    padding: 72px 16px 24px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    transform: translateX(100%);
-    visibility: hidden;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
-    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5);
-    border-left: 1px solid var(--border);
-    z-index: 105;
+    width: 100%;
+    padding: 8px 0 16px;
+    border-top: 1px solid var(--border);
   }
 
   body.show-nav nav#topnav {
-    transform: translateX(0);
-    visibility: visible;
+    display: flex;
   }
 
   nav#topnav .navlink {
@@ -379,18 +363,9 @@ nav#topnav {
     text-align: center;
   }
 
-  /* Overlay behind menu */
+  /* Overlay no longer needed */
   .nav-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 102;
-    animation: fadeIn 0.3s ease;
-  }
-
-  body.show-nav .nav-overlay {
-    display: block;
   }
 }
 
