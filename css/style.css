@@ -394,6 +394,111 @@ nav#topnav {
   color: #0b1020;
 }
 
+/* ── App Promo Banner ──────────────────── */
+
+.app-promo {
+  background: linear-gradient(180deg, #0d1224 0%, #111a32 50%, #0d1224 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-promo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px 300px at 30% 50%, rgba(54, 162, 255, 0.08), transparent),
+              radial-gradient(600px 300px at 70% 50%, rgba(138, 240, 255, 0.06), transparent);
+  pointer-events: none;
+}
+
+.app-promo-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.app-promo-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0b1020;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  margin-bottom: 16px;
+}
+
+.app-promo-title {
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 900;
+  margin: 0 0 12px;
+  line-height: 1.2;
+  background: linear-gradient(90deg, var(--text), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-promo-text {
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 720px;
+  margin: 0 0 20px;
+}
+
+.app-promo-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.app-promo-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s ease;
+}
+
+.app-promo-features li:hover {
+  border-color: var(--accent);
+}
+
+.app-promo-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.app-promo-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .app-promo {
+    padding: 56px 0;
+  }
+
+  .app-promo-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* ── Hero ───────────────────────────────── */
 
 .hero {
