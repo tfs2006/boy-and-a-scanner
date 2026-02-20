@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLERS · Florida Statewide Law Enforcement Radio System P25 · Boy and a Scanner</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: #06090f;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body { padding: 28px 16px 56px; gap: 0; }
+
+.page-hdr { text-align: center; margin-bottom: 22px; }
+.page-hdr h1 { font-size: 1.1rem; font-weight: 700; color: #00b8ff; letter-spacing: .05em; }
+.page-hdr p { font-size: .75rem; color: #4a6888; margin-top: 3px; }
+
+.wrapper { width: 100%; max-width: 390px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+.stage { width: 100%; position: relative; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,184,255,.15), 0 6px 32px rgba(0,0,0,.7);
+  background: #0d1120; aspect-ratio: 9 / 16; }
+
+.track-wrap { position: absolute; inset: 0; overflow: hidden; }
+.track { display: flex; height: 100%; transition: transform .4s cubic-bezier(.77,0,.175,1); will-change: transform; }
+
+.slide { flex: 0 0 100%; width: 100%; height: 100%; display: flex; flex-direction: column; background: #0d1120; overflow: hidden; }
+
+.bar { flex: 0 0 5px; width: 100%; }
+.top-bar { background: linear-gradient(90deg,#00b8ff,#0055cc); }
+.bot-bar { background: linear-gradient(90deg,#0055cc,#00b8ff); }
+
+.title-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 9px; padding: 20px 20px; background: linear-gradient(160deg,#111c38 0%,#0d1120 100%);
+  text-align: center; overflow: hidden; }
+.t-name { font-size: .82rem; font-weight: 700; color: #d0e8ff; line-height: 1.35; }
+.t-abbr { font-size: 2.6rem; font-weight: 800; color: #00b8ff; letter-spacing: .1em;
+  text-shadow: 0 0 28px rgba(0,184,255,.4); line-height: 1; }
+.t-state { font-size: .8rem; color: #00b8ff; font-weight: 500; }
+.t-brand { font-size: .72rem; color: #44cc6a; }
+.t-pills { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+.pill { background: #1a2a50; color: #80aade; font-size: .62rem; padding: 3px 9px; border-radius: 20px;
+  border: 1px solid #243868; font-family: 'Courier New', monospace; }
+.pill.dim { color: #3a5070; border-color: #182438; background: #0e1828; }
+.t-hint { font-size: .6rem; color: #283a58; margin-top: 6px; }
+
+.t-note { font-size: .58rem; color: #3a6060; background: #0d1828; border: 1px solid #1c3050;
+  border-radius: 5px; padding: 6px 9px; line-height: 1.55; text-align: left; width: 100%; margin-top: 4px; }
+.t-note strong { color: #5888b8; }
+
+.chead { flex: 0 0 auto; background: #101c3c; padding: 9px 14px 7px; border-bottom: 1px solid #1c3060; }
+.c-county { font-size: 1.1rem; font-weight: 800; color: #00b8ff; line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-sub { font-size: .58rem; color: #44cc6a; margin-top: 1px; }
+
+.cbody { flex: 1 1 0; overflow-y: auto; overflow-x: hidden; padding: 8px 10px; min-height: 0;
+  scrollbar-width: thin; scrollbar-color: #1e3060 transparent; }
+.cbody::-webkit-scrollbar { width: 3px; }
+.cbody::-webkit-scrollbar-thumb { background: #1e3060; border-radius: 2px; }
+
+.sblock { border: 1px solid #182e54; border-radius: 7px; margin-bottom: 8px; overflow: hidden; }
+.sblock:last-child { margin-bottom: 0; }
+
+.shead { background: #112040; padding: 5px 9px; display: flex; align-items: center; gap: 7px;
+  border-bottom: 1px solid #182e54; flex-wrap: wrap; }
+.sid { font-family: 'Courier New', monospace; font-size: .55rem; background: #091828;
+  color: #3a6898; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.sname { font-size: .68rem; font-weight: 600; color: #b8d0ee; line-height: 1.2; }
+.scounty { font-size: .6rem; color: #3a7060; font-style: italic; margin-left: auto; white-space: nowrap; }
+
+.sfreqs { padding: 0; }
+.flabel { font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: 4px 8px 2px; margin: 0; }
+.clabel { color: #ffc020; background: rgba(255,160,0,.07); }
+
+.fgrid { display: flex; flex-wrap: wrap; gap: 3px; padding: 3px 7px 7px; }
+.fc { font-family: 'Courier New', monospace; font-size: .62rem; padding: 2px 6px;
+  border-radius: 4px; white-space: nowrap; line-height: 1.4;
+  color: #ffc020; background: #281800; border: 1px solid #402800; }
+.fc sup { color: #ff8c00; font-weight: 800; font-size: .65em; }
+
+.cfoot { flex: 0 0 auto; background: #0b1428; border-top: 1px solid #182848; padding: 4px 12px;
+  display: flex; justify-content: space-between; align-items: center; }
+.cfoot span { font-family: 'Courier New', monospace; font-size: .5rem; color: #2e4868; }
+
+.tg-group-hdr { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  color: #3a6898; padding: 6px 6px 3px; margin-top: 4px; border-top: 1px solid #182848; }
+.tg-group-hdr:first-child { margin-top: 0; border-top: none; }
+.tgrow { display: grid; grid-template-columns: 48px 36px 1fr; gap: 4px; padding: 3px 6px;
+  align-items: start; border-bottom: 1px solid #0f1e38; }
+.tgrow:last-child { border-bottom: none; }
+.tg-dec { font-family: 'Courier New', monospace; font-size: .58rem; color: #ffc020; }
+.tg-hex { font-family: 'Courier New', monospace; font-size: .54rem; color: #3a6060; }
+.tg-info { font-size: .58rem; color: #8ab0d0; line-height: 1.3; }
+.tg-info small { display: block; font-size: .5rem; color: #3d5870; margin-top: 1px; }
+.tg-mode { font-family: 'Courier New', monospace; font-size: .5rem; color: #2e6040;
+  background: #0a1e18; border: 1px solid #1a4030; border-radius: 3px; padding: 1px 4px;
+  margin-left: 4px; vertical-align: middle; }
+.tg-note { margin: 6px 6px 4px; padding: 6px 8px; background: #0d1828; border: 1px solid #1c3050;
+  border-radius: 5px; font-size: .56rem; color: #3a6060; line-height: 1.5; }
+
+.counter { font-family: 'Courier New', monospace; font-size: .72rem; color: #2e4870;
+  margin-top: 12px; text-align: center; height: 16px; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; width: 100%; }
+.btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #1a3060;
+  background: #101c38; color: #00b8ff; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, box-shadow .2s; flex-shrink: 0; user-select: none; }
+.btn:hover { background: #182e58; box-shadow: 0 0 10px rgba(0,184,255,.25); }
+.btn:active { transform: scale(.93); }
+.btn:disabled { opacity: .2; cursor: default; }
+.jump { flex: 1; background: #0c1428; border: 1px solid #182848; color: #5888b8; font-size: .68rem;
+  font-family: 'Segoe UI', system-ui, sans-serif; padding: 8px 10px; border-radius: 8px;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23385880'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+.dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 12px;
+  max-width: 390px; padding: 0 4px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #1a2e50; cursor: pointer;
+  transition: all .2s; flex-shrink: 0; }
+.dot.active { background: #00b8ff; width: 18px; border-radius: 4px; box-shadow: 0 0 5px rgba(0,184,255,.5); }
+.dot:hover { background: #264880; }
+
+.slide-lbl { font-size: .62rem; color: #243850; font-family: 'Courier New', monospace;
+  text-align: center; margin-top: 5px; height: 14px; }
+
+.back-link { font-size: .65rem; color: #3a6898; text-decoration: none; margin-bottom: 14px; display: inline-block; }
+.back-link:hover { color: #00b8ff; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/database.html">&#8592; Back to Database Map</a>
+
+<div class="page-hdr">
+  <h1>SLERS — Statewide Law Enforcement Radio System</h1>
+  <p>Statewide, Florida &nbsp;·&nbsp; by Boy and a Scanner</p>
+</div>
+
+<div class="wrapper">
+  <div class="stage">
+    <div class="track-wrap">
+      <div class="track" id="track">
+
+<!-- s0: Title -->
+<div class="slide" id="s0">
+  <div class="bar top-bar"></div>
+  <div class="title-body">
+    <div class="t-name">Statewide Law Enforcement<br>Radio System</div>
+    <div class="t-abbr">SLERS</div>
+    <div class="t-state">Statewide, Florida</div>
+    <div class="t-brand">by Boy and a Scanner</div>
+    <div class="t-pills">
+      <span class="pill">Project 25 Phase II</span>
+      <span class="pill">WACN: 9254A</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">Sysid: 141</span>
+      <span class="pill dim">Sysid: 197</span>
+      <span class="pill dim">Sysid: 352</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">APCO-25 CAI Exclusive</span>
+      <span class="pill dim">35 Sites</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">FCC Callsign WPTZ787</span>
+    </div>
+    <div class="t-note">
+      <strong>Mobile sites:</strong> Orlando (773.78125–774.78125) and Tallahassee (773.80625–774.80625) deployable units exist per FCC filing. Sysid 141 = air sites. Sysid 197 = PSIC grant sites. Sysid 352 = NW Florida P25 conversion (former EDACS).
+    </div>
+    <div class="t-hint">Use arrows or swipe to navigate &#8594;</div>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s1: Sysid 141 — Air Sites (South & Central FL) -->
+<div class="slide" id="s1">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Air Sites — South &amp; Central FL</div>
+    <div class="c-sub">SLERS · Sysid 141 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 5 · Site 005</span><span class="sname">Big Pine Air</span><span class="scounty">Monroe</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.21875&thinsp;<sup>c</sup></span><span class="fc">769.46875&thinsp;<sup>c</sup></span><span class="fc">769.71875&thinsp;<sup>c</sup></span><span class="fc">769.96875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 7 · Site 007</span><span class="sname">Pinecrest Air</span><span class="scounty">Monroe</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.18125&thinsp;<sup>c</sup></span><span class="fc">770.43125&thinsp;<sup>c</sup></span><span class="fc">770.68125&thinsp;<sup>c</sup></span><span class="fc">770.93125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 9 · Site 009</span><span class="sname">Miami</span><span class="scounty">Miami-Dade</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.15625&thinsp;<sup>c</sup></span><span class="fc">769.40625&thinsp;<sup>c</sup></span><span class="fc">769.65625&thinsp;<sup>c</sup></span><span class="fc">769.90625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 11 · Site 011</span><span class="sname">Stuart Air</span><span class="scounty">Martin</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.19375&thinsp;<sup>c</sup></span><span class="fc">769.44375&thinsp;<sup>c</sup></span><span class="fc">769.69375&thinsp;<sup>c</sup></span><span class="fc">769.94375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 13 · Site 013</span><span class="sname">Venice Air</span><span class="scounty">Sarasota</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.20625&thinsp;<sup>c</sup></span><span class="fc">770.45625&thinsp;<sup>c</sup></span><span class="fc">770.70625&thinsp;<sup>c</sup></span><span class="fc">770.95625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 15 · Site 015</span><span class="sname">Citrus Air</span><span class="scounty">Citrus</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.18125&thinsp;<sup>c</sup></span><span class="fc">770.43125&thinsp;<sup>c</sup></span><span class="fc">770.68125&thinsp;<sup>c</sup></span><span class="fc">770.93125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 17 · Site 017</span><span class="sname">Orlando Air</span><span class="scounty">Orange</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.21875&thinsp;<sup>c</sup></span><span class="fc">769.46875&thinsp;<sup>c</sup></span><span class="fc">769.71875&thinsp;<sup>c</sup></span><span class="fc">769.96875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 19 · Site 019</span><span class="sname">Green Cove Springs Air</span><span class="scounty">Clay</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.20625&thinsp;<sup>c</sup></span><span class="fc">770.45625&thinsp;<sup>c</sup></span><span class="fc">770.70625&thinsp;<sup>c</sup></span><span class="fc">770.95625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 21 · Site 021</span><span class="sname">Perry Air</span><span class="scounty">Taylor</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.19375&thinsp;<sup>c</sup></span><span class="fc">769.44375&thinsp;<sup>c</sup></span><span class="fc">769.69375&thinsp;<sup>c</sup></span><span class="fc">769.94375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 23 · Site 023</span><span class="sname">Wewahitchka Air</span><span class="scounty">Gulf</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.21875&thinsp;<sup>c</sup></span><span class="fc">769.46875&thinsp;<sup>c</sup></span><span class="fc">769.71875&thinsp;<sup>c</sup></span><span class="fc">769.96875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 25 · Site 025</span><span class="sname">Crestview Air</span><span class="scounty">Okaloosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.20625&thinsp;<sup>c</sup></span><span class="fc">770.45625&thinsp;<sup>c</sup></span><span class="fc">770.70625&thinsp;<sup>c</sup></span><span class="fc">770.95625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 141</span>
+    <span>WACN: 9254A</span>
+    <span>11 air sites · 769–770 MHz</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s2: Sysid 197 — PSIC Sites -->
+<div class="slide" id="s2">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">PSIC Grant Sites</div>
+    <div class="c-sub">SLERS · Sysid 197 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 46 · Site 001</span><span class="sname">Crawfordville - PSIC</span><span class="scounty">Wakulla</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">773.59375&thinsp;<sup>c</sup></span><span class="fc">773.84375&thinsp;<sup>c</sup></span><span class="fc">774.09375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 47 · Site 001</span><span class="sname">Shady Grove - PSIC</span><span class="scounty">Taylor</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">770.46875&thinsp;<sup>c</sup></span><span class="fc">770.71875&thinsp;<sup>c</sup></span><span class="fc">770.96875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 89 · Site 001</span><span class="sname">Fort White - PSIC</span><span class="scounty">Columbia</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">773.59375&thinsp;<sup>c</sup></span><span class="fc">773.84375&thinsp;<sup>c</sup></span><span class="fc">774.09375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 197</span>
+    <span>WACN: 9254A</span>
+    <span>3 PSIC sites · 770–774 MHz</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s3: Sysid 352 — Escambia & Santa Rosa -->
+<div class="slide" id="s3">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Escambia &amp; Santa Rosa Counties</div>
+    <div class="c-sub">SLERS · Sysid 352 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 54 · Site 054</span><span class="sname">Pensacola</span><span class="scounty">Escambia</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.950&thinsp;<sup>c</sup></span><span class="fc">852.450&thinsp;<sup>c</sup></span><span class="fc">852.950&thinsp;<sup>c</sup></span><span class="fc">853.4375&thinsp;<sup>c</sup></span><span class="fc">853.9375&thinsp;<sup>c</sup></span><span class="fc">854.200&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 135 · Site 135</span><span class="sname">Meacham</span><span class="scounty">Escambia</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.975&thinsp;<sup>c</sup></span><span class="fc">852.475&thinsp;<sup>c</sup></span><span class="fc">852.975&thinsp;<sup>c</sup></span><span class="fc">854.125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 137 · Site 137</span><span class="sname">Century</span><span class="scounty">Escambia</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.9375&thinsp;<sup>c</sup></span><span class="fc">852.4375&thinsp;<sup>c</sup></span><span class="fc">852.9375&thinsp;<sup>c</sup></span><span class="fc">856.6875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 125 · Site 125</span><span class="sname">Harold</span><span class="scounty">Santa Rosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">853.4625&thinsp;<sup>c</sup></span><span class="fc">853.9625&thinsp;<sup>c</sup></span><span class="fc">855.8125&thinsp;<sup>c</sup></span><span class="fc">856.5375&thinsp;<sup>c</sup></span><span class="fc">857.2375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 127 · Site 127</span><span class="sname">Santa</span><span class="scounty">Santa Rosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.1125&thinsp;<sup>c</sup></span><span class="fc">856.3375&thinsp;<sup>c</sup></span><span class="fc">856.6375&thinsp;<sup>c</sup></span><span class="fc">857.4875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 129 · Site 129</span><span class="sname">Milton</span><span class="scounty">Santa Rosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.075&thinsp;<sup>c</sup></span><span class="fc">854.150&thinsp;<sup>c</sup></span><span class="fc">854.225&thinsp;<sup>c</sup></span><span class="fc">856.5625&thinsp;<sup>c</sup></span><span class="fc">856.600&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 131 · Site 131</span><span class="sname">Bagdad</span><span class="scounty">Santa Rosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">852.4875&thinsp;<sup>c</sup></span><span class="fc">852.9875&thinsp;<sup>c</sup></span><span class="fc">854.100&thinsp;<sup>c</sup></span><span class="fc">856.625&thinsp;<sup>c</sup></span><span class="fc">856.650&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 352</span>
+    <span>WACN: 9254A</span>
+    <span>7 sites · 851–857 MHz</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s4: Sysid 352 — Walton County -->
+<div class="slide" id="s4">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Walton County</div>
+    <div class="c-sub">SLERS · Sysid 352 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 66 · Site 066</span><span class="sname">Kelly</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">852.900&thinsp;<sup>c</sup></span><span class="fc">853.225&thinsp;<sup>c</sup></span><span class="fc">854.7375&thinsp;<sup>c</sup></span><span class="fc">855.8875&thinsp;<sup>c</sup></span><span class="fc">856.2375&thinsp;<sup>c</sup></span><span class="fc">856.6125&thinsp;<sup>c</sup></span><span class="fc">856.8125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 107 · Site 107</span><span class="sname">Defuniak</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.8375&thinsp;<sup>c</sup></span><span class="fc">852.300&thinsp;<sup>c</sup></span><span class="fc">854.175&thinsp;<sup>c</sup></span><span class="fc">856.2875&thinsp;<sup>c</sup></span><span class="fc">856.550&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 109 · Site 109</span><span class="sname">Gaskin</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.4375&thinsp;<sup>c</sup></span><span class="fc">851.975&thinsp;<sup>c</sup></span><span class="fc">852.9375&thinsp;<sup>c</sup></span><span class="fc">854.1375&thinsp;<sup>c</sup></span><span class="fc">854.3875&thinsp;<sup>c</sup></span><span class="fc">856.4625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 111 · Site 111</span><span class="sname">Freeport</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.950&thinsp;<sup>c</sup></span><span class="fc">853.0625&thinsp;<sup>c</sup></span><span class="fc">853.5375&thinsp;<sup>c</sup></span><span class="fc">855.2375&thinsp;<sup>c</sup></span><span class="fc">855.7125&thinsp;<sup>c</sup></span><span class="fc">855.7375&thinsp;<sup>c</sup></span><span class="fc">857.2125&thinsp;<sup>c</sup></span><span class="fc">857.4625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 113 · Site 113</span><span class="sname">Mossy Head</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.6875&thinsp;<sup>c</sup></span><span class="fc">852.475&thinsp;<sup>c</sup></span><span class="fc">852.975&thinsp;<sup>c</sup></span><span class="fc">854.0875&thinsp;<sup>c</sup></span><span class="fc">854.3375&thinsp;<sup>c</sup></span><span class="fc">854.7875&thinsp;<sup>c</sup></span><span class="fc">856.7125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 119 · Site 119</span><span class="sname">Destin</span><span class="scounty">Walton</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.6125&thinsp;<sup>c</sup></span><span class="fc">851.8625&thinsp;<sup>c</sup></span><span class="fc">853.3875&thinsp;<sup>c</sup></span><span class="fc">853.7125&thinsp;<sup>c</sup></span><span class="fc">854.0125&thinsp;<sup>c</sup></span><span class="fc">856.0125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 352</span>
+    <span>WACN: 9254A</span>
+    <span>6 sites · 851–857 MHz</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s5: Sysid 352 — Okaloosa, Bay, Holmes & Washington -->
+<div class="slide" id="s5">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Okaloosa, Bay, Holmes &amp; Washington</div>
+    <div class="c-sub">SLERS · Sysid 352 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 115 · Site 115</span><span class="sname">Niceville</span><span class="scounty">Okaloosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.225&thinsp;<sup>c</sup></span><span class="fc">851.9875&thinsp;<sup>c</sup></span><span class="fc">853.0375&thinsp;<sup>c</sup></span><span class="fc">853.4875&thinsp;<sup>c</sup></span><span class="fc">853.9875&thinsp;<sup>c</sup></span><span class="fc">854.5375&thinsp;<sup>c</sup></span><span class="fc">856.4375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 117 · Site 117</span><span class="sname">Fort Walton Beach</span><span class="scounty">Okaloosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.250&thinsp;<sup>c</sup></span><span class="fc">854.1875&thinsp;<sup>c</sup></span><span class="fc">855.1625&thinsp;<sup>c</sup></span><span class="fc">855.8625&thinsp;<sup>c</sup></span><span class="fc">856.5125&thinsp;<sup>c</sup></span><span class="fc">857.1625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 121 · Site 121</span><span class="sname">Crestview</span><span class="scounty">Okaloosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.6625&thinsp;<sup>c</sup></span><span class="fc">855.7125&thinsp;<sup>c</sup></span><span class="fc">855.9625&thinsp;<sup>c</sup></span><span class="fc">856.1875&thinsp;<sup>c</sup></span><span class="fc">856.4875&thinsp;<sup>c</sup></span><span class="fc">856.9375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 123 · Site 123</span><span class="sname">Laurel Hill</span><span class="scounty">Okaloosa</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.9125&thinsp;<sup>c</sup></span><span class="fc">853.5125&thinsp;<sup>c</sup></span><span class="fc">854.025&thinsp;<sup>c</sup></span><span class="fc">854.7125&thinsp;<sup>c</sup></span><span class="fc">855.6125&thinsp;<sup>c</sup></span><span class="fc">856.9125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 60 · Site 060</span><span class="sname">Panama City</span><span class="scounty">Bay</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.9375&thinsp;<sup>c</sup></span><span class="fc">853.975&thinsp;<sup>c</sup></span><span class="fc">854.125&thinsp;<sup>c</sup></span><span class="fc">854.4875&thinsp;<sup>c</sup></span><span class="fc">855.5875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 101 · Site 101</span><span class="sname">Bonifay</span><span class="scounty">Holmes</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">853.450&thinsp;<sup>c</sup></span><span class="fc">854.075&thinsp;<sup>c</sup></span><span class="fc">856.0375&thinsp;<sup>c</sup></span><span class="fc">856.600&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 103 · Site 103</span><span class="sname">Holmes (North)</span><span class="scounty">Holmes</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.4625&thinsp;<sup>c</sup></span><span class="fc">854.0125&thinsp;<sup>c</sup></span><span class="fc">854.5625&thinsp;<sup>c</sup></span><span class="fc">857.9625&thinsp;<sup>c</sup></span><span class="fc">858.2115&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">RFSS 97 · Site 097</span><span class="sname">Millers Ferry</span><span class="scounty">Washington</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">852.050&thinsp;<sup>c</sup></span><span class="fc">853.475&thinsp;<sup>c</sup></span><span class="fc">853.725&thinsp;<sup>c</sup></span><span class="fc">854.5875&thinsp;<sup>c</sup></span><span class="fc">856.3875&thinsp;<sup>c</sup></span><span class="fc">856.650&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 352</span>
+    <span>WACN: 9254A</span>
+    <span>8 sites · 851–858 MHz</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s6: Talkgroups — FHP & EMS -->
+<div class="slide" id="s6">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — FHP Aircraft &amp; EMS</div>
+    <div class="c-sub">SLERS · Florida Highway Patrol · Air Com</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-group-hdr">Florida Highway Patrol — Aircraft</div>
+    <div class="tg-note">
+      DEC <strong style="color:#5888b8">311</strong> links to SLERS-Sumter TG 582 for aircraft speed clocking. DEC <strong style="color:#5888b8">336</strong> observed active in Brevard County / central Florida during aircraft speed surveillance ops.
+    </div>
+    <div class="tgrow"><span class="tg-dec">286</span><span class="tg-hex">11e</span><span class="tg-info">FHP Aircraft 286<span class="tg-mode">DE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">311</span><span class="tg-hex">137</span><span class="tg-info">FHP Aircraft 311<span class="tg-mode">DE</span><small>&#8594; patched to SLERS-Sumter TG 582</small></span></div>
+    <div class="tgrow"><span class="tg-dec">336</span><span class="tg-hex">150</span><span class="tg-info">FHP Aircraft 336<span class="tg-mode">DE</span><small>Brevard / central FL speed ops</small></span></div>
+    <div class="tg-group-hdr">EMS</div>
+    <div class="tgrow"><span class="tg-dec">60101</span><span class="tg-hex">eac5</span><span class="tg-info">Air Com — Medevac EMS Dispatch<span class="tg-mode">D</span></span></div>
+    <div class="tg-group-hdr">Radio Maintenance</div>
+    <div class="tgrow"><span class="tg-dec">461</span><span class="tg-hex">1cd</span><span class="tg-info">Orlando 461<span class="tg-mode">DE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">467</span><span class="tg-hex">1d3</span><span class="tg-info">Fort Pierce 467<span class="tg-mode">DE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">521</span><span class="tg-hex">209</span><span class="tg-info">Venice<span class="tg-mode">DE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">9065</span><span class="tg-hex">2369</span><span class="tg-info">Fort Pierce 9065<span class="tg-mode">DE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">50001</span><span class="tg-hex">c351</span><span class="tg-info">Radio Techs 50001<span class="tg-mode">D</span></span></div>
+    <div class="tgrow"><span class="tg-dec">50044</span><span class="tg-hex">c37c</span><span class="tg-info">Radio Techs 50044<span class="tg-mode">D</span></span></div>
+    <div class="tgrow"><span class="tg-dec">50045</span><span class="tg-hex">c37d</span><span class="tg-info">Radio Techs 50045<span class="tg-mode">D</span></span></div>
+    <div class="tgrow"><span class="tg-dec">50047</span><span class="tg-hex">c37f</span><span class="tg-info">Radio Techs 50047<span class="tg-mode">D</span></span></div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 9254A</span>
+    <span>FHP / EMS / Radio Maint TGs</span>
+    <span>DE = Phase I + II mixed</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s7: Talkgroups — Walton County -->
+<div class="slide" id="s7">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — Walton County</div>
+    <div class="c-sub">SLERS · WCSO · Fire · Emergency Mgmt</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-group-hdr">Walton County Sheriff</div>
+    <div class="tgrow"><span class="tg-dec">31406</span><span class="tg-hex">7aae</span><span class="tg-info">WCSO North Dispatch<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31407</span><span class="tg-hex">7aaf</span><span class="tg-info">WCSO South Dispatch<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31409</span><span class="tg-hex">7ab1</span><span class="tg-info">WCSO Teletype<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31411</span><span class="tg-hex">7ab3</span><span class="tg-info">Code Compliance<span class="tg-mode">TE</span></span></div>
+    <div class="tg-group-hdr">Emergency Management</div>
+    <div class="tgrow"><span class="tg-dec">31446</span><span class="tg-hex">7ad6</span><span class="tg-info">Emergency Management<span class="tg-mode">TE</span></span></div>
+    <div class="tg-group-hdr">South Walton Fire District</div>
+    <div class="tgrow"><span class="tg-dec">31441</span><span class="tg-hex">7ad1</span><span class="tg-info">South Fire Dispatch<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31442</span><span class="tg-hex">7ad2</span><span class="tg-info">South Fire Tactical 3<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31443</span><span class="tg-hex">7ad3</span><span class="tg-info">South Fire Tactical 4<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31444</span><span class="tg-hex">7ad4</span><span class="tg-info">South Fire Tactical 5<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31445</span><span class="tg-hex">7ad5</span><span class="tg-info">South Fire Beach Tactical<span class="tg-mode">TE</span></span></div>
+    <div class="tg-group-hdr">North Walton Fire District</div>
+    <div class="tgrow"><span class="tg-dec">31457</span><span class="tg-hex">7ae1</span><span class="tg-info">North Fire Dispatch<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31458</span><span class="tg-hex">7ae2</span><span class="tg-info">North Fire Tactical 1<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31459</span><span class="tg-hex">7ae3</span><span class="tg-info">North Fire Tactical 2<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31460</span><span class="tg-hex">7ae4</span><span class="tg-info">North Fire Tactical 3<span class="tg-mode">TE</span></span></div>
+    <div class="tgrow"><span class="tg-dec">31461</span><span class="tg-hex">7ae5</span><span class="tg-info">North Fire Tactical 4<span class="tg-mode">TE</span></span></div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 9254A</span>
+    <span>Walton County TGs</span>
+    <span>TE = TDMA Encrypted</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+      </div><!-- /track -->
+    </div><!-- /track-wrap -->
+  </div><!-- /stage -->
+
+  <div class="counter" id="counter">1 / 8</div>
+
+  <div class="controls">
+    <button class="btn" id="bprev" onclick="move(-1)" disabled>&#8592;</button>
+    <select class="jump" id="jsel" onchange="goTo(+this.value)">
+      <option value="0">&#9654; Title / Overview</option>
+      <option value="1">Sysid 141 — Air Sites</option>
+      <option value="2">Sysid 197 — PSIC Sites</option>
+      <option value="3">Sysid 352 — Escambia &amp; Santa Rosa</option>
+      <option value="4">Sysid 352 — Walton County</option>
+      <option value="5">Sysid 352 — Okaloosa / Bay / Holmes / Washington</option>
+      <option value="6">TG — FHP &amp; EMS</option>
+      <option value="7">TG — Walton County</option>
+    </select>
+    <button class="btn" id="bnext" onclick="move(1)">&#8594;</button>
+  </div>
+
+  <div class="dots" id="dots">
+    <span class="dot active" onclick="goTo(0)" id="dot0"></span>
+    <span class="dot" onclick="goTo(1)" id="dot1"></span>
+    <span class="dot" onclick="goTo(2)" id="dot2"></span>
+    <span class="dot" onclick="goTo(3)" id="dot3"></span>
+    <span class="dot" onclick="goTo(4)" id="dot4"></span>
+    <span class="dot" onclick="goTo(5)" id="dot5"></span>
+    <span class="dot" onclick="goTo(6)" id="dot6"></span>
+    <span class="dot" onclick="goTo(7)" id="dot7"></span>
+  </div>
+  <div class="slide-lbl" id="slbl">Title / Overview</div>
+
+</div><!-- /wrapper -->
+
+<script>
+const LABELS = [
+  "Title / Overview",
+  "Sysid 141 — Air Sites",
+  "Sysid 197 — PSIC Sites",
+  "Sysid 352 — Escambia & Santa Rosa",
+  "Sysid 352 — Walton County",
+  "Sysid 352 — Okaloosa / Bay / Holmes / Washington",
+  "TG — FHP & EMS",
+  "TG — Walton County"
+];
+const TOTAL = 8;
+let cur = 0;
+
+const track   = document.getElementById('track');
+const counter = document.getElementById('counter');
+const bprev   = document.getElementById('bprev');
+const bnext   = document.getElementById('bnext');
+const jsel    = document.getElementById('jsel');
+const slbl    = document.getElementById('slbl');
+const dots    = document.querySelectorAll('.dot');
+
+function goTo(n) {
+  n = Math.max(0, Math.min(TOTAL - 1, +n));
+  cur = n;
+  track.style.transform = `translateX(${-n * 100}%)`;
+  counter.textContent = `${n + 1} / ${TOTAL}`;
+  bprev.disabled = n === 0;
+  bnext.disabled = n === TOTAL - 1;
+  jsel.value = n;
+  slbl.textContent = LABELS[n] || '';
+  dots.forEach((d, i) => d.classList.toggle('active', i === n));
+  const body = document.querySelector('#s' + n + ' .cbody');
+  if (body) body.scrollTop = 0;
+}
+
+function move(d) { goTo(cur + d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') move(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   move(-1);
+});
+
+let tx = 0;
+track.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+track.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+}, { passive: true });
+</script>
+</body>
+</html>
