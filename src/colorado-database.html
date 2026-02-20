@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorado DTRS · Colorado P25 Phase I · Boy and a Scanner</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page ── */
+html, body {
+  min-height: 100%;
+  background: #06090f;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body { padding: 28px 16px 56px; gap: 0; }
+
+/* ── Page header ── */
+.page-hdr {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.page-hdr h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #00b8ff;
+  letter-spacing: .05em;
+}
+.page-hdr p {
+  font-size: .75rem;
+  color: #4a6888;
+  margin-top: 3px;
+}
+
+/* ── Outer wrapper — constrains everything ── */
+.wrapper {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Stage: exact 9:16 box, no overflow ── */
+.stage {
+  width: 100%;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,184,255,.15), 0 6px 32px rgba(0,0,0,.7);
+  background: #0d1120;
+  aspect-ratio: 9 / 16;
+}
+
+/* Absolutely-fill inner track container */
+.track-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transition: transform .4s cubic-bezier(.77,0,.175,1);
+  will-change: transform;
+}
+
+/* ── Each slide: exact same size as stage ── */
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d1120;
+  overflow: hidden;
+}
+
+/* ── Accent bars ── */
+.bar {
+  flex: 0 0 5px;
+  width: 100%;
+}
+.top-bar { background: linear-gradient(90deg,#ff9500,#ff6b00); }
+.bot-bar { background: linear-gradient(90deg,#ff6b00,#ff9500); }
+
+/* ════════════════ TITLE SLIDE ════════════════ */
+.title-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 20px 20px;
+  background: linear-gradient(160deg,#1c1411 0%,#0d1120 100%);
+  text-align: center;
+  overflow: hidden;
+}
+
+.t-name {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #ffd4a8;
+  line-height: 1.35;
+}
+
+.t-abbr {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #ff9500;
+  letter-spacing: .1em;
+  text-shadow: 0 0 28px rgba(255,149,0,.4);
+  line-height: 1;
+}
+
+.t-state {
+  font-size: .8rem;
+  color: #ff9500;
+  font-weight: 500;
+}
+
+.t-brand {
+  font-size: .72rem;
+  color: #44cc6a;
+}
+
+.t-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.pill {
+  background: #2a1a10;
+  color: #de9a60;
+  font-size: .62rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid #483828;
+  font-family: 'Courier New', monospace;
+}
+.pill.dim { color: #705030; border-color: #382418; background: #1e1008; }
+
+.t-hint {
+  font-size: .6rem;
+  color: #3a2818;
+  margin-top: 6px;
+}
+
+/* ════════════════ COUNTY SLIDE ════════════════ */
+.chead {
+  flex: 0 0 auto;
+  background: #1c1410;
+  padding: 9px 14px 7px;
+  border-bottom: 1px solid #3c2010;
+}
+.c-county {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ff9500;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c-sub {
+  font-size: .58rem;
+  color: #44cc6a;
+  margin-top: 1px;
+}
+
+/* scrollable body — fills remaining space */
+.cbody {
+  flex: 1 1 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 10px;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #3c2010 transparent;
+}
+.cbody::-webkit-scrollbar { width: 3px; }
+.cbody::-webkit-scrollbar-thumb { background: #3c2010; border-radius: 2px; }
+
+/* site block */
+.sblock {
+  border: 1px solid #2e1810;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.sblock:last-child { margin-bottom: 0; }
+
+.shead {
+  background: #1a1210;
+  padding: 5px 9px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: 1px solid #2e1810;
+}
+.sid {
+  font-family: 'Courier New', monospace;
+  font-size: .55rem;
+  background: #180908;
+  color: #986838;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.sname {
+  font-size: .68rem;
+  font-weight: 600;
+  color: #eed0b8;
+  line-height: 1.2;
+}
+
+.sfreqs { padding: 0; }
+
+/* freq label */
+.flabel {
+  font-size: .55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 4px 8px 2px;
+  margin: 0;
+}
+.clabel { color: #ffc020; background: rgba(255,160,0,.07); }
+.rlabel { color: #ed9d82; background: rgba(255,120,80,.04); }
+
+/* freq grid */
+.fgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 3px 7px 7px;
+}
+
+.fc, .fr {
+  font-family: 'Courier New', monospace;
+  font-size: .62rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.fc {
+  color: #ffc020;
+  background: #281800;
+  border: 1px solid #402800;
+}
+.fc sup { color: #ff8c00; font-weight: 800; font-size: .65em; }
+.fr {
+  color: #ed9d82;
+  background: #281610;
+  border: 1px solid #402418;
+}
+
+/* footer */
+.cfoot {
+  flex: 0 0 auto;
+  background: #0b0a08;
+  border-top: 1px solid #281818;
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cfoot span {
+  font-family: 'Courier New', monospace;
+  font-size: .5rem;
+  color: #684828;
+}
+
+/* ════════════════ COUNTER + CONTROLS ════════════════ */
+.counter {
+  font-family: 'Courier New', monospace;
+  font-size: .72rem;
+  color: #704830;
+  margin-top: 12px;
+  text-align: center;
+  height: 16px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #3a2010;
+  background: #1c1410;
+  color: #ff9500;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, box-shadow .2s;
+  flex-shrink: 0;
+  user-select: none;
+}
+.btn:hover { background: #2e1810; box-shadow: 0 0 10px rgba(255,149,0,.25); }
+.btn:active { transform: scale(.93); }
+.btn:disabled { opacity: .2; cursor: default; }
+
+.jump {
+  flex: 1;
+  background: #140c08;
+  border: 1px solid #281810;
+  color: #b88858;
+  font-size: .68rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23805830'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+/* ── Dots ── */
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 12px;
+  max-width: 390px;
+  padding: 0 4px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2e1a10;
+  cursor: pointer;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.dot.active {
+  background: #ff9500;
+  width: 18px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(255,149,0,.5);
+}
+.dot:hover { background: #483820; }
+
+.slide-lbl {
+  font-size: .62rem;
+  color: #382418;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  margin-top: 5px;
+  height: 14px;
+}
+
+.back-link {
+  font-size: .65rem;
+  color: #986838;
+  text-decoration: none;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+.back-link:hover { color: #ff9500; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/database.html">&#8592; Back to Database Map</a>
+
+<div class="page-hdr">
+  <h1>Colorado DTRS — State of Colorado Digital Trunked Radio</h1>
+  <p>Statewide, Colorado · New Mexico · Utah &nbsp;·&nbsp; by Boy and a Scanner</p>
+</div>
+
+<div class="wrapper">
+
+  <div class="stage">
+    <div class="track-wrap">
+      <div class="track" id="track">
+
+<div class="slide" id="s0">
+  <div class="bar top-bar"></div>
+  <div class="title-body">
+    <div class="t-name">State of Colorado<br>Digital Trunked Radio System</div>
+    <div class="t-abbr">DTRS</div>
+    <div class="t-state">Statewide, Colorado</div>
+    <div class="t-brand">by Boy and a Scanner</div>
+    <div class="t-pills">
+      <span class="pill">Project 25 Phase I</span>
+      <span class="pill">Sysid: D1C</span>
+      <span class="pill">WACN: BEE07</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">APCO-25 CAI Exclusive</span>
+      <span class="pill dim">100+ Sites</span>
+      <span class="pill dim">700/800 MHz</span>
+    </div>
+    <div class="t-hint">Use arrows or swipe to navigate &#8594;</div>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s1">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Arapahoe &amp; Denver Counties</div>
+    <div class="c-sub">Colorado DTRS &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 001</span>
+        <span class="sname">Arapahoe Admin</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.9375&thinsp;<sup>c</sup></span><span class="fc">853.2375&thinsp;<sup>c</sup></span><span class="fc">853.4375&thinsp;<sup>c</sup></span><span class="fc">853.6625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.71875</span><span class="fr">770.96875</span><span class="fr">773.09375</span><span class="fr">773.34375</span><span class="fr">773.59375</span><span class="fr">773.84375</span><span class="fr">851.225</span><span class="fr">851.775</span><span class="fr">852.100</span><span class="fr">852.3625</span><span class="fr">852.600</span><span class="fr">853.8375</span><span class="fr">854.4625</span><span class="fr">854.8625</span><span class="fr">856.3875</span><span class="fr">856.6875</span><span class="fr">858.3875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 007</span>
+        <span class="sname">Smoky Hill</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.400&thinsp;<sup>c</sup></span><span class="fc">853.625&thinsp;<sup>c</sup></span><span class="fc">853.875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.58125</span><span class="fr">770.85625</span><span class="fr">771.85625</span><span class="fr">772.75625</span><span class="fr">773.66875</span><span class="fr">851.1125</span><span class="fr">851.450</span><span class="fr">851.7375</span><span class="fr">852.150</span><span class="fr">852.2875</span><span class="fr">852.475</span><span class="fr">852.7125</span><span class="fr">853.175</span><span class="fr">854.6875</span><span class="fr">857.5125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 009</span>
+        <span class="sname">DRDC CF</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.700&thinsp;<sup>c</sup></span><span class="fc">853.475&thinsp;<sup>c</sup></span><span class="fc">853.675&thinsp;<sup>c</sup></span><span class="fc">853.9625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.150</span><span class="fr">851.950</span><span class="fr">854.2625</span><span class="fr">854.4625</span><span class="fr">854.700</span><span class="fr">856.1625</span><span class="fr">858.1625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 020</span>
+        <span class="sname">Denver Tx Building (DTB)</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.5625&thinsp;<sup>c</sup></span><span class="fc">852.8125&thinsp;<sup>c</sup></span><span class="fc">853.700&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.28125</span><span class="fr">772.55625</span><span class="fr">773.90625</span><span class="fr">774.30625</span><span class="fr">774.55625</span><span class="fr">774.80625</span><span class="fr">851.4375</span><span class="fr">852.3625</span><span class="fr">852.9625</span><span class="fr">853.7375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 037</span>
+        <span class="sname">Deer Trail</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.250&thinsp;<sup>c</sup></span><span class="fc">852.9375&thinsp;<sup>c</sup></span><span class="fc">853.2375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.26875</span><span class="fr">771.56875</span><span class="fr">773.91875</span><span class="fr">851.7875</span><span class="fr">852.100</span><span class="fr">852.600</span><span class="fr">853.8375</span><span class="fr">854.4625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 047</span>
+        <span class="sname">Zap</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.350&thinsp;<sup>c</sup></span><span class="fc">853.5125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.03125</span><span class="fr">770.80625</span><span class="fr">774.30625</span><span class="fr">774.55625</span><span class="fr">774.80625</span><span class="fr">851.2125</span><span class="fr">851.5375</span><span class="fr">852.0375</span><span class="fr">852.6625</span><span class="fr">857.0875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 064</span>
+        <span class="sname">Chevron Plaza Tower</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.875&thinsp;<sup>c</sup></span><span class="fc">853.8375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.25625</span><span class="fr">771.55625</span><span class="fr">772.00625</span><span class="fr">772.81875</span><span class="fr">773.13125</span><span class="fr">773.68125</span><span class="fr">851.7875</span><span class="fr">852.175</span><span class="fr">852.600</span><span class="fr">857.6875</span><span class="fr">858.0625</span><span class="fr">858.5125</span><span class="fr">858.6875</span><span class="fr">859.0375</span><span class="fr">859.5125</span><span class="fr">859.9125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 068</span>
+        <span class="sname">DIA Airport Office Building (RTD)</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.71875&thinsp;<sup>c</sup></span><span class="fc">772.14375&thinsp;<sup>c</sup></span><span class="fc">772.40625&thinsp;<sup>c</sup></span><span class="fc">773.49375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.59375</span><span class="fr">771.21875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 070</span>
+        <span class="sname">Auraria Campus</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.03125&thinsp;<sup>c</sup></span><span class="fc">773.28125&thinsp;<sup>c</sup></span><span class="fc">773.53125&thinsp;<sup>c</sup></span><span class="fc">773.78125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.15625</span><span class="fr">769.40625</span><span class="fr">769.65625</span><span class="fr">769.90625</span><span class="fr">770.15625</span><span class="fr">770.40625</span><span class="fr">770.65625</span><span class="fr">770.90625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 071</span>
+        <span class="sname">State Capitol</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.03125&thinsp;<sup>c</sup></span><span class="fc">774.28125&thinsp;<sup>c</sup></span><span class="fc">774.65625&thinsp;<sup>c</sup></span><span class="fc">774.90625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.30625</span><span class="fr">769.53125</span><span class="fr">769.78125</span><span class="fr">770.58125</span><span class="fr">771.45625</span><span class="fr">772.20625</span><span class="fr">773.23125</span><span class="fr">773.48125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 073</span>
+        <span class="sname">Byers</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.24375&thinsp;<sup>c</sup></span><span class="fc">772.31875&thinsp;<sup>c</sup></span><span class="fc">773.14375&thinsp;<sup>c</sup></span><span class="fc">774.49375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.59375</span><span class="fr">770.29375</span></div></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: D1C · WACN: BEE07</span>
+    <span>11 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s2">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Jefferson &amp; Clear Creek Counties</div>
+    <div class="c-sub">Colorado DTRS &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 002</span>
+        <span class="sname">Conifer Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.5875&thinsp;<sup>c</sup></span><span class="fc">853.9125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.350</span><span class="fr">851.600</span><span class="fr">851.925</span><span class="fr">852.175</span><span class="fr">852.5875</span><span class="fr">852.7375</span><span class="fr">853.3375</span><span class="fr">854.1375</span><span class="fr">854.7625</span><span class="fr">856.9125</span><span class="fr">857.1625</span><span class="fr">858.0125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 006</span>
+        <span class="sname">Mestaa'ehehe</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.450&thinsp;<sup>c</sup></span><span class="fc">853.6125&thinsp;<sup>c</sup></span><span class="fc">853.850&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.1625</span><span class="fr">851.475</span><span class="fr">851.6375</span><span class="fr">851.8625</span><span class="fr">852.1875</span><span class="fr">852.450</span><span class="fr">852.625</span><span class="fr">852.7875</span><span class="fr">852.950</span><span class="fr">853.1125</span><span class="fr">854.4125</span><span class="fr">854.8125</span><span class="fr">855.6125</span><span class="fr">856.5625</span><span class="fr">857.6125</span><span class="fr">859.6375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 008</span>
+        <span class="sname">Lookout Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.0625&thinsp;<sup>c</sup></span><span class="fc">853.4125&thinsp;<sup>c</sup></span><span class="fc">853.4875&thinsp;<sup>c</sup></span><span class="fc">853.775&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.1125</span><span class="fr">851.400</span><span class="fr">851.4875</span><span class="fr">851.6875</span><span class="fr">851.9875</span><span class="fr">852.0375</span><span class="fr">852.200</span><span class="fr">852.4125</span><span class="fr">852.4875</span><span class="fr">854.1625</span><span class="fr">855.4375</span><span class="fr">855.8375</span><span class="fr">856.0625</span><span class="fr">856.5125</span><span class="fr">857.5625</span><span class="fr">857.7875</span><span class="fr">858.6375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 021</span>
+        <span class="sname">Loveland Ski</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.3625&thinsp;<sup>c</sup></span><span class="fc">852.875&thinsp;<sup>c</sup></span><span class="fc">853.4375&thinsp;<sup>c</sup></span><span class="fc">853.9625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.225</span><span class="fr">851.775</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 065</span>
+        <span class="sname">Bellevue Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.31875&thinsp;<sup>c</sup></span><span class="fc">771.64375&thinsp;<sup>c</sup></span><span class="fc">771.89375&thinsp;<sup>c</sup></span><span class="fc">772.26875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.11875</span><span class="fr">769.76875</span><span class="fr">770.09375</span><span class="fr">770.78125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 066</span>
+        <span class="sname">Saxon Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.63125&thinsp;<sup>c</sup></span><span class="fc">771.88125&thinsp;<sup>c</sup></span><span class="fc">772.25625&thinsp;<sup>c</sup></span><span class="fc">773.73125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.08125</span><span class="fr">771.30625</span></div></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: D1C · WACN: BEE07</span>
+    <span>6 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s3">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Douglas &amp; Elbert Counties</div>
+    <div class="c-sub">Colorado DTRS &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 010</span>
+        <span class="sname">Franktown</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.975&thinsp;<sup>c</sup></span><span class="fc">853.250&thinsp;<sup>c</sup></span><span class="fc">853.500&thinsp;<sup>c</sup></span><span class="fc">853.950&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">852.1375</span><span class="fr">854.3125</span><span class="fr">856.5875</span><span class="fr">857.1125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 014</span>
+        <span class="sname">Douglas Co South Simulcast</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.900&thinsp;<sup>c</sup></span><span class="fc">853.200&thinsp;<sup>c</sup></span><span class="fc">853.375&thinsp;<sup>c</sup></span><span class="fc">853.9375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.975</span><span class="fr">852.3125</span><span class="fr">856.1125</span><span class="fr">857.1875</span><span class="fr">858.1125</span><span class="fr">858.5375</span><span class="fr">859.1125</span><span class="fr">859.5625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 043</span>
+        <span class="sname">Rattlesnake</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.05625&thinsp;<sup>c</sup></span><span class="fc">772.83125&thinsp;<sup>c</sup></span><span class="fc">773.39375&thinsp;<sup>c</sup></span><span class="fc">774.48125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.54375</span><span class="fr">770.33125</span><span class="fr">771.03125</span><span class="fr">771.33125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 052</span>
+        <span class="sname">Douglas Co North Simulcast</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.3875&thinsp;<sup>c</sup></span><span class="fc">852.925&thinsp;<sup>c</sup></span><span class="fc">853.525&thinsp;<sup>c</sup></span><span class="fc">853.900&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">771.14375</span><span class="fr">771.60625</span><span class="fr">771.93125</span><span class="fr">772.51875</span><span class="fr">772.76875</span><span class="fr">773.65625</span><span class="fr">851.300</span><span class="fr">851.825</span><span class="fr">855.3125</span><span class="fr">857.3375</span><span class="fr">857.5875</span><span class="fr">858.5875</span><span class="fr">859.3375</span><span class="fr">859.6875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 072</span>
+        <span class="sname">Kiowa</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.19375&thinsp;<sup>c</sup></span><span class="fc">772.64375&thinsp;<sup>c</sup></span><span class="fc">772.89375&thinsp;<sup>c</sup></span><span class="fc">773.19375&thinsp;<sup>c</sup></span><span class="fc">774.69375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">771.39375</span><span class="fr">771.66875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 074</span>
+        <span class="sname">Silo</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.63125&thinsp;<sup>c</sup></span><span class="fc">772.88125&thinsp;<sup>c</sup></span><span class="fc">773.18125&thinsp;<sup>c</sup></span><span class="fc">774.68125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.83125</span><span class="fr">771.38125</span><span class="fr">771.65625</span><span class="fr">772.18125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 075</span>
+        <span class="sname">Cedar Point</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.05625&thinsp;<sup>c</sup></span><span class="fc">773.30625&thinsp;<sup>c</sup></span><span class="fc">773.55625&thinsp;<sup>c</sup></span><span class="fc">773.80625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.68125</span><span class="fr">770.93125</span></div></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: D1C · WACN: BEE07</span>
+    <span>7 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s4">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Eagle &amp; Summit Counties</div>
+    <div class="c-sub">Colorado DTRS &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 002</span>
+        <span class="sname">Ruedi</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.29375&thinsp;<sup>c</sup></span><span class="fc">771.69375&thinsp;<sup>c</sup></span><span class="fc">772.11875&thinsp;<sup>c</sup></span><span class="fc">772.59375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.56875</span><span class="fr">771.04375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 007</span>
+        <span class="sname">Copper Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.7125&thinsp;<sup>c</sup></span><span class="fc">851.9125&thinsp;<sup>c</sup></span><span class="fc">852.6875&thinsp;<sup>c</sup></span><span class="fc">852.9125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.250</span><span class="fr">856.0625</span><span class="fr">857.6875</span><span class="fr">858.0875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 035</span>
+        <span class="sname">Beaver Creek</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.150&thinsp;<sup>c</sup></span><span class="fc">852.7125&thinsp;<sup>c</sup></span><span class="fc">853.175&thinsp;<sup>c</sup></span><span class="fc">853.875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.7375</span><span class="fr">856.2375</span><span class="fr">856.9875</span><span class="fr">857.9875</span><span class="fr">858.3125</span><span class="fr">858.9875</span><span class="fr">859.3125</span><span class="fr">860.3125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 047</span>
+        <span class="sname">Castle Peak</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.975&thinsp;<sup>c</sup></span><span class="fc">853.250&thinsp;<sup>c</sup></span><span class="fc">853.500&thinsp;<sup>c</sup></span><span class="fc">853.950&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">852.1375</span><span class="fr">856.4375</span><span class="fr">856.6125</span><span class="fr">857.4375</span><span class="fr">857.6125</span><span class="fr">858.4375</span><span class="fr">858.6125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 050</span>
+        <span class="sname">Lower Dowd Junction</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.775&thinsp;<sup>c</sup></span><span class="fc">853.0875&thinsp;<sup>c</sup></span><span class="fc">853.325&thinsp;<sup>c</sup></span><span class="fc">853.725&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">852.250</span><span class="fr">855.2125</span><span class="fr">856.2125</span><span class="fr">857.2125</span><span class="fr">858.2125</span><span class="fr">859.2125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 053</span>
+        <span class="sname">Red Table Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">857.1375&thinsp;<sup>c</sup></span><span class="fc">857.6375&thinsp;<sup>c</sup></span><span class="fc">858.1375&thinsp;<sup>c</sup></span><span class="fc">858.6375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">856.1375</span><span class="fr">856.6375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 054</span>
+        <span class="sname">East Beacon</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">857.9375&thinsp;<sup>c</sup></span><span class="fc">858.5125&thinsp;<sup>c</sup></span><span class="fc">858.9375&thinsp;<sup>c</sup></span><span class="fc">859.7625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">855.9625</span><span class="fr">856.5125</span><span class="fr">856.9625</span><span class="fr">857.5125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 055</span>
+        <span class="sname">Wolcott</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.225&thinsp;<sup>c</sup></span><span class="fc">853.300&thinsp;<sup>c</sup></span><span class="fc">853.5375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.6875</span><span class="fr">853.750</span><span class="fr">856.9375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 057</span>
+        <span class="sname">Lake Hill</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.900&thinsp;<sup>c</sup></span><span class="fc">853.1125&thinsp;<sup>c</sup></span><span class="fc">853.400&thinsp;<sup>c</sup></span><span class="fc">853.9375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">852.3125</span><span class="fr">854.7125</span><span class="fr">856.1625</span><span class="fr">858.1625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 058</span>
+        <span class="sname">Keystone Resort</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">769.68125&thinsp;<sup>c</sup></span><span class="fc">769.93125&thinsp;<sup>c</sup></span><span class="fc">770.18125&thinsp;<sup>c</sup></span><span class="fc">770.43125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.18125</span><span class="fr">769.43125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 059</span>
+        <span class="sname">Blowout Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.425&thinsp;<sup>c</sup></span><span class="fc">853.700&thinsp;<sup>c</sup></span><span class="fc">853.8875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.900</span><span class="fr">852.075</span><span class="fr">856.0125</span><span class="fr">857.0125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 076</span>
+        <span class="sname">Vail</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.5625&thinsp;<sup>c</sup></span><span class="fc">851.8875&thinsp;<sup>c</sup></span><span class="fc">852.125&thinsp;<sup>c</sup></span><span class="fc">853.9625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.1875</span><span class="fr">851.3625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 077</span>
+        <span class="sname">Tyrolean</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.700&thinsp;<sup>c</sup></span><span class="fc">851.875&thinsp;<sup>c</sup></span><span class="fc">852.275&thinsp;<sup>c</sup></span><span class="fc">852.825&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.3875</span><span class="fr">858.6875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 078</span>
+        <span class="sname">East Vail</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">856.2625&thinsp;<sup>c</sup></span><span class="fc">857.2625&thinsp;<sup>c</sup></span><span class="fc">858.2625&thinsp;<sup>c</sup></span><span class="fc">859.4375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">854.2625</span><span class="fr">855.2375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 095</span>
+        <span class="sname">Lower Beaver Creek</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">856.7625&thinsp;<sup>c</sup></span><span class="fc">857.7625&thinsp;<sup>c</sup></span><span class="fc">858.7625&thinsp;<sup>c</sup></span><span class="fc">859.9875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">854.3875</span><span class="fr">855.7125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 096</span>
+        <span class="sname">Beacon Hill</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">857.3625&thinsp;<sup>c</sup></span><span class="fc">858.2875&thinsp;<sup>c</sup></span><span class="fc">859.2875&thinsp;<sup>c</sup></span><span class="fc">860.2875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">854.8625</span><span class="fr">855.1125</span><span class="fr">855.8625</span><span class="fr">856.3625</span></div></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: D1C · WACN: BEE07</span>
+    <span>16 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s5">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Pitkin &amp; Garfield Counties</div>
+    <div class="c-sub">Colorado DTRS &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 011</span>
+        <span class="sname">Sunlight Peak</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.8875&thinsp;<sup>c</sup></span><span class="fc">853.350&thinsp;<sup>c</sup></span><span class="fc">853.650&thinsp;<sup>c</sup></span><span class="fc">853.900&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.4125</span><span class="fr">852.1625</span><span class="fr">854.8625</span><span class="fr">855.7375</span><span class="fr">856.3875</span><span class="fr">856.7625</span><span class="fr">857.3875</span><span class="fr">857.7625</span><span class="fr">858.2625</span><span class="fr">858.7625</span><span class="fr">859.4375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 013</span>
+        <span class="sname">Parachute</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.575&thinsp;<sup>c</sup></span><span class="fc">852.850&thinsp;<sup>c</sup></span><span class="fc">853.100&thinsp;<sup>c</sup></span><span class="fc">853.6375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.575</span><span class="fr">859.9375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 017</span>
+        <span class="sname">Mount Callahan</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.2625&thinsp;<sup>c</sup></span><span class="fc">852.600&thinsp;<sup>c</sup></span><span class="fc">852.9375&thinsp;<sup>c</sup></span><span class="fc">853.2375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.2625</span><span class="fr">851.7875</span><span class="fr">852.100</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 026</span>
+        <span class="sname">Lookout (Glenwood Springs)</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.700&thinsp;<sup>c</sup></span><span class="fc">853.225&thinsp;<sup>c</sup></span><span class="fc">853.475&thinsp;<sup>c</sup></span><span class="fc">853.925&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.150</span><span class="fr">851.4625</span><span class="fr">851.950</span><span class="fr">856.0625</span><span class="fr">857.0625</span><span class="fr">858.0625</span><span class="fr">858.7375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 027</span>
+        <span class="sname">Harvey Gap</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.2125&thinsp;<sup>c</sup></span><span class="fc">853.0375&thinsp;<sup>c</sup></span><span class="fc">853.5625&thinsp;<sup>c</sup></span><span class="fc">853.800&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.650</span><span class="fr">858.0125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 032</span>
+        <span class="sname">Hagerman Pass</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.650&thinsp;<sup>c</sup></span><span class="fc">852.8625&thinsp;<sup>c</sup></span><span class="fc">853.275&thinsp;<sup>c</sup></span><span class="fc">853.575&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.5875</span><span class="fr">852.375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 036</span>
+        <span class="sname">Monument Peak</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.6375&thinsp;<sup>c</sup></span><span class="fc">851.800&thinsp;<sup>c</sup></span><span class="fc">853.4125&thinsp;<sup>c</sup></span><span class="fc">853.775&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 040</span>
+        <span class="sname">Loge Lift</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.95625&thinsp;<sup>c</sup></span><span class="fc">774.30625&thinsp;<sup>c</sup></span><span class="fc">774.55625&thinsp;<sup>c</sup></span><span class="fc">774.80625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.55625</span><span class="fr">771.03125</span><span class="fr">771.28125</span><span class="fr">771.68125</span><span class="fr">772.10625</span><span class="fr">772.58125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 052</span>
+        <span class="sname">Aspen Water</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">853.075&thinsp;<sup>c</sup></span><span class="fc">853.4375&thinsp;<sup>c</sup></span><span class="fc">853.600&thinsp;<sup>c</sup></span><span class="fc">853.7625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.050</span><span class="fr">851.225</span><span class="fr">851.775</span><span class="fr">852.050</span><span class="fr">852.3625</span><span class="fr">852.875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 064</span>
+        <span class="sname">Douglas Pass</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.900&thinsp;<sup>c</sup></span><span class="fc">852.200&thinsp;<sup>c</sup></span><span class="fc">852.4125&thinsp;<sup>c</sup></span><span class="fc">853.0625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.0375</span><span class="fr">851.325</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 066</span>
+        <span class="sname">Ajax (Aspen Mountain)</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.425&thinsp;<sup>c</sup></span><span class="fc">853.375&thinsp;<sup>c</sup></span><span class="fc">853.675&thinsp;<sup>c</sup></span><span class="fc">853.8625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.175</span><span class="fr">856.6625</span><span class="fr">857.6625</span><span class="fr">858.6625</span><span class="fr">859.6625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 068</span>
+        <span class="sname">Williams Hill</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.3375&thinsp;<sup>c</sup></span><span class="fc">852.5875&thinsp;<sup>c</sup></span><span class="fc">852.7375&thinsp;<sup>c</sup></span><span class="fc">853.2875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.1375</span><span class="fr">851.325</span><span class="fr">851.600</span><span class="fr">851.8375</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 069</span>
+        <span class="sname">Snowmass Town Hall</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.7625&thinsp;<sup>c</sup></span><span class="fc">853.050&thinsp;<sup>c</sup></span><span class="fc">853.200&thinsp;<sup>c</sup></span><span class="fc">853.7375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.075</span><span class="fr">851.350</span><span class="fr">851.675</span><span class="fr">852.1125</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 083</span>
+        <span class="sname">Rifle</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.0375&thinsp;<sup>c</sup></span><span class="fc">852.350&thinsp;<sup>c</sup></span><span class="fc">852.9625&thinsp;<sup>c</sup></span><span class="fc">853.5125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.2125</span><span class="fr">851.5375</span><span class="fr">858.5875</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 084</span>
+        <span class="sname">New Castle</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.9875&thinsp;<sup>c</sup></span><span class="fc">852.4875&thinsp;<sup>c</sup></span><span class="fc">852.9875&thinsp;<sup>c</sup></span><span class="fc">853.4875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.4875</span><span class="fr">857.4625</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 086</span>
+        <span class="sname">Crown Mountain</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">852.950&thinsp;<sup>c</sup></span><span class="fc">853.1625&thinsp;<sup>c</sup></span><span class="fc">853.450&thinsp;<sup>c</sup></span><span class="fc">853.975&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">852.450</span></div></div>
+    </div>
+    <div class="sblock">
+      <div class="shead">
+        <span class="sid">Site 102</span>
+        <span class="sname">Cinnamon Creek (Glenwood Canyon)</span>
+      </div>
+      <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">857.0875&thinsp;<sup>c</sup></span><span class="fc">857.5875&thinsp;<sup>c</sup></span><span class="fc">858.0875&thinsp;<sup>c</sup></span><span class="fc">859.1375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">856.0875</span><span class="fr">856.5875</span></div></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: D1C · WACN: BEE07</span>
+    <span>17 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="counter" id="counter"></div>
+
+  <div class="controls">
+    <button class="btn" id="prev" aria-label="Previous">&#8592;</button>
+    <select class="jump" id="jump" aria-label="Jump to slide"></select>
+    <button class="btn" id="next" aria-label="Next">&#8594;</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="slide-lbl" id="slide-lbl"></div>
+
+</div>
+
+<script>
+const track = document.getElementById('track');
+const slides = Array.from(document.querySelectorAll('.slide'));
+const counter = document.getElementById('counter');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+const jump = document.getElementById('jump');
+const dotsWrap = document.getElementById('dots');
+const slideLbl = document.getElementById('slide-lbl');
+
+let current = 0;
+
+const labels = [
+  'Title',
+  'Arapahoe & Denver Counties',
+  'Jefferson & Clear Creek Counties',
+  'Douglas & Elbert Counties',
+  'Eagle & Summit Counties',
+  'Pitkin & Garfield Counties'
+];
+
+function init() {
+  slides.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = labels[i] || `Slide ${i + 1}`;
+    jump.appendChild(opt);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.dataset.index = i;
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  render();
+}
+
+function goTo(i) {
+  current = Math.max(0, Math.min(i, slides.length - 1));
+  render();
+}
+
+function render() {
+  track.style.transform = `translateX(-${current * 100}%)`;
+  counter.textContent = `${current + 1} / ${slides.length}`;
+  jump.value = current;
+  prev.disabled = current === 0;
+  next.disabled = current === slides.length - 1;
+  slideLbl.textContent = labels[current] || '';
+
+  dotsWrap.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+prev.addEventListener('click', () => goTo(current - 1));
+next.addEventListener('click', () => goTo(current + 1));
+jump.addEventListener('change', () => goTo(+jump.value));
+
+let startX = 0;
+track.parentElement.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+track.parentElement.addEventListener('touchend', e => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = startX - endX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0 && current < slides.length - 1) goTo(current + 1);
+    else if (diff < 0 && current > 0) goTo(current - 1);
+  }
+}, { passive: true });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' && current > 0) goTo(current - 1);
+  if (e.key === 'ArrowRight' && current < slides.length - 1) goTo(current + 1);
+});
+
+init();
+</script>
+</body>
+</html>
