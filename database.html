@@ -143,7 +143,7 @@
   <p class="lead">Click a <strong style="color:#00b8ff">highlighted state</strong> to explore its statewide digital trunked radio system — frequencies, sites, and counties, all organized for your scanner.</p>
 
   <div class="callout" style="margin-bottom:24px">
-    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), Illinois (STARCOM21 · P25 Phase II), and Montana (PSCN · P25 Phase II). More states added regularly — check back soon.
+    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), Illinois (STARCOM21 · P25 Phase II), Montana (PSCN · P25 Phase II), and Colorado (DTRS · P25 Phase I). More states added regularly — check back soon.
   </div>
 
   <div class="map-container" style="max-width: 959px; margin: 0 auto 32px; text-align: center;">
@@ -579,6 +579,11 @@ Place this code in the empty space below. */
         <div class="dsc-system">PSCN · Sysid: 16E · WACN: BEE00</div>
         <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide MT &nbsp;·&nbsp; 50+ Sites</div>
       </a>
+      <a class="db-state-card" href="/colorado-database.html">
+        <div class="dsc-state">Colorado</div>
+        <div class="dsc-system">DTRS · Sysid: D1C · WACN: BEE07</div>
+        <div class="dsc-meta">Project 25 Phase I &nbsp;·&nbsp; Statewide CO &nbsp;·&nbsp; 100+ Sites</div>
+      </a>
     </div>
   </div>
 </div>
@@ -591,7 +596,8 @@ document.addEventListener('DOMContentLoaded', () => {
     nv: '/nevada-database.html',
     fl: '/florida-database.html',
     il: '/illinois-database.html',
-    mt: '/montana-database.html'
+    mt: '/montana-database.html',
+    co: '/colorado-database.html'
   };
 
   const wrapper = document.getElementById('usa-map-wrapper');
