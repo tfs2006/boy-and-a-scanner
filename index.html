@@ -20,10 +20,16 @@
   <meta property="og:url" content="https://boyandascanner.com/" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://boyandascanner.com/og-image.svg" />
+  <meta property="og:image" content="https://boyandascanner.com/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Boy and a Scanner" />
+  <meta property="og:image:alt" content="Boy and a Scanner — Uniden SDS100 Guides, Programming & Accessories" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Uniden SDS100: Beginner Guide, Programming &amp; Accessories" />
+  <meta name="twitter:description" content="Learn the Uniden SDS100 fast: beginner setup, manual &amp; Sentinel programming for P25, DMR, NXDN, plus best antennas and where to buy." />
+  <meta name="twitter:image" content="https://boyandascanner.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Boy and a Scanner — Uniden SDS100 Guides, Programming & Accessories" />
   
   <link rel="stylesheet" href="/css/style.css" />
   
@@ -39,6 +45,7 @@
         "@id": "https://boyandascanner.com/#organization",
         "name": "Boy and a Scanner",
         "url": "https://boyandascanner.com/",
+        "logo": "https://boyandascanner.com/og-image.png",
         "sameAs": [
           "https://www.youtube.com/@BoyAndAScanner",
           "https://www.amazon.com/shop/boyandascanner",
@@ -53,6 +60,17 @@
         "url": "https://boyandascanner.com/",
         "publisher": {"@id":"https://boyandascanner.com/#organization"},
         "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://boyandascanner.com/"
+          }
+        ]
       }
     ]
   }
@@ -201,20 +219,52 @@
       <div class="app-promo-content">
         <span class="app-promo-badge">NEW — Free Tool</span>
         <h2 class="app-promo-title">Don't Just Scan.&nbsp;Intercept.</h2>
-        <p class="app-promo-text">The <strong>BAAS Freq Finder & Trip Planner</strong> is the world's first AI-powered scanner assistant. Look up police, fire & EMS frequencies for any area, get one-tap programming manuals built for your exact results, and map trunked systems along your entire drive — automatically.</p>
+        <p class="app-promo-text">The <strong>BAAS Freq Finder & Trip Planner</strong> is the world's first AI-powered
+          scanner assistant. Look up police, fire & EMS frequencies for any area, get one-tap programming manuals built
+          for your exact results, and map trunked systems along your entire drive — automatically.</p>
         <ul class="app-promo-features">
-          <li><span class="app-promo-icon">📡</span> <strong>Instant Frequency Lookup</strong> — 81+ community-indexed locations with RadioReference cross-reference verification</li>
-          <li><span class="app-promo-icon">📖</span> <strong>One-Tap Programming Manuals</strong> — Step-by-step guides built for your exact search results, down to every button press</li>
-          <li><span class="app-promo-icon">🗺️</span> <strong>Route Recon Trip Planner</strong> — Map frequencies and trunked systems along your entire drive automatically</li>
-          <li><span class="app-promo-icon">🤖</span> <strong>AI Data Verification</strong> — Cross-references RadioReference data so you never program dead channels</li>
+          <li><span class="app-promo-icon">📡</span> <strong>Instant Frequency Lookup</strong> — 81+ community-indexed
+            locations with RadioReference cross-reference verification</li>
+          <li><span class="app-promo-icon">📖</span> <strong>One-Tap Programming Manuals</strong> — Step-by-step guides
+            built for your exact search results, down to every button press</li>
+          <li><span class="app-promo-icon">🗺️</span> <strong>Route Recon Trip Planner</strong> — Map frequencies and
+            trunked systems along your entire drive automatically</li>
+          <li><span class="app-promo-icon">🤖</span> <strong>AI Data Verification</strong> — Cross-references
+            RadioReference data so you never program dead channels</li>
         </ul>
         <div class="app-promo-buttons">
-          <a class="cta btn-lg" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Launch the BAAS App →</a>
+          <a class="cta btn-lg" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Launch the BAAS App
+            →</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<section class="db-promo">
+  <div class="wrap">
+    <div class="db-promo-inner">
+      <span class="db-promo-badge">NEW — Free Resource</span>
+      <h2 class="db-promo-title">Statewide Digital Systems Database</h2>
+      <p class="db-promo-text">Click any state on the interactive map to browse P25 trunked system frequencies — organized by county, with every control channel and voice frequency listed. Built for scanner operators, not spreadsheets.</p>
+      <div class="db-promo-states">
+        <span class="db-state-tag">🗺️ Arizona — AZ WINS (P25 Phase II)</span>
+        <span class="db-state-tag">🗺️ Idaho — ICAWIN (P25 Phase I)</span>
+      </div>
+      <a class="cta btn-lg" href="/database.html">Explore the Database →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.db-promo { background: linear-gradient(135deg,#091828 0%,#0c1e3a 50%,#091828 100%); border-top: 1px solid #0e2848; border-bottom: 1px solid #0e2848; padding: 40px 0; }
+.db-promo-inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.db-promo-badge { background: #0a2040; color: #00b8ff; font-size: .72rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; border: 1px solid #0e3060; letter-spacing: .06em; text-transform: uppercase; }
+.db-promo-title { font-size: 1.55rem; font-weight: 800; color: #d6eeff; line-height: 1.2; }
+.db-promo-text { font-size: .92rem; color: #6a90b8; max-width: 540px; line-height: 1.6; }
+.db-promo-states { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.db-state-tag { background: #0a1e38; color: #4888c8; font-size: .75rem; padding: 5px 13px; border-radius: 6px; border: 1px solid #102840; }
+</style>
 
 <main class="wrap" id="content">
   <section id="shop" class="card" style="margin-bottom:18px">
@@ -397,7 +447,8 @@
         Programming Guide</a> for upgrade/key requirements and the critical EDACS LCN order setup.</p>
     <p class="note"><strong>New:</strong> Learn how to find nearby signals with our <a
         href="/sds100-close-call-tutorial.html">SDS100 Close Call Tutorial</a> and monitor important channels with our
-      <a href="/sds100-priority-scan-tutorial.html">Priority Scan Tutorial</a>.</p>
+      <a href="/sds100-priority-scan-tutorial.html">Priority Scan Tutorial</a>.
+    </p>
 
     <div class="callout">
       <strong>Quick Orientation:</strong> A <em>Favorites List</em> is a folder. Inside it are <em>Systems</em> (big
@@ -833,6 +884,135 @@
 
     items.forEach(function (i) { io.observe(i.el); });
   })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Uniden SDS100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Uniden SDS100 is a handheld digital trunking scanner with a software-defined radio (True I/Q) receiver designed to handle modern P25 systems and challenging simulcast environments. It costs approximately $699.99 and is Uniden's flagship portable scanner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the SDS100 beginner-friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. With a built-in RadioReference-based database and ZIP code scanning, the SDS100 can be scanning local channels within minutes. Just enter your ZIP code and it finds nearby systems automatically. Advanced users can customize with Uniden Sentinel software."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the SDS100 support DMR or NXDN?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Out of the box, SDS100 supports analog and APCO P25 Phase I/II. DMR, NXDN, and ProVoice are available via optional paid upgrades from Uniden, costing approximately $50-75 each. Upgrade keys are purchased at my.uniden.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the best accessories for the SDS100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Popular upgrades include a Remtronix 800 MHz antenna for public-safety trunked systems, a wideband discone for home use, a telescoping whip for VHF/UHF, and SMA–BNC adapters for external antennas. The stock antenna works but upgrading improves reception significantly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does the Uniden SDS100 cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Uniden SDS100 typically costs around $699.99 USD. It's available on Amazon and other electronics retailers. Prices may vary during sales periods."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is True I/Q technology in the SDS100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "True I/Q is Uniden's software-defined radio (SDR) technology that samples the entire signal including phase information. This allows the SDS100 to decode difficult simulcast signals that cause distortion on traditional scanners. It's a major advantage in urban areas with overlapping tower coverage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the SDS100 have a waterfall display?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, as of firmware version 1.23.01 released in December 2023, the SDS100 gained a waterfall display feature. This shows real-time RF activity visually, helping you spot signals and interference patterns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "SDS100 vs SDS200: Which should I buy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SDS100 ($699.99) is handheld and portable, while the SDS200 ($749.99) is a base/mobile unit with a louder speaker and Ethernet connectivity. Choose SDS100 for portability, or SDS200 for home/vehicle use with better audio output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I program the SDS100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The easiest method is ZIP code scanning: Menu → Program System → Quick Key Search → enter your ZIP. For custom programming, download Uniden Sentinel software (free, Windows), connect via USB, and import systems from RadioReference.com. Sentinel lets you create Favorites Lists and customize settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What frequencies does the SDS100 cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SDS100 covers 25-512 MHz, 758-824 MHz, 849-869 MHz, and 894-960 MHz. This includes VHF, UHF, 700 MHz, 800 MHz, and 900 MHz public safety bands. It does not cover cellular frequencies (blocked by law in the US)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the SDS100 have GPS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SDS100 does not have built-in GPS but supports an optional external GPS receiver. With GPS, it enables location-based scanning and automatic range switching. The newer SDS150 includes built-in GPS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I update SDS100 firmware?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Download the latest firmware from Uniden's support page, connect your SDS100 via USB, and use Uniden Sentinel software to apply the update. Current firmware is version 1.23.01 (December 2023) which added the waterfall display feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the SDS100 waterproof?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SDS100 is water-resistant (IPX4 rated) but not fully waterproof. It can handle splashes and light rain but should not be submerged. Use a protective case in wet conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What battery does the SDS100 use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The SDS100 uses a rechargeable BP-SDS100 lithium-ion battery pack providing approximately 4-6 hours of operation. It can also run on 3 AA batteries with an optional adapter for extended field use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I listen to encrypted radio with the SDS100?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the SDS100 cannot decode encrypted transmissions. While it can receive P25, DMR, and NXDN digital signals, any encryption applied by agencies will result in silence or garbled audio. More agencies are moving to encryption, so check your local systems first."
+      }
+    }
+  ]
+}
 </script>
 
   <div class="stickybar">
