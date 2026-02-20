@@ -1,0 +1,155 @@
+---
+layout: base.njk
+title: "Statewide Digital Systems Database | Boy and a Scanner"
+description: "Interactive clickable map of statewide digital trunked radio systems. Click any highlighted state to explore P25, DMR, and digital frequencies organized by county — by Boy and a Scanner."
+---
+<div class="wrap">
+  <span class="kicker">Database</span>
+  <h1>Statewide Digital Systems Database</h1>
+  <p class="lead">Click a <strong style="color:#00b8ff">highlighted state</strong> to explore its statewide digital trunked radio system — frequencies, sites, and counties, all organized for your scanner.</p>
+
+  <div class="callout" style="margin-bottom:24px">
+    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II) and Idaho (ICAWIN · P25 Phase I). More states added regularly — check back soon.
+  </div>
+
+  <div class="map-container" style="max-width: 959px; margin: 0 auto 32px; text-align: center;">
+    <style>
+      /* ── SVG map states ── */
+      .state {
+        fill: #1c2a48;
+        cursor: default;
+        transition: fill 0.2s, stroke 0.2s;
+        stroke: #0f172a;
+        stroke-width: 1px;
+      }
+      /* States with databases are highlighted and clickable */
+      .has-db {
+        fill: #2d4575;
+        cursor: pointer;
+      }
+      .has-db:hover {
+        fill: #00b8ff !important;
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+      .borders {
+        stroke: #0f172a;
+        stroke-width: 1;
+        pointer-events: none;
+      }
+      /* Mobile responsiveness */
+      .map-container svg {
+        width: 100%;
+        height: auto;
+      }
+      /* Legend */
+      .map-legend {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        font-size: 0.8rem;
+        color: #7090b0;
+      }
+      .map-legend span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .leg-swatch {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+      /* State list cards below map */
+      .db-state-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 14px;
+        margin-top: 32px;
+      }
+      .db-state-card {
+        background: #0d1424;
+        border: 1px solid #1c3060;
+        border-radius: 10px;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.2s, background 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .db-state-card:hover {
+        border-color: #00b8ff;
+        background: #0f1a34;
+        color: inherit;
+      }
+      .db-state-card .dsc-state {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #00b8ff;
+      }
+      .db-state-card .dsc-system {
+        font-size: 0.75rem;
+        color: #5888b8;
+        font-family: 'Courier New', monospace;
+      }
+      .db-state-card .dsc-meta {
+        font-size: 0.7rem;
+        color: #3a5878;
+        margin-top: 2px;
+      }
+    </style>
+
+    <div id="usa-map-wrapper">
+      {% include "usa-map.svg" %}
+    </div>
+
+    <div class="map-legend">
+      <span><span class="leg-swatch" style="background:#2d4575;border:1px solid #3a5890"></span>Database available — click to explore</span>
+      <span><span class="leg-swatch" style="background:#1c2a48;border:1px solid #243060"></span>Coming soon</span>
+    </div>
+
+    <div class="db-state-grid">
+      <a class="db-state-card" href="/arizona-database.html">
+        <div class="dsc-state">Arizona</div>
+        <div class="dsc-system">AZ WINS · Sysid: 15A · WACN: BEE00</div>
+        <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; 13 Counties &nbsp;·&nbsp; 53 Sites</div>
+      </a>
+      <a class="db-state-card" href="/idaho-database.html">
+        <div class="dsc-state">Idaho</div>
+        <div class="dsc-system">ICAWIN · Sysid: 18B · WACN: BEE00</div>
+        <div class="dsc-meta">Project 25 Phase I &nbsp;·&nbsp; 20 Counties &nbsp;·&nbsp; 40 Sites</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const DB_STATES = {
+    id: '/idaho-database.html',
+    az: '/arizona-database.html'
+  };
+
+  const wrapper = document.getElementById('usa-map-wrapper');
+  if (!wrapper) return;
+
+  const paths = wrapper.querySelectorAll('svg path, svg polygon, svg rect');
+  paths.forEach(el => {
+    const cls = Array.from(el.classList).find(c => c !== 'state' && c !== 'borders');
+    if (!cls) return;
+    if (DB_STATES[cls]) {
+      el.classList.add('has-db');
+      el.setAttribute('role', 'link');
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('click', () => { window.location.href = DB_STATES[cls]; });
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') window.location.href = DB_STATES[cls]; });
+    }
+  });
+});
+</script>

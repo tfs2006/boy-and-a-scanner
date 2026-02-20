@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICAWIN · Idaho P25 Phase I · Boy and a Scanner</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page ── */
+html, body {
+  min-height: 100%;
+  background: #06090f;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body { padding: 28px 16px 56px; gap: 0; }
+
+/* ── Page header ── */
+.page-hdr {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.page-hdr h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #00b8ff;
+  letter-spacing: .05em;
+}
+.page-hdr p {
+  font-size: .75rem;
+  color: #4a6888;
+  margin-top: 3px;
+}
+
+/* ── Outer wrapper — constrains everything ── */
+.wrapper {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Stage: exact 9:16 box, no overflow ── */
+.stage {
+  width: 100%;
+  /* 9:16 = padding-top trick so it's always exact */
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,184,255,.15), 0 6px 32px rgba(0,0,0,.7);
+  background: #0d1120;
+  /* Force 9:16 with aspect-ratio; fallback below */
+  aspect-ratio: 9 / 16;
+}
+
+/* Absolutely-fill inner track container */
+.track-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transition: transform .4s cubic-bezier(.77,0,.175,1);
+  will-change: transform;
+}
+
+/* ── Each slide: exact same size as stage ── */
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d1120;
+  overflow: hidden; /* slides themselves never scroll */
+}
+
+/* ── Accent bars ── */
+.bar {
+  flex: 0 0 5px;
+  width: 100%;
+}
+.top-bar { background: linear-gradient(90deg,#00b8ff,#0055cc); }
+.bot-bar { background: linear-gradient(90deg,#0055cc,#00b8ff); }
+
+/* ════════════════ TITLE SLIDE ════════════════ */
+.title-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 20px 20px;
+  background: linear-gradient(160deg,#111c38 0%,#0d1120 100%);
+  text-align: center;
+  overflow: hidden;
+}
+
+.t-name {
+  font-size: .88rem;
+  font-weight: 700;
+  color: #d0e8ff;
+  line-height: 1.35;
+}
+
+.t-abbr {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #00b8ff;
+  letter-spacing: .1em;
+  text-shadow: 0 0 28px rgba(0,184,255,.4);
+  line-height: 1;
+}
+
+.t-state {
+  font-size: .8rem;
+  color: #00b8ff;
+  font-weight: 500;
+}
+
+.t-brand {
+  font-size: .72rem;
+  color: #44cc6a;
+}
+
+.t-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.pill {
+  background: #1a2a50;
+  color: #80aade;
+  font-size: .62rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid #243868;
+  font-family: 'Courier New', monospace;
+}
+.pill.dim { color: #3a5070; border-color: #182438; background: #0e1828; }
+
+.t-hint {
+  font-size: .6rem;
+  color: #283a58;
+  margin-top: 6px;
+}
+
+/* ════════════════ COUNTY SLIDE ════════════════ */
+.chead {
+  flex: 0 0 auto;
+  background: #101c3c;
+  padding: 9px 14px 7px;
+  border-bottom: 1px solid #1c3060;
+}
+.c-county {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #00b8ff;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.c-sub {
+  font-size: .58rem;
+  color: #44cc6a;
+  margin-top: 1px;
+}
+
+/* scrollable body — fills remaining space */
+.cbody {
+  flex: 1 1 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 10px;
+  min-height: 0; /* crucial for flex scroll */
+  scrollbar-width: thin;
+  scrollbar-color: #1e3060 transparent;
+}
+.cbody::-webkit-scrollbar { width: 3px; }
+.cbody::-webkit-scrollbar-thumb { background: #1e3060; border-radius: 2px; }
+
+/* site block */
+.sblock {
+  border: 1px solid #182e54;
+  border-radius: 7px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.sblock:last-child { margin-bottom: 0; }
+
+.shead {
+  background: #112040;
+  padding: 5px 9px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: 1px solid #182e54;
+}
+.sid {
+  font-family: 'Courier New', monospace;
+  font-size: .55rem;
+  background: #091828;
+  color: #3a6898;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.sname {
+  font-size: .68rem;
+  font-weight: 600;
+  color: #b8d0ee;
+  line-height: 1.2;
+  /* allow wrap for long names */
+}
+
+.sfreqs { padding: 0; }
+
+/* freq label */
+.flabel {
+  font-size: .55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 4px 8px 2px;
+  margin: 0;
+}
+.clabel { color: #ffc020; background: rgba(255,160,0,.07); }
+.rlabel { color: #82beed; background: rgba(80,160,255,.04); }
+
+/* freq grid */
+.fgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 3px 7px 7px;
+}
+
+.fc, .fr {
+  font-family: 'Courier New', monospace;
+  font-size: .62rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.fc {
+  color: #ffc020;
+  background: #281800;
+  border: 1px solid #402800;
+}
+.fc sup { color: #ff8c00; font-weight: 800; font-size: .65em; }
+.fr {
+  color: #82beed;
+  background: #071628;
+  border: 1px solid #152440;
+}
+
+/* footer */
+.cfoot {
+  flex: 0 0 auto;
+  background: #0b1428;
+  border-top: 1px solid #182848;
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cfoot span {
+  font-family: 'Courier New', monospace;
+  font-size: .5rem;
+  color: #2e4868;
+}
+
+/* ════════════════ COUNTER + CONTROLS ════════════════ */
+.counter {
+  font-family: 'Courier New', monospace;
+  font-size: .72rem;
+  color: #2e4870;
+  margin-top: 12px;
+  text-align: center;
+  height: 16px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #1a3060;
+  background: #101c38;
+  color: #00b8ff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, box-shadow .2s;
+  flex-shrink: 0;
+  user-select: none;
+}
+.btn:hover { background: #182e58; box-shadow: 0 0 10px rgba(0,184,255,.25); }
+.btn:active { transform: scale(.93); }
+.btn:disabled { opacity: .2; cursor: default; }
+
+.jump {
+  flex: 1;
+  background: #0c1428;
+  border: 1px solid #182848;
+  color: #5888b8;
+  font-size: .68rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23385880'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+/* ── Dots ── */
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 12px;
+  max-width: 390px;
+  padding: 0 4px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1a2e50;
+  cursor: pointer;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.dot.active {
+  background: #00b8ff;
+  width: 18px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,184,255,.5);
+}
+.dot:hover { background: #264880; }
+
+.slide-lbl {
+  font-size: .62rem;
+  color: #243850;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  margin-top: 5px;
+  height: 14px;
+}
+
+.back-link {
+  font-size: .65rem;
+  color: #3a6898;
+  text-decoration: none;
+  margin-bottom: 14px;
+  display: inline-block;
+}
+.back-link:hover { color: #00b8ff; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/database.html">&#8592; Back to Database Map</a>
+
+<div class="page-hdr">
+  <h1>ICAWIN — Idaho P25 Phase I</h1>
+  <p>Statewide, Idaho &nbsp;·&nbsp; by Boy and a Scanner</p>
+</div>
+
+<div class="wrapper">
+
+  <div class="stage">
+    <div class="track-wrap">
+      <div class="track" id="track">
+        
+<div class="slide" id="s0">
+  <div class="bar top-bar"></div>
+  <div class="title-body">
+    <div class="t-name">Idaho Cooperative Agencies<br>Wireless Interoperable Network</div>
+    <div class="t-abbr">ICAWIN</div>
+    <div class="t-state">Statewide, Idaho</div>
+    <div class="t-brand">by Boy and a Scanner</div>
+    <div class="t-pills">
+      <span class="pill">Project 25 Phase I</span>
+      <span class="pill">Sysid: 18B</span>
+      <span class="pill">WACN: BEE00</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">APCO-25 CAI Exclusive</span>
+      <span class="pill dim">40 Sites</span>
+      <span class="pill dim">20 Counties</span>
+    </div>
+    <div class="t-hint">Use arrows or swipe to navigate &#8594;</div>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s1">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Ada County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 003</span>
+            <span class="sname">Ada County Simulcast</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.13125&thinsp;<sup>c</sup></span><span class="fc">774.38125&thinsp;<sup>c</sup></span><span class="fc">774.63125&thinsp;<sup>c</sup></span><span class="fc">774.88125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.25625</span><span class="fr">769.76875</span><span class="fr">770.28125</span><span class="fr">770.79375</span><span class="fr">771.03125</span><span class="fr">771.33125</span><span class="fr">771.79375</span><span class="fr">772.09375</span><span class="fr">772.24375</span><span class="fr">772.69375</span><span class="fr">773.14375</span><span class="fr">773.38125</span><span class="fr">773.63125</span><span class="fr">773.88125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 012</span>
+            <span class="sname">Boise (Warm Springs Ave)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">859.2625&thinsp;<sup>c</sup></span><span class="fc">859.4375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">857.9625</span><span class="fr">858.9625</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 014</span>
+            <span class="sname">Boise (Hwy 55)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">851.450&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">851.7875</span><span class="fr">852.175</span><span class="fr">852.5625</span><span class="fr">852.925</span><span class="fr">853.2875</span><span class="fr">853.575</span><span class="fr">853.975</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>3 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s2">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Bannock County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 001</span>
+            <span class="sname">Chinese Peak</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.58125&thinsp;<sup>c</sup></span><span class="fc">774.18125&thinsp;<sup>c</sup></span><span class="fc">774.88125&thinsp;<sup>c</sup></span><span class="fc">775.48125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.08125</span><span class="fr">769.86875</span><span class="fr">770.33125</span><span class="fr">771.03125</span><span class="fr">771.48125</span><span class="fr">771.85625</span><span class="fr">772.26875</span><span class="fr">772.71875</span><span class="fr">774.13125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 002</span>
+            <span class="sname">Sedgewick Pk (Lava Hot Spr)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.18125&thinsp;<sup>c</sup></span><span class="fc">771.63125&thinsp;<sup>c</sup></span><span class="fc">773.40625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.11875</span><span class="fr">769.51875</span><span class="fr">770.51875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 037</span>
+            <span class="sname">Kinport Pk (Pocatello)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.35625&thinsp;<sup>c</sup></span><span class="fc">772.96875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.28125</span><span class="fr">770.85625</span><span class="fr">771.29375</span><span class="fr">771.74375</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 041</span>
+            <span class="sname">Arimo</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.80625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.26875</span><span class="fr">770.01875</span><span class="fr">770.80625</span><span class="fr">771.33125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 046</span>
+            <span class="sname">Inkom</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.64375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">771.96875</span><span class="fr">772.56875</span><span class="fr">773.13125</span><span class="fr">773.88125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 049</span>
+            <span class="sname">Lava Hill</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.38125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">772.41875</span><span class="fr">772.86875</span><span class="fr">773.66875</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>6 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s3">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Bear Lake County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 030</span>
+            <span class="sname">Montpelier</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">770.00625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">771.16875</span><span class="fr">771.81875</span><span class="fr">773.68125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 047</span>
+            <span class="sname">Hell Hole Ridge (Montpelier)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.43125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.85625</span><span class="fr">770.56875</span><span class="fr">771.98125</span><span class="fr">772.85625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>2 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s4">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Bingham County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 004</span>
+            <span class="sname">East Butte (Midway)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.91875&thinsp;<sup>c</sup></span><span class="fc">774.44375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">772.16875</span><span class="fr">772.61875</span><span class="fr">773.18125</span><span class="fr">773.64375</span><span class="fr">774.96875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 005</span>
+            <span class="sname">Blackfoot</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.06875&thinsp;<sup>c</sup></span><span class="fc">771.51875&thinsp;<sup>c</sup></span><span class="fc">772.00625&thinsp;<sup>c</sup></span><span class="fc">772.46875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.54375</span><span class="fr">770.04375</span><span class="fr">770.35625</span><span class="fr">774.39375</span><span class="fr">775.91875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 044</span>
+            <span class="sname">Shelley Butte</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.76875&thinsp;<sup>c</sup></span><span class="fc">773.69375&thinsp;<sup>c</sup></span><span class="fc">774.70625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.61875</span><span class="fr">771.66875</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>3 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s5">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Blaine County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 023</span>
+            <span class="sname">Bellevue</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.29375&thinsp;<sup>c</sup></span><span class="fc">773.45625&thinsp;<sup>c</sup></span><span class="fc">774.14375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.61875</span><span class="fr">771.19375</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 024</span>
+            <span class="sname">Ketchum</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.89375&thinsp;<sup>c</sup></span><span class="fc">772.89375&thinsp;<sup>c</sup></span><span class="fc">773.94375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.36875</span><span class="fr">770.50625</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 025</span>
+            <span class="sname">Sun Valley</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.49375&thinsp;<sup>c</sup></span><span class="fc">772.59375&thinsp;<sup>c</sup></span><span class="fc">773.65625&thinsp;<sup>c</sup></span><span class="fc">774.49375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">770.00625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>3 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s6">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Boise County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 006</span>
+            <span class="sname">Shafer Butte (Boise)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.16875&thinsp;<sup>c</sup></span><span class="fc">773.21875&thinsp;<sup>c</sup></span><span class="fc">773.74375&thinsp;<sup>c</sup></span><span class="fc">774.66875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.09375</span><span class="fr">769.54375</span><span class="fr">770.04375</span><span class="fr">770.36875</span><span class="fr">770.58125</span><span class="fr">771.00625</span><span class="fr">771.18125</span><span class="fr">771.45625</span><span class="fr">771.63125</span><span class="fr">771.94375</span><span class="fr">772.39375</span><span class="fr">772.54375</span><span class="fr">772.84375</span><span class="fr">772.99375</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s7">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Bonner County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 021</span>
+            <span class="sname">Hoodoo Mtn (Blanchard)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.03125&thinsp;<sup>c</sup></span><span class="fc">773.69375&thinsp;<sup>c</sup></span><span class="fc">774.68125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.55625</span><span class="fr">770.83125</span><span class="fr">771.25625</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 027</span>
+            <span class="sname">Schweitzer Peak</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.94375&thinsp;<sup>c</sup></span><span class="fc">774.49375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.78125</span><span class="fr">770.54375</span><span class="fr">773.15625</span><span class="fr">773.40625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>2 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s8">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Bonneville County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 039</span>
+            <span class="sname">Iona Butte (Idaho Falls)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.80625&thinsp;<sup>c</sup></span><span class="fc">774.30625&thinsp;<sup>c</sup></span><span class="fc">774.58125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.20625</span><span class="fr">769.90625</span><span class="fr">770.43125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s9">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Canyon County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 007</span>
+            <span class="sname">Parma</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.93125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.86875</span><span class="fr">771.20625</span><span class="fr">771.68125</span><span class="fr">773.30625</span><span class="fr">773.41875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 009</span>
+            <span class="sname">Nampa</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.83125&thinsp;<sup>c</sup></span><span class="fc">772.45625&thinsp;<sup>c</sup></span><span class="fc">772.90625&thinsp;<sup>c</sup></span><span class="fc">774.43125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.30625</span><span class="fr">770.11875</span><span class="fr">770.86875</span><span class="fr">771.35625</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 010</span>
+            <span class="sname">Caldwell</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.60625&thinsp;<sup>c</sup></span><span class="fc">773.16875&thinsp;<sup>c</sup></span><span class="fc">773.65625&thinsp;<sup>c</sup></span><span class="fc">774.18125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.60625</span><span class="fr">770.54375</span><span class="fr">771.53125</span><span class="fr">771.98125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>3 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s10">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Caribou County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 040</span>
+            <span class="sname">Soda Springs</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.19375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.29375</span><span class="fr">769.81875</span><span class="fr">771.24375</span><span class="fr">771.69375</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s11">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Cassia County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 042</span>
+            <span class="sname">Mt. Harrison (Albion)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">770.70625&thinsp;<sup>c</sup></span><span class="fc">771.40625&thinsp;<sup>c</sup></span><span class="fc">772.01875&thinsp;<sup>c</sup></span><span class="fc">772.63125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.34375</span><span class="fr">770.08125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s12">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Elmore County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 011</span>
+            <span class="sname">Bennett Mtn (Mtn. Home)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">769.46875&thinsp;<sup>c</sup></span><span class="fc">774.59375&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.21875</span><span class="fr">770.21875</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s13">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Fremont County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 036</span>
+            <span class="sname">Sawtelle Peak (Island Park)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">769.45625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.15625</span><span class="fr">769.46875</span><span class="fr">773.78125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s14">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Jerome County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 043</span>
+            <span class="sname">Flat Top Butte (Jerome)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.13125&thinsp;<sup>c</sup></span><span class="fc">772.73125&thinsp;<sup>c</sup></span><span class="fc">774.40625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">771.65625</span><span class="fr">773.16875</span><span class="fr">774.70625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s15">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Kootenai County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 019</span>
+            <span class="sname">Mica Pk (Post Falls)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.53125&thinsp;<sup>c</sup></span><span class="fc">773.13125&thinsp;<sup>c</sup></span><span class="fc">773.58125&thinsp;<sup>c</sup></span><span class="fc">774.16875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.11875</span><span class="fr">770.20625</span><span class="fr">771.00625</span><span class="fr">771.66875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 020</span>
+            <span class="sname">Canfield Mtn (Coeur d'Alene)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.88125&thinsp;<sup>c</sup></span><span class="fc">773.91875&thinsp;<sup>c</sup></span><span class="fc">774.38125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.28125</span><span class="fr">770.05625</span><span class="fr">770.56875</span><span class="fr">771.30625</span><span class="fr">771.83125</span><span class="fr">772.33125</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 022</span>
+            <span class="sname">Mason Butte (Worley)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.65625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.51875</span><span class="fr">770.80625</span><span class="fr">771.21875</span><span class="fr">771.98125</span><span class="fr">773.66875</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 026</span>
+            <span class="sname">Killarney Mtn (Harrison)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">773.38125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.28125</span><span class="fr">769.80625</span><span class="fr">770.30625</span><span class="fr">772.15625</span><span class="fr">772.70625</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 029</span>
+            <span class="sname">Mt Spokane</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">769.61875&thinsp;<sup>c</sup></span><span class="fc">770.76875&thinsp;<sup>c</sup></span><span class="fc">771.76875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">772.74375</span><span class="fr">773.89375</span><span class="fr">774.91875</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>5 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s16">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Nez Perce County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 028</span>
+            <span class="sname">Lewiston</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.90625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.35625</span><span class="fr">770.25625</span><span class="fr">771.71875</span><span class="fr">772.79375</span><span class="fr">773.94375</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s17">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Oneida County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 048</span>
+            <span class="sname">Malad Repeater Site</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.90625&thinsp;<sup>c</sup></span><span class="fc">774.48125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.85625</span><span class="fr">770.36875</span><span class="fr">771.44375</span><span class="fr">772.30625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s18">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Owyhee County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 008</span>
+            <span class="sname">Marsing (Ion Hill)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">772.01875&thinsp;<sup>c</sup></span><span class="fc">772.75625&thinsp;<sup>c</sup></span><span class="fc">774.45625&thinsp;<sup>c</sup></span><span class="fc">774.90625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.11875</span><span class="fr">769.83125</span><span class="fr">770.30625</span><span class="fr">771.05625</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s19">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Power County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 045</span>
+            <span class="sname">Rockland</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">774.23125&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.59375</span><span class="fr">772.50625</span><span class="fr">772.81875</span><span class="fr">773.48125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>1 site</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s20">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Teton County</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 018</span>
+            <span class="sname">Victor</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">771.26875&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">772.25625</span><span class="fr">773.21875</span><span class="fr">774.49375</span></div></div>
+        </div>
+        <div class="sblock">
+          <div class="shead">
+            <span class="sid">Site 038</span>
+            <span class="sname">Relay Ridge (Driggs)</span>
+          </div>
+          <div class="sfreqs"><p class="flabel clabel">Control Frequencies</p><div class="fgrid"><span class="fc">770.95625&thinsp;<sup>c</sup></span><span class="fc">773.55625&thinsp;<sup>c</sup></span></div><p class="flabel rlabel">Frequencies</p><div class="fgrid"><span class="fr">769.40625</span><span class="fr">769.68125</span><span class="fr">770.18125</span><span class="fr">773.28125</span></div></div>
+        </div></div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>2 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+
+<div class="slide" id="s21">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">All Frequencies</div>
+    <div class="c-sub">ICAWIN &nbsp;·&nbsp; by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <p class="flabel clabel">Control Frequencies (82 unique)</p>
+      <div class="fgrid"><span class="fc">769.45625&thinsp;<sup>c</sup></span><span class="fc">769.46875&thinsp;<sup>c</sup></span><span class="fc">769.61875&thinsp;<sup>c</sup></span><span class="fc">770.00625&thinsp;<sup>c</sup></span><span class="fc">770.70625&thinsp;<sup>c</sup></span><span class="fc">770.76875&thinsp;<sup>c</sup></span><span class="fc">770.95625&thinsp;<sup>c</sup></span><span class="fc">771.06875&thinsp;<sup>c</sup></span><span class="fc">771.18125&thinsp;<sup>c</sup></span><span class="fc">771.26875&thinsp;<sup>c</sup></span><span class="fc">771.40625&thinsp;<sup>c</sup></span><span class="fc">771.49375&thinsp;<sup>c</sup></span><span class="fc">771.51875&thinsp;<sup>c</sup></span><span class="fc">771.63125&thinsp;<sup>c</sup></span><span class="fc">771.76875&thinsp;<sup>c</sup></span><span class="fc">771.80625&thinsp;<sup>c</sup></span><span class="fc">771.83125&thinsp;<sup>c</sup></span><span class="fc">771.89375&thinsp;<sup>c</sup></span><span class="fc">772.00625&thinsp;<sup>c</sup></span><span class="fc">772.01875&thinsp;<sup>c</sup></span><span class="fc">772.03125&thinsp;<sup>c</sup></span><span class="fc">772.13125&thinsp;<sup>c</sup></span><span class="fc">772.16875&thinsp;<sup>c</sup></span><span class="fc">772.19375&thinsp;<sup>c</sup></span><span class="fc">772.29375&thinsp;<sup>c</sup></span><span class="fc">772.35625&thinsp;<sup>c</sup></span><span class="fc">772.45625&thinsp;<sup>c</sup></span><span class="fc">772.46875&thinsp;<sup>c</sup></span><span class="fc">772.53125&thinsp;<sup>c</sup></span><span class="fc">772.59375&thinsp;<sup>c</sup></span><span class="fc">772.60625&thinsp;<sup>c</sup></span><span class="fc">772.63125&thinsp;<sup>c</sup></span><span class="fc">772.73125&thinsp;<sup>c</sup></span><span class="fc">772.75625&thinsp;<sup>c</sup></span><span class="fc">772.76875&thinsp;<sup>c</sup></span><span class="fc">772.88125&thinsp;<sup>c</sup></span><span class="fc">772.89375&thinsp;<sup>c</sup></span><span class="fc">772.90625&thinsp;<sup>c</sup></span><span class="fc">772.96875&thinsp;<sup>c</sup></span><span class="fc">773.13125&thinsp;<sup>c</sup></span><span class="fc">773.16875&thinsp;<sup>c</sup></span><span class="fc">773.21875&thinsp;<sup>c</sup></span><span class="fc">773.38125&thinsp;<sup>c</sup></span><span class="fc">773.40625&thinsp;<sup>c</sup></span><span class="fc">773.43125&thinsp;<sup>c</sup></span><span class="fc">773.45625&thinsp;<sup>c</sup></span><span class="fc">773.55625&thinsp;<sup>c</sup></span><span class="fc">773.58125&thinsp;<sup>c</sup></span><span class="fc">773.65625&thinsp;<sup>c</sup></span><span class="fc">773.69375&thinsp;<sup>c</sup></span><span class="fc">773.74375&thinsp;<sup>c</sup></span><span class="fc">773.80625&thinsp;<sup>c</sup></span><span class="fc">773.91875&thinsp;<sup>c</sup></span><span class="fc">773.93125&thinsp;<sup>c</sup></span><span class="fc">773.94375&thinsp;<sup>c</sup></span><span class="fc">774.13125&thinsp;<sup>c</sup></span><span class="fc">774.14375&thinsp;<sup>c</sup></span><span class="fc">774.16875&thinsp;<sup>c</sup></span><span class="fc">774.18125&thinsp;<sup>c</sup></span><span class="fc">774.23125&thinsp;<sup>c</sup></span><span class="fc">774.30625&thinsp;<sup>c</sup></span><span class="fc">774.38125&thinsp;<sup>c</sup></span><span class="fc">774.40625&thinsp;<sup>c</sup></span><span class="fc">774.43125&thinsp;<sup>c</sup></span><span class="fc">774.44375&thinsp;<sup>c</sup></span><span class="fc">774.45625&thinsp;<sup>c</sup></span><span class="fc">774.48125&thinsp;<sup>c</sup></span><span class="fc">774.49375&thinsp;<sup>c</sup></span><span class="fc">774.58125&thinsp;<sup>c</sup></span><span class="fc">774.59375&thinsp;<sup>c</sup></span><span class="fc">774.63125&thinsp;<sup>c</sup></span><span class="fc">774.64375&thinsp;<sup>c</sup></span><span class="fc">774.65625&thinsp;<sup>c</sup></span><span class="fc">774.66875&thinsp;<sup>c</sup></span><span class="fc">774.68125&thinsp;<sup>c</sup></span><span class="fc">774.70625&thinsp;<sup>c</sup></span><span class="fc">774.88125&thinsp;<sup>c</sup></span><span class="fc">774.90625&thinsp;<sup>c</sup></span><span class="fc">775.48125&thinsp;<sup>c</sup></span><span class="fc">851.450&thinsp;<sup>c</sup></span><span class="fc">859.2625&thinsp;<sup>c</sup></span><span class="fc">859.4375&thinsp;<sup>c</sup></span></div>
+      <p class="flabel rlabel" style="margin-top:10px">Frequencies (134 unique)</p>
+      <div class="fgrid"><span class="fr">769.08125</span><span class="fr">769.09375</span><span class="fr">769.11875</span><span class="fr">769.15625</span><span class="fr">769.20625</span><span class="fr">769.21875</span><span class="fr">769.25625</span><span class="fr">769.26875</span><span class="fr">769.28125</span><span class="fr">769.29375</span><span class="fr">769.30625</span><span class="fr">769.34375</span><span class="fr">769.35625</span><span class="fr">769.36875</span><span class="fr">769.40625</span><span class="fr">769.51875</span><span class="fr">769.54375</span><span class="fr">769.55625</span><span class="fr">769.59375</span><span class="fr">769.60625</span><span class="fr">769.68125</span><span class="fr">769.76875</span><span class="fr">769.78125</span><span class="fr">769.80625</span><span class="fr">769.81875</span><span class="fr">769.83125</span><span class="fr">769.85625</span><span class="fr">769.86875</span><span class="fr">769.90625</span><span class="fr">770.01875</span><span class="fr">770.04375</span><span class="fr">770.05625</span><span class="fr">770.08125</span><span class="fr">770.11875</span><span class="fr">770.18125</span><span class="fr">770.20625</span><span class="fr">770.21875</span><span class="fr">770.25625</span><span class="fr">770.28125</span><span class="fr">770.30625</span><span class="fr">770.33125</span><span class="fr">770.35625</span><span class="fr">770.36875</span><span class="fr">770.43125</span><span class="fr">770.50625</span><span class="fr">770.51875</span><span class="fr">770.54375</span><span class="fr">770.56875</span><span class="fr">770.58125</span><span class="fr">770.61875</span><span class="fr">770.79375</span><span class="fr">770.80625</span><span class="fr">770.83125</span><span class="fr">770.85625</span><span class="fr">770.86875</span><span class="fr">771.00625</span><span class="fr">771.03125</span><span class="fr">771.05625</span><span class="fr">771.16875</span><span class="fr">771.19375</span><span class="fr">771.20625</span><span class="fr">771.21875</span><span class="fr">771.24375</span><span class="fr">771.25625</span><span class="fr">771.29375</span><span class="fr">771.30625</span><span class="fr">771.33125</span><span class="fr">771.35625</span><span class="fr">771.44375</span><span class="fr">771.45625</span><span class="fr">771.48125</span><span class="fr">771.53125</span><span class="fr">771.65625</span><span class="fr">771.66875</span><span class="fr">771.68125</span><span class="fr">771.69375</span><span class="fr">771.71875</span><span class="fr">771.74375</span><span class="fr">771.79375</span><span class="fr">771.81875</span><span class="fr">771.85625</span><span class="fr">771.94375</span><span class="fr">771.96875</span><span class="fr">771.98125</span><span class="fr">772.09375</span><span class="fr">772.15625</span><span class="fr">772.24375</span><span class="fr">772.25625</span><span class="fr">772.26875</span><span class="fr">772.30625</span><span class="fr">772.33125</span><span class="fr">772.39375</span><span class="fr">772.41875</span><span class="fr">772.50625</span><span class="fr">772.54375</span><span class="fr">772.56875</span><span class="fr">772.61875</span><span class="fr">772.69375</span><span class="fr">772.70625</span><span class="fr">772.71875</span><span class="fr">772.74375</span><span class="fr">772.79375</span><span class="fr">772.81875</span><span class="fr">772.84375</span><span class="fr">772.85625</span><span class="fr">772.86875</span><span class="fr">772.99375</span><span class="fr">773.14375</span><span class="fr">773.15625</span><span class="fr">773.18125</span><span class="fr">773.28125</span><span class="fr">773.30625</span><span class="fr">773.41875</span><span class="fr">773.48125</span><span class="fr">773.63125</span><span class="fr">773.64375</span><span class="fr">773.66875</span><span class="fr">773.68125</span><span class="fr">773.78125</span><span class="fr">773.88125</span><span class="fr">773.89375</span><span class="fr">774.39375</span><span class="fr">774.91875</span><span class="fr">774.96875</span><span class="fr">775.91875</span><span class="fr">851.7875</span><span class="fr">852.175</span><span class="fr">852.5625</span><span class="fr">852.925</span><span class="fr">853.2875</span><span class="fr">853.575</span><span class="fr">853.975</span><span class="fr">857.9625</span><span class="fr">858.9625</span></div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>Project 25 Phase I</span>
+    <span>Sysid: 18B · WACN: BEE00</span>
+    <span>216 total unique</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="counter" id="counter">1 / 22</div>
+
+  <div class="controls">
+    <button class="btn" id="bprev" onclick="move(-1)" disabled>&#8592;</button>
+    <select class="jump" id="jsel" onchange="goTo(+this.value)">
+      <option value="0">&#9654; Title / Overview</option>
+<option value="1">Ada County</option>
+<option value="2">Bannock County</option>
+<option value="3">Bear Lake County</option>
+<option value="4">Bingham County</option>
+<option value="5">Blaine County</option>
+<option value="6">Boise County</option>
+<option value="7">Bonner County</option>
+<option value="8">Bonneville County</option>
+<option value="9">Canyon County</option>
+<option value="10">Caribou County</option>
+<option value="11">Cassia County</option>
+<option value="12">Elmore County</option>
+<option value="13">Fremont County</option>
+<option value="14">Jerome County</option>
+<option value="15">Kootenai County</option>
+<option value="16">Nez Perce County</option>
+<option value="17">Oneida County</option>
+<option value="18">Owyhee County</option>
+<option value="19">Power County</option>
+<option value="20">Teton County</option>
+<option value="21">&#9733; All Frequencies</option>
+    </select>
+    <button class="btn" id="bnext" onclick="move(1)">&#8594;</button>
+  </div>
+
+  <div class="dots" id="dots"><span class="dot active" onclick="goTo(0)" id="dot0"></span><span class="dot" onclick="goTo(1)" id="dot1"></span><span class="dot" onclick="goTo(2)" id="dot2"></span><span class="dot" onclick="goTo(3)" id="dot3"></span><span class="dot" onclick="goTo(4)" id="dot4"></span><span class="dot" onclick="goTo(5)" id="dot5"></span><span class="dot" onclick="goTo(6)" id="dot6"></span><span class="dot" onclick="goTo(7)" id="dot7"></span><span class="dot" onclick="goTo(8)" id="dot8"></span><span class="dot" onclick="goTo(9)" id="dot9"></span><span class="dot" onclick="goTo(10)" id="dot10"></span><span class="dot" onclick="goTo(11)" id="dot11"></span><span class="dot" onclick="goTo(12)" id="dot12"></span><span class="dot" onclick="goTo(13)" id="dot13"></span><span class="dot" onclick="goTo(14)" id="dot14"></span><span class="dot" onclick="goTo(15)" id="dot15"></span><span class="dot" onclick="goTo(16)" id="dot16"></span><span class="dot" onclick="goTo(17)" id="dot17"></span><span class="dot" onclick="goTo(18)" id="dot18"></span><span class="dot" onclick="goTo(19)" id="dot19"></span><span class="dot" onclick="goTo(20)" id="dot20"></span><span class="dot" onclick="goTo(21)" id="dot21"></span></div>
+  <div class="slide-lbl" id="slbl">Title / Overview</div>
+
+</div>
+
+<script>
+const LABELS = ["Title / Overview","Ada County","Bannock County","Bear Lake County","Bingham County","Blaine County","Boise County","Bonner County","Bonneville County","Canyon County","Caribou County","Cassia County","Elmore County","Fremont County","Jerome County","Kootenai County","Nez Perce County","Oneida County","Owyhee County","Power County","Teton County","All Frequencies"];
+const TOTAL  = 22;
+let cur = 0;
+
+const track  = document.getElementById('track');
+const counter= document.getElementById('counter');
+const bprev  = document.getElementById('bprev');
+const bnext  = document.getElementById('bnext');
+const jsel   = document.getElementById('jsel');
+const slbl   = document.getElementById('slbl');
+const dots   = document.querySelectorAll('.dot');
+
+function goTo(n) {
+  n = Math.max(0, Math.min(TOTAL-1, +n));
+  cur = n;
+  track.style.transform = `translateX(${-n*100}%)`;
+  counter.textContent = `${n+1} / ${TOTAL}`;
+  bprev.disabled = n === 0;
+  bnext.disabled = n === TOTAL-1;
+  jsel.value = n;
+  slbl.textContent = LABELS[n] || '';
+  dots.forEach((d,i) => d.classList.toggle('active', i===n));
+  const body = document.querySelector('#s'+n+' .cbody');
+  if (body) body.scrollTop = 0;
+}
+
+function move(d) { goTo(cur+d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key==='ArrowDown') move(1);
+  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')   move(-1);
+});
+
+let tx = 0;
+track.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+track.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+}, {passive:true});
+</script>
+</body>
+</html>
