@@ -1,38 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BAAS – Boy and a Scanner">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Boy and a Scanner">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#00b8ff"/>
-      <stop offset="1" stop-color="#36a2ff"/>
-    </linearGradient>
-    <linearGradient id="bar" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#00b8ff"/>
-      <stop offset="1" stop-color="#36a2ff"/>
+      <stop offset="1" stop-color="#0070cc"/>
     </linearGradient>
   </defs>
 
-  <!-- Background -->
+  <!-- Page background -->
   <rect width="64" height="64" rx="12" fill="#0b0e14"/>
 
-  <!-- Subtle inner border -->
-  <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="url(#g)" stroke-width="1.2" opacity="0.35"/>
+  <!-- Scanner body -->
+  <rect x="16" y="18" width="28" height="38" rx="4" fill="#1a2a44" stroke="#00b8ff" stroke-width="2"/>
 
-  <!-- Top accent bar -->
-  <rect x="0" y="0" width="64" height="5" rx="3" fill="url(#bar)"/>
-  <rect x="0" y="0" width="64" height="3" rx="3" fill="url(#bar)"/>
+  <!-- Antenna -->
+  <line x1="38" y1="18" x2="42" y2="6" stroke="#00b8ff" stroke-width="2.5" stroke-linecap="round"/>
 
-  <!-- Bottom accent bar -->
-  <rect x="0" y="61" width="64" height="3" rx="3" fill="url(#bar)" opacity="0.4"/>
+  <!-- Display screen -->
+  <rect x="20" y="22" width="20" height="10" rx="2" fill="#00b8ff" opacity="0.18"/>
+  <rect x="20" y="22" width="20" height="10" rx="2" fill="none" stroke="#00b8ff" stroke-width="1.2" opacity="0.7"/>
+  <!-- Screen scan line -->
+  <line x1="22" y1="27" x2="38" y2="27" stroke="#00b8ff" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
 
-  <!-- BAAS letters -->
-  <text
-    x="32" y="45"
-    text-anchor="middle"
-    font-family="'Arial Black', 'Arial Bold', Arial, sans-serif"
-    font-weight="900"
-    font-size="26"
-    letter-spacing="1"
-    fill="#e8f4ff">BAAS</text>
+  <!-- Speaker grille dots -->
+  <circle cx="23" cy="37" r="1.5" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="28" cy="37" r="1.5" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="33" cy="37" r="1.5" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="38" cy="37" r="1.5" fill="#00b8ff" opacity="0.7"/>
 
-  <!-- Blue underline accent beneath text -->
-  <rect x="14" y="49" width="36" height="2" rx="1" fill="url(#g)" opacity="0.55"/>
+  <!-- Buttons row -->
+  <rect x="20" y="43" width="7" height="5" rx="1.5" fill="#00b8ff" opacity="0.3"/>
+  <rect x="29" y="43" width="7" height="5" rx="1.5" fill="#00b8ff" opacity="0.3"/>
+  <!-- Scan button (highlighted) -->
+  <rect x="20" y="50" width="16" height="3.5" rx="1.5" fill="url(#g)" opacity="0.85"/>
 </svg>
