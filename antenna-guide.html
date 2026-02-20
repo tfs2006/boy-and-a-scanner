@@ -150,12 +150,12 @@
             <h2>How do you primarily use your scanner?</h2>
             <div class="wizard-options">
                 <button class="wizard-btn" onclick="nextStep(1, 'portable')">
-                    <span class="icon">🚶</span>
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="8" height="14" rx="2"/><path d="M11 3h2"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="1.2" fill="currentColor" stroke="none"/></svg></span>
                     <span class="label">Handheld / Portable</span>
                     <span class="desc">Walking around, in the car, or travel.</span>
                 </button>
                 <button class="wizard-btn" onclick="nextStep(1, 'base')">
-                    <span class="icon">🏠</span>
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
                     <span class="label">Home Base Station</span>
                     <span class="desc">Sitting on a desk, creating a permanent setup.</span>
                 </button>
@@ -167,17 +167,17 @@
             <h2>What do you mostly listen to?</h2>
             <div class="wizard-options">
                 <button class="wizard-btn" onclick="showResult('p25')">
-                    <span class="icon">🚓</span>
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16" r="0.9" fill="currentColor" stroke="none"/></svg></span>
                     <span class="label">Police & Fire (P25)</span>
                     <span class="desc">Digital trunking systems (700/800 MHz).</span>
                 </button>
                 <button class="wizard-btn" onclick="showResult('air')">
-                    <span class="icon">✈️</span>
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span>
                     <span class="label">Aviation & Rail</span>
                     <span class="desc">Civil airband, military air, trains (VHF/UHF).</span>
                 </button>
                 <button class="wizard-btn" onclick="showResult('all')">
-                    <span class="icon">🌍</span>
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
                     <span class="label">Everything</span>
                     <span class="desc">A mix of everything in my area.</span>
                 </button>
@@ -206,25 +206,25 @@
             title: "Remtronix 800 MHz Antenna",
             desc: "The absolute gold standard for P25 digital systems. If you monitor police/fire on 700/800 MHz, this is the single best upgrade you can buy.",
             link: "https://amzn.to/3zeY4yw?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_remtronix",
-            img: "📶"
+            img: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8.5a9 9 0 0 1 13 0"/><path d="M2.5 5.5a14 14 0 0 1 19 0"/><path d="M8.5 11.5a5 5 0 0 1 7 0"/><line x1="12" y1="14" x2="12" y2="20"/><circle cx="12" cy="20" r="1.5" fill="currentColor" stroke="none"/></svg>`
         },
         telescoping: {
             title: "VHF/UHF Telescoping Whip",
             desc: "Perfect for aviation, rail, and older analog systems. You can tune it by extending/retracting the antenna to match the frequency.",
             link: "https://amzn.to/3MSsmtT?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_telescoping",
-            img: "🔭"
+            img: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="3"/><polyline points="8 7 12 3 16 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="10" y1="17" x2="14" y2="17"/></svg>`
         },
         discone: {
             title: "Wideband Discone Antenna",
             desc: "The ultimate home base antenna. Mount this on your roof or in your attic for massive range across all bands.",
             link: "https://amzn.to/4gVG25p?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_discone",
-            img: "📡"
+            img: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/></svg>`
         },
         stock: {
             title: "Remtronix 800 MHz (Recommended)",
             desc: "Even for mixed use, the Remtronix is usually better than the stock antenna for 800 MHz, while still OK on other bands. For true wideband, stick with stock or get a Triband.",
             link: "https://amzn.to/3zeY4yw?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=antenna_finder&utm_content=result_mixed",
-            img: "📶"
+            img: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8.5a9 9 0 0 1 13 0"/><path d="M2.5 5.5a14 14 0 0 1 19 0"/><path d="M8.5 11.5a5 5 0 0 1 7 0"/><line x1="12" y1="14" x2="12" y2="20"/><circle cx="12" cy="20" r="1.5" fill="currentColor" stroke="none"/></svg>`
         }
     };
 
@@ -258,7 +258,7 @@
         const p = products[productKey];
         const html = `
       <div style="text-align:center">
-        <div style="font-size:48px;margin-bottom:16px">${p.img}</div>
+        <div style="margin:0 auto 20px;width:76px;height:76px;display:flex;align-items:center;justify-content:center;background:rgba(0,184,255,0.08);border:1px solid rgba(0,184,255,0.2);border-radius:16px;color:var(--accent)">${p.img}</div>
         <div class="kicker">Top Recommendation</div>
         <h2 style="margin:8px 0 16px">${p.title}</h2>
         <p style="font-size:18px;color:var(--text);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">${p.desc}</p>
