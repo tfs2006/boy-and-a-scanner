@@ -1,13 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Boy and a Scanner">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BAAS – Boy and a Scanner">
   <defs>
-    <linearGradient id="g" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#36a2ff"/>
-      <stop offset="1" stop-color="#8af0ff"/>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00b8ff"/>
+      <stop offset="1" stop-color="#36a2ff"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00b8ff"/>
+      <stop offset="1" stop-color="#36a2ff"/>
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="#0b0e14"/>
-  <path d="M18 26h28a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6Z" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path d="M22 26v-4c0-4 3-7 7-7h6c4 0 7 3 7 7v4" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="24" cy="37" r="5" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path d="M36 34h10M36 40h10" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#0b0e14"/>
+
+  <!-- Subtle inner border -->
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="url(#g)" stroke-width="1.2" opacity="0.35"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="64" height="5" rx="3" fill="url(#bar)"/>
+  <rect x="0" y="0" width="64" height="3" rx="3" fill="url(#bar)"/>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="61" width="64" height="3" rx="3" fill="url(#bar)" opacity="0.4"/>
+
+  <!-- BAAS letters -->
+  <text
+    x="32" y="45"
+    text-anchor="middle"
+    font-family="'Arial Black', 'Arial Bold', Arial, sans-serif"
+    font-weight="900"
+    font-size="26"
+    letter-spacing="1"
+    fill="#e8f4ff">BAAS</text>
+
+  <!-- Blue underline accent beneath text -->
+  <rect x="14" y="49" width="36" height="2" rx="1" fill="url(#g)" opacity="0.55"/>
 </svg>
