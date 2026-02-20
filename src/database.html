@@ -9,7 +9,7 @@ description: "Interactive clickable map of statewide digital trunked radio syste
   <p class="lead">Click a <strong style="color:#00b8ff">highlighted state</strong> to explore its statewide digital trunked radio system — frequencies, sites, and counties, all organized for your scanner.</p>
 
   <div class="callout" style="margin-bottom:24px">
-    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), and Illinois (STARCOM21 · P25 Phase II). More states added regularly — check back soon.
+    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), Illinois (STARCOM21 · P25 Phase II), and Montana (PSCN · P25 Phase II). More states added regularly — check back soon.
   </div>
 
   <div class="map-container" style="max-width: 959px; margin: 0 auto 32px; text-align: center;">
@@ -145,6 +145,11 @@ description: "Interactive clickable map of statewide digital trunked radio syste
         <div class="dsc-system">STARCOM21 · Sysid: 140 · WACN: BEE00</div>
         <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide IL &nbsp;·&nbsp; 100+ Sites</div>
       </a>
+      <a class="db-state-card" href="/montana-database.html">
+        <div class="dsc-state">Montana</div>
+        <div class="dsc-system">PSCN · Sysid: 16E · WACN: BEE00</div>
+        <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide MT &nbsp;·&nbsp; 50+ Sites</div>
+      </a>
     </div>
   </div>
 </div>
@@ -156,7 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     az: '/arizona-database.html',
     nv: '/nevada-database.html',
     fl: '/florida-database.html',
-    il: '/illinois-database.html'
+    il: '/illinois-database.html',
+    mt: '/montana-database.html'
   };
 
   const wrapper = document.getElementById('usa-map-wrapper');
