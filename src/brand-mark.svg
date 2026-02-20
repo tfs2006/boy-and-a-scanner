@@ -1,12 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Boy and a Scanner logo">
   <defs>
-    <linearGradient id="g" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#36a2ff"/>
-      <stop offset="1" stop-color="#8af0ff"/>
+    <linearGradient id="bm" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00b8ff"/>
+      <stop offset="1" stop-color="#0070cc"/>
     </linearGradient>
   </defs>
-  <rect x="4" y="8" width="56" height="48" rx="12" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path d="M22 28v-4c0-4 3-7 7-7h6c4 0 7 3 7 7v4" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="24" cy="38" r="6" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path d="M36 34h12M36 40h12" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Scanner body -->
+  <rect x="16" y="10" width="28" height="46" rx="5" fill="#1a2a44" stroke="url(#bm)" stroke-width="2.5"/>
+
+  <!-- Antenna -->
+  <line x1="38" y1="10" x2="43" y2="2" stroke="url(#bm)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Display screen -->
+  <rect x="20" y="15" width="20" height="12" rx="2" fill="#00b8ff" opacity="0.15"/>
+  <rect x="20" y="15" width="20" height="12" rx="2" fill="none" stroke="#00b8ff" stroke-width="1.5" opacity="0.8"/>
+  <!-- Scan line on screen -->
+  <line x1="22" y1="21" x2="38" y2="21" stroke="#00b8ff" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Speaker grille dots -->
+  <circle cx="22" cy="33" r="2" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="28" cy="33" r="2" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="34" cy="33" r="2" fill="#00b8ff" opacity="0.7"/>
+  <circle cx="40" cy="33" r="2" fill="#00b8ff" opacity="0.7"/>
+
+  <!-- Buttons -->
+  <rect x="20" y="40" width="8" height="6" rx="2" fill="#00b8ff" opacity="0.3"/>
+  <rect x="31" y="40" width="8" height="6" rx="2" fill="#00b8ff" opacity="0.3"/>
+
+  <!-- Scan button (accent) -->
+  <rect x="20" y="49" width="19" height="4" rx="2" fill="url(#bm)" opacity="0.9"/>
 </svg>
