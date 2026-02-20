@@ -143,7 +143,7 @@
   <p class="lead">Click a <strong style="color:#00b8ff">highlighted state</strong> to explore its statewide digital trunked radio system — frequencies, sites, and counties, all organized for your scanner.</p>
 
   <div class="callout" style="margin-bottom:24px">
-    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II) and Idaho (ICAWIN · P25 Phase I). More states added regularly — check back soon.
+    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), and Nevada (NSRS · P25 Phase II). More states added regularly — check back soon.
   </div>
 
   <div class="map-container" style="max-width: 959px; margin: 0 auto 32px; text-align: center;">
@@ -559,6 +559,11 @@ Place this code in the empty space below. */
         <div class="dsc-system">ICAWIN · Sysid: 18B · WACN: BEE00</div>
         <div class="dsc-meta">Project 25 Phase I &nbsp;·&nbsp; 20 Counties &nbsp;·&nbsp; 40 Sites</div>
       </a>
+      <a class="db-state-card" href="/nevada-database.html">
+        <div class="dsc-state">Nevada</div>
+        <div class="dsc-system">NSRS · Sysid: 22B/307/309 · WACN: 92738</div>
+        <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide NV/AZ/UT &nbsp;·&nbsp; 54 Sites</div>
+      </a>
     </div>
   </div>
 </div>
@@ -567,7 +572,8 @@ Place this code in the empty space below. */
 document.addEventListener('DOMContentLoaded', () => {
   const DB_STATES = {
     id: '/idaho-database.html',
-    az: '/arizona-database.html'
+    az: '/arizona-database.html',
+    nv: '/nevada-database.html'
   };
 
   const wrapper = document.getElementById('usa-map-wrapper');

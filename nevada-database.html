@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSRS · Nevada Shared Radio System P25 · Boy and a Scanner</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page ── */
+html, body {
+  min-height: 100%;
+  background: #06090f;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body { padding: 28px 16px 56px; gap: 0; }
+
+.page-hdr { text-align: center; margin-bottom: 22px; }
+.page-hdr h1 { font-size: 1.1rem; font-weight: 700; color: #00b8ff; letter-spacing: .05em; }
+.page-hdr p { font-size: .75rem; color: #4a6888; margin-top: 3px; }
+
+.wrapper { width: 100%; max-width: 390px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+.stage { width: 100%; position: relative; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 0 50px rgba(0,184,255,.15), 0 6px 32px rgba(0,0,0,.7);
+  background: #0d1120; aspect-ratio: 9 / 16; }
+
+.track-wrap { position: absolute; inset: 0; overflow: hidden; }
+.track { display: flex; height: 100%; transition: transform .4s cubic-bezier(.77,0,.175,1); will-change: transform; }
+
+.slide { flex: 0 0 100%; width: 100%; height: 100%; display: flex; flex-direction: column; background: #0d1120; overflow: hidden; }
+
+.bar { flex: 0 0 5px; width: 100%; }
+.top-bar { background: linear-gradient(90deg,#00b8ff,#0055cc); }
+.bot-bar { background: linear-gradient(90deg,#0055cc,#00b8ff); }
+
+/* Title slide */
+.title-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 9px; padding: 20px 20px; background: linear-gradient(160deg,#111c38 0%,#0d1120 100%);
+  text-align: center; overflow: hidden; }
+.t-name { font-size: .88rem; font-weight: 700; color: #d0e8ff; line-height: 1.35; }
+.t-abbr { font-size: 2.6rem; font-weight: 800; color: #00b8ff; letter-spacing: .1em;
+  text-shadow: 0 0 28px rgba(0,184,255,.4); line-height: 1; }
+.t-state { font-size: .8rem; color: #00b8ff; font-weight: 500; }
+.t-brand { font-size: .72rem; color: #44cc6a; }
+.t-pills { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+.pill { background: #1a2a50; color: #80aade; font-size: .62rem; padding: 3px 9px; border-radius: 20px;
+  border: 1px solid #243868; font-family: 'Courier New', monospace; }
+.pill.dim { color: #3a5070; border-color: #182438; background: #0e1828; }
+.t-hint { font-size: .6rem; color: #283a58; margin-top: 6px; }
+
+/* County slide */
+.chead { flex: 0 0 auto; background: #101c3c; padding: 9px 14px 7px; border-bottom: 1px solid #1c3060; }
+.c-county { font-size: 1.1rem; font-weight: 800; color: #00b8ff; line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-sub { font-size: .58rem; color: #44cc6a; margin-top: 1px; }
+
+.cbody { flex: 1 1 0; overflow-y: auto; overflow-x: hidden; padding: 8px 10px; min-height: 0;
+  scrollbar-width: thin; scrollbar-color: #1e3060 transparent; }
+.cbody::-webkit-scrollbar { width: 3px; }
+.cbody::-webkit-scrollbar-thumb { background: #1e3060; border-radius: 2px; }
+
+.sblock { border: 1px solid #182e54; border-radius: 7px; margin-bottom: 8px; overflow: hidden; }
+.sblock:last-child { margin-bottom: 0; }
+
+.shead { background: #112040; padding: 5px 9px; display: flex; align-items: center; gap: 7px;
+  border-bottom: 1px solid #182e54; }
+.sid { font-family: 'Courier New', monospace; font-size: .55rem; background: #091828;
+  color: #3a6898; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+.sname { font-size: .68rem; font-weight: 600; color: #b8d0ee; line-height: 1.2; }
+
+.sfreqs { padding: 0; }
+.flabel { font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: 4px 8px 2px; margin: 0; }
+.clabel { color: #ffc020; background: rgba(255,160,0,.07); }
+.rlabel { color: #82beed; background: rgba(80,160,255,.04); }
+
+.fgrid { display: flex; flex-wrap: wrap; gap: 3px; padding: 3px 7px 7px; }
+.fc, .fr { font-family: 'Courier New', monospace; font-size: .62rem; padding: 2px 6px;
+  border-radius: 4px; white-space: nowrap; line-height: 1.4; }
+.fc { color: #ffc020; background: #281800; border: 1px solid #402800; }
+.fc sup { color: #ff8c00; font-weight: 800; font-size: .65em; }
+.fr { color: #82beed; background: #071628; border: 1px solid #152440; }
+
+.cfoot { flex: 0 0 auto; background: #0b1428; border-top: 1px solid #182848; padding: 4px 12px;
+  display: flex; justify-content: space-between; align-items: center; }
+.cfoot span { font-family: 'Courier New', monospace; font-size: .5rem; color: #2e4868; }
+
+/* Talkgroup styles */
+.tg-group-hdr { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  color: #3a6898; padding: 6px 6px 3px; margin-top: 4px; border-top: 1px solid #182848; }
+.tg-group-hdr:first-child { margin-top: 0; border-top: none; }
+.tgrow { display: grid; grid-template-columns: 52px 38px 1fr; gap: 4px; padding: 3px 6px;
+  align-items: start; border-bottom: 1px solid #0f1e38; }
+.tgrow:last-child { border-bottom: none; }
+.tg-dec { font-family: 'Courier New', monospace; font-size: .58rem; color: #ffc020; }
+.tg-hex { font-family: 'Courier New', monospace; font-size: .54rem; color: #3a6060; }
+.tg-info { font-size: .58rem; color: #8ab0d0; line-height: 1.3; }
+.tg-info small { display: block; font-size: .5rem; color: #3d5870; margin-top: 1px; }
+.tg-mode { font-family: 'Courier New', monospace; font-size: .5rem; color: #2e6040;
+  background: #0a1e18; border: 1px solid #1a4030; border-radius: 3px; padding: 1px 4px;
+  margin-left: 4px; vertical-align: middle; }
+.tg-note { margin: 6px 6px 4px; padding: 6px 8px; background: #0d1828; border: 1px solid #1c3050;
+  border-radius: 5px; font-size: .56rem; color: #3a6060; line-height: 1.5; }
+
+/* Controls */
+.counter { font-family: 'Courier New', monospace; font-size: .72rem; color: #2e4870;
+  margin-top: 12px; text-align: center; height: 16px; }
+.controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; width: 100%; }
+.btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #1a3060;
+  background: #101c38; color: #00b8ff; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, box-shadow .2s; flex-shrink: 0; user-select: none; }
+.btn:hover { background: #182e58; box-shadow: 0 0 10px rgba(0,184,255,.25); }
+.btn:active { transform: scale(.93); }
+.btn:disabled { opacity: .2; cursor: default; }
+.jump { flex: 1; background: #0c1428; border: 1px solid #182848; color: #5888b8; font-size: .68rem;
+  font-family: 'Segoe UI', system-ui, sans-serif; padding: 8px 10px; border-radius: 8px;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23385880'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+.dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 12px;
+  max-width: 390px; padding: 0 4px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #1a2e50; cursor: pointer;
+  transition: all .2s; flex-shrink: 0; }
+.dot.active { background: #00b8ff; width: 18px; border-radius: 4px; box-shadow: 0 0 5px rgba(0,184,255,.5); }
+.dot:hover { background: #264880; }
+
+.slide-lbl { font-size: .62rem; color: #243850; font-family: 'Courier New', monospace;
+  text-align: center; margin-top: 5px; height: 14px; }
+
+.back-link { font-size: .65rem; color: #3a6898; text-decoration: none; margin-bottom: 14px; display: inline-block; }
+.back-link:hover { color: #00b8ff; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/database.html">&#8592; Back to Database Map</a>
+
+<div class="page-hdr">
+  <h1>NSRS — Nevada Shared Radio System</h1>
+  <p>Statewide, Nevada &nbsp;·&nbsp; by Boy and a Scanner</p>
+</div>
+
+<div class="wrapper">
+  <div class="stage">
+    <div class="track-wrap">
+      <div class="track" id="track">
+
+<!-- s0: Title -->
+<div class="slide" id="s0">
+  <div class="bar top-bar"></div>
+  <div class="title-body">
+    <div class="t-name">Nevada Shared<br>Radio System</div>
+    <div class="t-abbr">NSRS</div>
+    <div class="t-state">Statewide, Nevada</div>
+    <div class="t-brand">by Boy and a Scanner</div>
+    <div class="t-pills">
+      <span class="pill">Project 25 Phase II</span>
+      <span class="pill">WACN: 92738</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">Sysid: 22B</span>
+      <span class="pill dim">Sysid: 307</span>
+      <span class="pill dim">Sysid: 309</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">APCO-25 CAI Exclusive</span>
+      <span class="pill dim">54 Sites</span>
+    </div>
+    <div class="t-pills">
+      <span class="pill dim">NV · AZ · UT Coverage</span>
+      <span class="pill dim">Multi-Agency Shared</span>
+    </div>
+    <div class="t-hint">Use arrows or swipe to navigate &#8594;</div>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s1: Clark County -->
+<div class="slide" id="s1">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Clark County</div>
+    <div class="c-sub">NSRS · Sysid 22B · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 009</span><span class="sname">Overton-Moapa Simulcast</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.1375&thinsp;<sup>c</sup></span><span class="fc">851.4125&thinsp;<sup>c</sup></span><span class="fc">851.725&thinsp;<sup>c</sup></span><span class="fc">851.975&thinsp;<sup>c</sup></span><span class="fc">852.2375&thinsp;<sup>c</sup></span><span class="fc">852.4875&thinsp;<sup>c</sup></span><span class="fc">852.7375&thinsp;<sup>c</sup></span><span class="fc">852.9875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">853.4875</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 049</span><span class="sname">Apex Peak</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.8625&thinsp;<sup>c</sup></span><span class="fc">856.7375&thinsp;<sup>c</sup></span><span class="fc">857.7375&thinsp;<sup>c</sup></span><span class="fc">858.7375&thinsp;<sup>c</sup></span><span class="fc">859.7375&thinsp;<sup>c</sup></span><span class="fc">860.7375&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">855.7875</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 069</span><span class="sname">Las Vegas Simulcast</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.6125&thinsp;<sup>c</sup></span><span class="fc">854.7375&thinsp;<sup>c</sup></span><span class="fc">854.9375&thinsp;<sup>c</sup></span><span class="fc">855.2625&thinsp;<sup>c</sup></span><span class="fc">855.6625&thinsp;<sup>c</sup></span><span class="fc">855.8875&thinsp;<sup>c</sup></span><span class="fc">855.9375&thinsp;<sup>c</sup></span><span class="fc">856.3125&thinsp;<sup>c</sup></span><span class="fc">856.5125&thinsp;<sup>c</sup></span><span class="fc">857.0375&thinsp;<sup>c</sup></span><span class="fc">857.2875&thinsp;<sup>c</sup></span><span class="fc">857.6875&thinsp;<sup>c</sup></span><span class="fc">858.0375&thinsp;<sup>c</sup></span><span class="fc">858.3125&thinsp;<sup>c</sup></span><span class="fc">858.3625&thinsp;<sup>c</sup></span><span class="fc">858.8375&thinsp;<sup>c</sup></span><span class="fc">859.2875&thinsp;<sup>c</sup></span><span class="fc">859.3375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 087</span><span class="sname">Coyote Springs</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.0375&thinsp;<sup>c</sup></span><span class="fc">852.175&thinsp;<sup>c</sup></span><span class="fc">852.6625&thinsp;<sup>c</sup></span><span class="fc">853.8625&thinsp;<sup>c</sup></span><span class="fc">854.1875&thinsp;<sup>c</sup></span><span class="fc">857.0125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">851.600</span><span class="fr">853.425</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 089</span><span class="sname">Mesquite Tank</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.0875&thinsp;<sup>c</sup></span><span class="fc">851.925&thinsp;<sup>c</sup></span><span class="fc">853.3125&thinsp;<sup>c</sup></span><span class="fc">857.0375&thinsp;<sup>c</sup></span><span class="fc">857.9625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">851.475</span><span class="fr">852.3875</span><span class="fr">852.8875</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 093</span><span class="sname">Indian Springs</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.3625&thinsp;<sup>c</sup></span><span class="fc">855.8625&thinsp;<sup>c</sup></span><span class="fc">857.3125&thinsp;<sup>c</sup></span><span class="fc">858.0125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">854.6125</span><span class="fr">857.0375</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 107</span><span class="sname">Angel Peak</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.8875&thinsp;<sup>c</sup></span><span class="fc">852.5625&thinsp;<sup>c</sup></span><span class="fc">853.625&thinsp;<sup>c</sup></span><span class="fc">854.3875&thinsp;<sup>c</sup></span><span class="fc">854.6875&thinsp;<sup>c</sup></span><span class="fc">856.0375&thinsp;<sup>c</sup></span><span class="fc">856.4625&thinsp;<sup>c</sup></span><span class="fc">857.4625&thinsp;<sup>c</sup></span><span class="fc">858.4625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 117</span><span class="sname">Mountain Springs</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">852.5375&thinsp;<sup>c</sup></span><span class="fc">854.0625&thinsp;<sup>c</sup></span><span class="fc">854.3375&thinsp;<sup>c</sup></span><span class="fc">854.5875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 119</span><span class="sname">Hoover Dam</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.8125&thinsp;<sup>c</sup></span><span class="fc">852.1375&thinsp;<sup>c</sup></span><span class="fc">853.275&thinsp;<sup>c</sup></span><span class="fc">853.950&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 121</span><span class="sname">Red Mountain</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.5125&thinsp;<sup>c</sup></span><span class="fc">855.9125&thinsp;<sup>c</sup></span><span class="fc">857.3625&thinsp;<sup>c</sup></span><span class="fc">859.3625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 123</span><span class="sname">High Potosi</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.225&thinsp;<sup>c</sup></span><span class="fc">851.700&thinsp;<sup>c</sup></span><span class="fc">852.750&thinsp;<sup>c</sup></span><span class="fc">853.1625&thinsp;<sup>c</sup></span><span class="fc">853.7125&thinsp;<sup>c</sup></span><span class="fc">856.9375&thinsp;<sup>c</sup></span><span class="fc">857.9375&thinsp;<sup>c</sup></span><span class="fc">858.9375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 125</span><span class="sname">Sloan</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.075&thinsp;<sup>c</sup></span><span class="fc">851.175&thinsp;<sup>c</sup></span><span class="fc">851.575&thinsp;<sup>c</sup></span><span class="fc">851.6875&thinsp;<sup>c</sup></span><span class="fc">852.475&thinsp;<sup>c</sup></span><span class="fc">853.575&thinsp;<sup>c</sup></span><span class="fc">854.2625&thinsp;<sup>c</sup></span><span class="fc">855.2125&thinsp;<sup>c</sup></span><span class="fc">855.7375&thinsp;<sup>c</sup></span><span class="fc">857.4375&thinsp;<sup>c</sup></span><span class="fc">858.2625&thinsp;<sup>c</sup></span><span class="fc">859.3625&thinsp;<sup>c</sup></span><span class="fc">860.2375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 127</span><span class="sname">Opal Mountain</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.3125&thinsp;<sup>c</sup></span><span class="fc">851.8625&thinsp;<sup>c</sup></span><span class="fc">853.325&thinsp;<sup>c</sup></span><span class="fc">853.9875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 129</span><span class="sname">Primm</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">855.6625&thinsp;<sup>c</sup></span><span class="fc">855.9375&thinsp;<sup>c</sup></span><span class="fc">856.3125&thinsp;<sup>c</sup></span><span class="fc">857.3625&thinsp;<sup>c</sup></span><span class="fc">858.3125&thinsp;<sup>c</sup></span><span class="fc">858.8375&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.6625</span><span class="fr">858.0625</span><span class="fr">859.3625</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 131</span><span class="sname">Christmas Tree Pass</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.3375&thinsp;<sup>c</sup></span><span class="fc">851.975&thinsp;<sup>c</sup></span><span class="fc">853.600&thinsp;<sup>c</sup></span><span class="fc">854.9625&thinsp;<sup>c</sup></span><span class="fc">855.9875&thinsp;<sup>c</sup></span><span class="fc">856.9625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 133</span><span class="sname">Laughlin</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">856.3125&thinsp;<sup>c</sup></span><span class="fc">856.8125&thinsp;<sup>c</sup></span><span class="fc">857.2875&thinsp;<sup>c</sup></span><span class="fc">857.8125&thinsp;<sup>c</sup></span><span class="fc">858.2875&thinsp;<sup>c</sup></span><span class="fc">858.7875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 247</span><span class="sname">Valley of Fire State Park</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.2875&thinsp;<sup>c</sup></span><span class="fc">854.5375&thinsp;<sup>c</sup></span><span class="fc">856.0625&thinsp;<sup>c</sup></span><span class="fc">857.0625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 22B</span>
+    <span>WACN: 92738</span>
+    <span>17 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s2: Esmeralda County -->
+<div class="slide" id="s2">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Esmeralda County</div>
+    <div class="c-sub">NSRS · Sysid 22B · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 037</span><span class="sname">Montezuma Peak</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.1375&thinsp;<sup>c</sup></span><span class="fc">851.3875&thinsp;<sup>c</sup></span><span class="fc">851.6625&thinsp;<sup>c</sup></span><span class="fc">851.9125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 045</span><span class="sname">Lida West</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">856.9625&thinsp;<sup>c</sup></span><span class="fc">857.7625&thinsp;<sup>c</sup></span><span class="fc">858.9625&thinsp;<sup>c</sup></span><span class="fc">859.9875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">855.9625</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 22B</span>
+    <span>WACN: 92738</span>
+    <span>2 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s3: Lincoln County -->
+<div class="slide" id="s3">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Lincoln County</div>
+    <div class="c-sub">NSRS · Sysid 22B · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 017</span><span class="sname">Mount Wilson</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">856.2125&thinsp;<sup>c</sup></span><span class="fc">857.0625&thinsp;<sup>c</sup></span><span class="fc">858.0625&thinsp;<sup>c</sup></span><span class="fc">858.4625&thinsp;<sup>c</sup></span><span class="fc">859.9875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 025</span><span class="sname">Highland Peak</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.1375&thinsp;<sup>c</sup></span><span class="fc">854.5125&thinsp;<sup>c</sup></span><span class="fc">855.9875&thinsp;<sup>c</sup></span><span class="fc">856.4875&thinsp;<sup>c</sup></span><span class="fc">859.2125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 027</span><span class="sname">Hiko North</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">856.0875&thinsp;<sup>c</sup></span><span class="fc">856.7625&thinsp;<sup>c</sup></span><span class="fc">857.2375&thinsp;<sup>c</sup></span><span class="fc">857.4875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 039</span><span class="sname">Crystal Springs</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.0375&thinsp;<sup>c</sup></span><span class="fc">854.5625&thinsp;<sup>c</sup></span><span class="fc">856.2375&thinsp;<sup>c</sup></span><span class="fc">858.2125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 043</span><span class="sname">Caliente</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.9625&thinsp;<sup>c</sup></span><span class="fc">855.2375&thinsp;<sup>c</sup></span><span class="fc">856.2625&thinsp;<sup>c</sup></span><span class="fc">856.9625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">855.9625</span><span class="fr">857.2625</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 047</span><span class="sname">Alamo</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.1125&thinsp;<sup>c</sup></span><span class="fc">856.7125&thinsp;<sup>c</sup></span><span class="fc">858.0375&thinsp;<sup>c</sup></span><span class="fc">859.9375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 055</span><span class="sname">Pahranagat NWR</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.6625&thinsp;<sup>c</sup></span><span class="fc">855.0125&thinsp;<sup>c</sup></span><span class="fc">855.2875&thinsp;<sup>c</sup></span><span class="fc">859.3625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 22B</span>
+    <span>WACN: 92738</span>
+    <span>7 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s4: Lyon & White Pine Counties (Sysid 309) -->
+<div class="slide" id="s4">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Lyon &amp; White Pine Counties</div>
+    <div class="c-sub">NSRS · Sysid 309 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 123</span><span class="sname">Pinenut Mountain <span style="color:#44cc6a;font-weight:400">(Lyon Co.)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.1875&thinsp;<sup>c</sup></span><span class="fc">851.4625&thinsp;<sup>c</sup></span><span class="fc">851.8625&thinsp;<sup>c</sup></span><span class="fc">852.275&thinsp;<sup>c</sup></span><span class="fc">852.825&thinsp;<sup>c</sup></span><span class="fc">854.8875&thinsp;<sup>c</sup></span><span class="fc">855.2625&thinsp;<sup>c</sup></span><span class="fc">858.2875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 161</span><span class="sname">Border Inn (US-6 at UT border) <span style="color:#44cc6a;font-weight:400">(White Pine Co.)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">858.4875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.2625</span><span class="fr">856.4625</span><span class="fr">857.2625</span><span class="fr">858.2625</span><span class="fr">859.4625</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 309</span>
+    <span>WACN: 92738</span>
+    <span>2 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s5: Mineral County -->
+<div class="slide" id="s5">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Mineral County</div>
+    <div class="c-sub">NSRS · Sysids 22B &amp; 309 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">22B · 015</span><span class="sname">Pilot Peak</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.4375&thinsp;<sup>c</sup></span><span class="fc">854.7375&thinsp;<sup>c</sup></span><span class="fc">858.7625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.2625</span><span class="fr">857.2625</span><span class="fr">858.2625</span><span class="fr">859.4625</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">22B · 023</span><span class="sname">Miller Mountain</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">855.7375&thinsp;<sup>c</sup></span><span class="fc">857.7125&thinsp;<sup>c</sup></span><span class="fc">858.7125&thinsp;<sup>c</sup></span><span class="fc">858.9875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.7125</span><span class="fr">859.7125</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">309 · 137</span><span class="sname">TV Hill</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.0625&thinsp;<sup>c</sup></span><span class="fc">854.3125&thinsp;<sup>c</sup></span><span class="fc">854.7625&thinsp;<sup>c</sup></span><span class="fc">855.8125&thinsp;<sup>c</sup></span><span class="fc">856.8375&thinsp;<sup>c</sup></span><span class="fc">857.3875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysids 22B/309</span>
+    <span>WACN: 92738</span>
+    <span>3 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s6: Nye County -->
+<div class="slide" id="s6">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Nye County</div>
+    <div class="c-sub">NSRS · Sysid 22B · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 003</span><span class="sname">Manhattan South</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.3375&thinsp;<sup>c</sup></span><span class="fc">856.0375&thinsp;<sup>c</sup></span><span class="fc">856.7625&thinsp;<sup>c</sup></span><span class="fc">859.7125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.7125</span><span class="fr">857.7125</span><span class="fr">858.7125</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 005</span><span class="sname">Sunny Side</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.8125&thinsp;<sup>c</sup></span><span class="fc">853.3125&thinsp;<sup>c</sup></span><span class="fc">853.8125&thinsp;<sup>c</sup></span><span class="fc">854.0625&thinsp;<sup>c</sup></span><span class="fc">854.3125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">851.3125</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 007</span><span class="sname">Timber Mountain</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.075&thinsp;<sup>c</sup></span><span class="fc">851.3375&thinsp;<sup>c</sup></span><span class="fc">851.5875&thinsp;<sup>c</sup></span><span class="fc">851.8375&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 019</span><span class="sname">Warm Springs</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">856.0125&thinsp;<sup>c</sup></span><span class="fc">857.2625&thinsp;<sup>c</sup></span><span class="fc">857.9625&thinsp;<sup>c</sup></span><span class="fc">858.2375&thinsp;<sup>c</sup></span><span class="fc">858.9375&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">858.4875</span><span class="fr">859.4875</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 021</span><span class="sname">Mount Brock (Tonopah)</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">857.0625&thinsp;<sup>c</sup></span><span class="fc">857.4375&thinsp;<sup>c</sup></span><span class="fc">858.4875&thinsp;<sup>c</sup></span><span class="fc">858.7375&thinsp;<sup>c</sup></span><span class="fc">859.4875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.7375</span><span class="fr">857.7375</span><span class="fr">859.7375</span><span class="fr">860.7375</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 029</span><span class="sname">Goblin Knob (NV-375)</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.6875&thinsp;<sup>c</sup></span><span class="fc">855.7125&thinsp;<sup>c</sup></span><span class="fc">856.0625&thinsp;<sup>c</sup></span><span class="fc">857.0875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 061</span><span class="sname">Beatty North</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">858.0125&thinsp;<sup>c</sup></span><span class="fc">858.2625&thinsp;<sup>c</sup></span><span class="fc">859.2625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">856.2625</span><span class="fr">857.2625</span><span class="fr">859.7625</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 063</span><span class="sname">Sawtooth Mountain</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.9875&thinsp;<sup>c</sup></span><span class="fc">855.4625&thinsp;<sup>c</sup></span><span class="fc">856.4375&thinsp;<sup>c</sup></span><span class="fc">856.7375&thinsp;<sup>c</sup></span><span class="fc">857.0375&thinsp;<sup>c</sup></span><span class="fc">858.0875&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">855.7375</span><span class="fr">857.7375</span><span class="fr">858.7375</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 091</span><span class="sname">Tower Hill (Mercury)</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.0625&thinsp;<sup>c</sup></span><span class="fc">852.0875&thinsp;<sup>c</sup></span><span class="fc">853.0875&thinsp;<sup>c</sup></span><span class="fc">854.2875&thinsp;<sup>c</sup></span><span class="fc">856.0625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">853.700</span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 095</span><span class="sname">Amargosa Valley</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.0125&thinsp;<sup>c</sup></span><span class="fc">854.5125&thinsp;<sup>c</sup></span><span class="fc">854.9625&thinsp;<sup>c</sup></span><span class="fc">855.7125&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 097</span><span class="sname">Mount Schader</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">851.4875&thinsp;<sup>c</sup></span><span class="fc">853.250&thinsp;<sup>c</sup></span><span class="fc">854.2375&thinsp;<sup>c</sup></span><span class="fc">854.6125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">851.9375</span><span class="fr">852.6375</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 22B</span>
+    <span>WACN: 92738</span>
+    <span>11 sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s7: Washoe County (Sysid 307) -->
+<div class="slide" id="s7">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Washoe County</div>
+    <div class="c-sub">NSRS · Sysid 307 · by Boy and a Scanner</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 250</span><span class="sname">Washoe County Simulcast</span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">769.35625&thinsp;<sup>c</sup></span><span class="fc">770.35625&thinsp;<sup>c</sup></span><span class="fc">771.43125&thinsp;<sup>c</sup></span><span class="fc">772.73125&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">769.85625</span><span class="fr">770.85625</span><span class="fr">773.88125</span><span class="fr">774.91875</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 307</span>
+    <span>WACN: 92738</span>
+    <span>1 site (700 MHz)</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s8: Out-of-State Sites -->
+<div class="slide" id="s8">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">Out-of-State Sites</div>
+    <div class="c-sub">NSRS · AZ &amp; UT Border Coverage · Sysid 22B</div>
+  </div>
+  <div class="cbody">
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 065</span><span class="sname">Navajo Generating Station <span style="color:#44cc6a;font-weight:400">(Coconino, AZ)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">855.1875&thinsp;<sup>c</sup></span><span class="fc">855.5375&thinsp;<sup>c</sup></span><span class="fc">855.8625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 067</span><span class="sname">Moccasin Peak <span style="color:#44cc6a;font-weight:400">(Mohave, AZ)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">855.3125&thinsp;<sup>c</sup></span><span class="fc">855.8375&thinsp;<sup>c</sup></span><span class="fc">858.3625&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 057</span><span class="sname">West Mountain <span style="color:#44cc6a;font-weight:400">(Washington, UT)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">854.8375&thinsp;<sup>c</sup></span><span class="fc">855.1125&thinsp;<sup>c</sup></span><span class="fc">855.5125&thinsp;<sup>c</sup></span><span class="fc">856.2875&thinsp;<sup>c</sup></span></div>
+      </div>
+    </div>
+    <div class="sblock">
+      <div class="shead"><span class="sid">Site 059</span><span class="sname">Buckskin Mountain <span style="color:#44cc6a;font-weight:400">(Kane, UT)</span></span></div>
+      <div class="sfreqs">
+        <p class="flabel clabel">Control Frequencies</p>
+        <div class="fgrid"><span class="fc">855.2625&thinsp;<sup>c</sup></span><span class="fc">855.5625&thinsp;<sup>c</sup></span><span class="fc">856.3625&thinsp;<sup>c</sup></span></div>
+        <p class="flabel rlabel">Frequencies</p>
+        <div class="fgrid"><span class="fr">855.8375</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · Sysid 22B</span>
+    <span>WACN: 92738</span>
+    <span>4 out-of-state sites</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s9: Talkgroups — NHP & State Law -->
+<div class="slide" id="s9">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — State Law &amp; Safety</div>
+    <div class="c-sub">NSRS · NHP · DPS · AG · Capitol PD</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-group-hdr">Nevada Highway Patrol — Las Vegas</div>
+    <div class="tgrow"><span class="tg-dec">10737</span><span class="tg-hex">29f1</span><span class="tg-info">NHP LV 1 — US-95<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10738</span><span class="tg-hex">29f2</span><span class="tg-info">NHP LV 2 — I-15<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10740</span><span class="tg-hex">29f4</span><span class="tg-info">NHP LV 3 — 215 Beltway<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10743</span><span class="tg-hex">29f7</span><span class="tg-info">NHP LV 4 — Rural<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10748</span><span class="tg-hex">29fc</span><span class="tg-info">NHP LV 5<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10741</span><span class="tg-hex">29f5</span><span class="tg-info">NHP LV Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10742</span><span class="tg-hex">29f6</span><span class="tg-info">NHP LV Tac 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10744</span><span class="tg-hex">29f8</span><span class="tg-info">NHP LV Tac 3<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Nevada Highway Patrol — Reno</div>
+    <div class="tgrow"><span class="tg-dec">10753</span><span class="tg-hex">2a01</span><span class="tg-info">NHP Reno 1 — Reno Metro<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10754</span><span class="tg-hex">2a02</span><span class="tg-info">NHP Reno 2 — Carson City<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10755</span><span class="tg-hex">2a03</span><span class="tg-info">NHP Reno 3 — Rural<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10757</span><span class="tg-hex">2a05</span><span class="tg-info">NHP Reno Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10758</span><span class="tg-hex">2a06</span><span class="tg-info">NHP Reno Tac 2<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Nevada Highway Patrol — Elko</div>
+    <div class="tgrow"><span class="tg-dec">10721</span><span class="tg-hex">29e1</span><span class="tg-info">NHP Elko 1 — Central Command<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10722</span><span class="tg-hex">29e2</span><span class="tg-info">NHP Elko 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10725</span><span class="tg-hex">29e5</span><span class="tg-info">NHP Elko Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">11281</span><span class="tg-hex">2c11</span><span class="tg-info">NHP Ely<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">DPS — Emergency Management</div>
+    <div class="tgrow"><span class="tg-dec">10657</span><span class="tg-hex">29a1</span><span class="tg-info">NV EM E.O.C.<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10658</span><span class="tg-hex">29a2</span><span class="tg-info">NV EM Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10659</span><span class="tg-hex">29a3</span><span class="tg-info">NV EM Tac 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10661</span><span class="tg-hex">29a5</span><span class="tg-info">NV EM MAC 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10662</span><span class="tg-hex">29a6</span><span class="tg-info">NV EM MAC 2<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Capitol Police / Attorney General</div>
+    <div class="tgrow"><span class="tg-dec">10706</span><span class="tg-hex">29d2</span><span class="tg-info">Capitol PD 1 — Capitol Bldgs<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10707</span><span class="tg-hex">29d3</span><span class="tg-info">Capitol PD 3 — Las Vegas Area<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10680</span><span class="tg-hex">29b8</span><span class="tg-info">NV AG North Main<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10683</span><span class="tg-hex">29bb</span><span class="tg-info">NV AG South Main<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Parole &amp; Probation</div>
+    <div class="tgrow"><span class="tg-dec">10652</span><span class="tg-hex">299c</span><span class="tg-info">Parole Reno/Carson City C2C<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10653</span><span class="tg-hex">299d</span><span class="tg-info">Parole LV Car-to-Car<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10749</span><span class="tg-hex">29fd</span><span class="tg-info">Parole Rural Dispatch<span class="tg-mode">T</span></span></div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 92738</span>
+    <span>State law/safety TGs</span>
+    <span>+10,000 offset from EDACS</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s10: Talkgroups — Reno / Washoe Area -->
+<div class="slide" id="s10">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — Reno / Washoe Area</div>
+    <div class="c-sub">NSRS · RPD · RFD · SPD · WCSO · TMFPD</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-group-hdr">Reno Police</div>
+    <div class="tgrow"><span class="tg-dec">30289</span><span class="tg-hex">7651</span><span class="tg-info">RPD Green — Central<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30290</span><span class="tg-hex">7652</span><span class="tg-info">RPD Yellow — South<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30293</span><span class="tg-hex">7655</span><span class="tg-info">RPD Blue — North<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30295</span><span class="tg-hex">7657</span><span class="tg-info">RPD Black 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30296</span><span class="tg-hex">7658</span><span class="tg-info">RPD Black 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30301</span><span class="tg-hex">765d</span><span class="tg-info">RPD SWAT<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Reno Fire</div>
+    <div class="tgrow"><span class="tg-dec">30401</span><span class="tg-hex">76c1</span><span class="tg-info">RFD Red Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30405</span><span class="tg-hex">76c5</span><span class="tg-info">RFD Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30406</span><span class="tg-hex">76c6</span><span class="tg-info">RFD Tac 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30407</span><span class="tg-hex">76c7</span><span class="tg-info">RFD Tac 3<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Sparks Police</div>
+    <div class="tgrow"><span class="tg-dec">30305</span><span class="tg-hex">7661</span><span class="tg-info">SPD Dispatch 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30310</span><span class="tg-hex">7666</span><span class="tg-info">SPD Dispatch 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30304</span><span class="tg-hex">7660</span><span class="tg-info">SPD Dispatch 3<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Sparks Fire</div>
+    <div class="tgrow"><span class="tg-dec">30417</span><span class="tg-hex">76d1</span><span class="tg-info">SFD Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30418</span><span class="tg-hex">76d2</span><span class="tg-info">SFD Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30419</span><span class="tg-hex">76d3</span><span class="tg-info">SFD Tac 2<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Washoe County Sheriff</div>
+    <div class="tgrow"><span class="tg-dec">30278</span><span class="tg-hex">7646</span><span class="tg-info">WCSO Yellow — South Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30273</span><span class="tg-hex">7641</span><span class="tg-info">WCSO Green 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30274</span><span class="tg-hex">7642</span><span class="tg-info">WCSO Green 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30279</span><span class="tg-hex">7647</span><span class="tg-info">WCSO Tac 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30287</span><span class="tg-hex">764f</span><span class="tg-info">WCSO Black SWAT<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Truckee Meadows FPD</div>
+    <div class="tgrow"><span class="tg-dec">30433</span><span class="tg-hex">76e1</span><span class="tg-info">TMFPD Red Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30434</span><span class="tg-hex">76e2</span><span class="tg-info">TMFPD Command 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30435</span><span class="tg-hex">76e3</span><span class="tg-info">TMFPD Command 2<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Reno-Tahoe Airport</div>
+    <div class="tgrow"><span class="tg-dec">30337</span><span class="tg-hex">7681</span><span class="tg-info">RTIA Police Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30449</span><span class="tg-hex">76f1</span><span class="tg-info">RTIA Fire Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">REMSA / EMS</div>
+    <div class="tgrow"><span class="tg-dec">31905</span><span class="tg-hex">7ca1</span><span class="tg-info">REMSA Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30241</span><span class="tg-hex">7621</span><span class="tg-info">Carson City Sheriff Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">30242</span><span class="tg-hex">7622</span><span class="tg-info">Carson City Fire Dispatch<span class="tg-mode">T</span></span></div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 92738</span>
+    <span>Reno/Washoe TGs</span>
+    <span>+30,000 offset from EDACS</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s11: Talkgroups — NDOT & Public Works -->
+<div class="slide" id="s11">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — NDOT &amp; Public Works</div>
+    <div class="c-sub">NSRS · Nevada DOT by District</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-note">NDOT talkgroups use <strong style="color:#5888b8">+10,000 offset</strong> from EDACS decimal numbers. Coverage by district: Las Vegas (D1), Tonopah (D2), Reno (D3), Elko (D4), Winnemucca (D5), Ely (D6).</div>
+    <div class="tg-group-hdr">NDOT — Las Vegas District</div>
+    <div class="tgrow"><span class="tg-dec">10785</span><span class="tg-hex">2a21</span><span class="tg-info">NDOT LV Primary<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10786</span><span class="tg-hex">2a22</span><span class="tg-info">NDOT LV Maintenance<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10788</span><span class="tg-hex">2a24</span><span class="tg-info">NDOT LV Ops 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10789</span><span class="tg-hex">2a25</span><span class="tg-info">NDOT LV Ops 2<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10790</span><span class="tg-hex">2a26</span><span class="tg-info">NDOT LV Ops 3<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">NDOT — Tonopah District</div>
+    <div class="tgrow"><span class="tg-dec">10801</span><span class="tg-hex">2a31</span><span class="tg-info">NDOT Tonopah Office<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10802</span><span class="tg-hex">2a32</span><span class="tg-info">NDOT Tonopah Maintenance<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10804</span><span class="tg-hex">2a34</span><span class="tg-info">NDOT Tonopah Ops 1<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">NDOT — Reno District</div>
+    <div class="tgrow"><span class="tg-dec">10817</span><span class="tg-hex">2a41</span><span class="tg-info">NDOT Reno Office<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10818</span><span class="tg-hex">2a42</span><span class="tg-info">NDOT Reno Maintenance<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10820</span><span class="tg-hex">2a44</span><span class="tg-info">NDOT Reno Ops 1<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">NDOT — Elko District</div>
+    <div class="tgrow"><span class="tg-dec">10833</span><span class="tg-hex">2a51</span><span class="tg-info">NDOT Elko Office<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10834</span><span class="tg-hex">2a52</span><span class="tg-info">NDOT Elko Maintenance 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10836</span><span class="tg-hex">2a54</span><span class="tg-info">NDOT Elko Ops 1<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">NDOT — Winnemucca &amp; Ely Districts</div>
+    <div class="tgrow"><span class="tg-dec">10849</span><span class="tg-hex">2a61</span><span class="tg-info">NDOT Winnemucca Office<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10850</span><span class="tg-hex">2a62</span><span class="tg-info">NDOT Winnemucca Maint<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10865</span><span class="tg-hex">2a71</span><span class="tg-info">NDOT Ely Office<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10866</span><span class="tg-hex">2a72</span><span class="tg-info">NDOT Ely Maintenance<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10882</span><span class="tg-hex">2a82</span><span class="tg-info">NDOT Mutual Aid 1<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10883</span><span class="tg-hex">2a83</span><span class="tg-info">NDOT Mutual Aid 2<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">State Parks &amp; IT</div>
+    <div class="tgrow"><span class="tg-dec">10651</span><span class="tg-hex">299b</span><span class="tg-info">Nevada State Parks<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10705</span><span class="tg-hex">29d1</span><span class="tg-info">Nevada State Motor Pool<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10708</span><span class="tg-hex">29d4</span><span class="tg-info">NV State Buildings &amp; Grounds<span class="tg-mode">T</span></span></div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 92738</span>
+    <span>NDOT &amp; Public Works TGs</span>
+    <span>+10,000 offset from EDACS</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+<!-- s12: Talkgroups — NV Energy & Interop -->
+<div class="slide" id="s12">
+  <div class="bar top-bar"></div>
+  <div class="chead">
+    <div class="c-county">TG — NV Energy &amp; Interop</div>
+    <div class="c-sub">NSRS · Utilities · Mutual Aid · EMS</div>
+  </div>
+  <div class="cbody">
+    <div class="tg-note">NV Energy talkgroups use <strong style="color:#5888b8">+60,000 offset</strong> from EDACS decimal numbers. Over 120 NV Energy TGs exist on this system.</div>
+    <div class="tg-group-hdr">NV Energy — Key Channels</div>
+    <div class="tgrow"><span class="tg-dec">60913</span><span class="tg-hex">edf1</span><span class="tg-info">NVE ESCC 1 — System Control<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">60914</span><span class="tg-hex">edf2</span><span class="tg-info">NVE Dispatch<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">60915</span><span class="tg-hex">edf3</span><span class="tg-info">NVE Reno Electric<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">61024</span><span class="tg-hex">ee60</span><span class="tg-info">NVE Emergency<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">61009</span><span class="tg-hex">ee51</span><span class="tg-info">NVE Mutual Aid<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">60961</span><span class="tg-hex">ee21</span><span class="tg-info">NVE ESCC 2 — System Control<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">61060</span><span class="tg-hex">ee84</span><span class="tg-info">NVE Laughlin<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Mutual Aid (Interop) — Statewide</div>
+    <div class="tgrow"><span class="tg-dec">10177</span><span class="tg-hex">27c1</span><span class="tg-info">NV-CORD-61 — Patched SNACC/LVMPD<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10178</span><span class="tg-hex">27c2</span><span class="tg-info">NV-CORD-62 — Patched SNACC/LVMPD<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10193</span><span class="tg-hex">27d1</span><span class="tg-info">NV-TAC-81<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10194</span><span class="tg-hex">27d2</span><span class="tg-info">NV-TAC-82<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10195</span><span class="tg-hex">27d3</span><span class="tg-info">NV-TAC-83<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">EMS — Statewide</div>
+    <div class="tgrow"><span class="tg-dec">10160</span><span class="tg-hex">27b0</span><span class="tg-info">EMS All-Call — Mobile Fleet<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10161</span><span class="tg-hex">27b1</span><span class="tg-info">EMS Region 1 Talk<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10162</span><span class="tg-hex">27b2</span><span class="tg-info">EMS Region 2 Talk<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10163</span><span class="tg-hex">27b3</span><span class="tg-info">EMS Region 3 Talk<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10173</span><span class="tg-hex">27bd</span><span class="tg-info">NV State Med — Hosp. Coordination<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">National Guard / Federal</div>
+    <div class="tgrow"><span class="tg-dec">10690</span><span class="tg-hex">29c2</span><span class="tg-info">NV NG EOC Alt<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10691</span><span class="tg-hex">29c3</span><span class="tg-info">NV NG Task Force North<span class="tg-mode">T</span></span></div>
+    <div class="tgrow"><span class="tg-dec">10693</span><span class="tg-hex">29c5</span><span class="tg-info">NV NG Task Force South<span class="tg-mode">T</span></span></div>
+    <div class="tg-group-hdr">Reno PD Patches (Dynamic)</div>
+    <div class="tg-note">100 dynamic patch talkgroups <strong style="color:#5888b8">45701–45800</strong> (hex b285–b2e8) used for Reno PD real-time talkgroup bridging.</div>
+  </div>
+  <div class="cfoot">
+    <span>P25 Phase II · WACN 92738</span>
+    <span>NVE +60k · State +10k offset</span>
+    <span>County TGs +30k offset</span>
+  </div>
+  <div class="bar bot-bar"></div>
+</div>
+
+      </div><!-- /track -->
+    </div><!-- /track-wrap -->
+  </div><!-- /stage -->
+
+  <div class="counter" id="counter">1 / 13</div>
+
+  <div class="controls">
+    <button class="btn" id="bprev" onclick="move(-1)" disabled>&#8592;</button>
+    <select class="jump" id="jsel" onchange="goTo(+this.value)">
+      <option value="0">&#9654; Title / Overview</option>
+      <option value="1">Clark County</option>
+      <option value="2">Esmeralda County</option>
+      <option value="3">Lincoln County</option>
+      <option value="4">Lyon &amp; White Pine Counties</option>
+      <option value="5">Mineral County</option>
+      <option value="6">Nye County</option>
+      <option value="7">Washoe County</option>
+      <option value="8">Out-of-State Sites</option>
+      <option value="9">TG — State Law &amp; Safety</option>
+      <option value="10">TG — Reno / Washoe Area</option>
+      <option value="11">TG — NDOT &amp; Public Works</option>
+      <option value="12">TG — NV Energy &amp; Interop</option>
+    </select>
+    <button class="btn" id="bnext" onclick="move(1)">&#8594;</button>
+  </div>
+
+  <div class="dots" id="dots">
+    <span class="dot active" onclick="goTo(0)"  id="dot0"></span>
+    <span class="dot" onclick="goTo(1)"  id="dot1"></span>
+    <span class="dot" onclick="goTo(2)"  id="dot2"></span>
+    <span class="dot" onclick="goTo(3)"  id="dot3"></span>
+    <span class="dot" onclick="goTo(4)"  id="dot4"></span>
+    <span class="dot" onclick="goTo(5)"  id="dot5"></span>
+    <span class="dot" onclick="goTo(6)"  id="dot6"></span>
+    <span class="dot" onclick="goTo(7)"  id="dot7"></span>
+    <span class="dot" onclick="goTo(8)"  id="dot8"></span>
+    <span class="dot" onclick="goTo(9)"  id="dot9"></span>
+    <span class="dot" onclick="goTo(10)" id="dot10"></span>
+    <span class="dot" onclick="goTo(11)" id="dot11"></span>
+    <span class="dot" onclick="goTo(12)" id="dot12"></span>
+  </div>
+  <div class="slide-lbl" id="slbl">Title / Overview</div>
+
+</div><!-- /wrapper -->
+
+<script>
+const LABELS = [
+  "Title / Overview",
+  "Clark County","Esmeralda County","Lincoln County","Lyon & White Pine Counties",
+  "Mineral County","Nye County","Washoe County","Out-of-State Sites",
+  "TG — State Law & Safety","TG — Reno / Washoe Area",
+  "TG — NDOT & Public Works","TG — NV Energy & Interop"
+];
+const TOTAL = 13;
+let cur = 0;
+
+const track   = document.getElementById('track');
+const counter = document.getElementById('counter');
+const bprev   = document.getElementById('bprev');
+const bnext   = document.getElementById('bnext');
+const jsel    = document.getElementById('jsel');
+const slbl    = document.getElementById('slbl');
+const dots    = document.querySelectorAll('.dot');
+
+function goTo(n) {
+  n = Math.max(0, Math.min(TOTAL - 1, +n));
+  cur = n;
+  track.style.transform = `translateX(${-n * 100}%)`;
+  counter.textContent = `${n + 1} / ${TOTAL}`;
+  bprev.disabled = n === 0;
+  bnext.disabled = n === TOTAL - 1;
+  jsel.value = n;
+  slbl.textContent = LABELS[n] || '';
+  dots.forEach((d, i) => d.classList.toggle('active', i === n));
+  const body = document.querySelector('#s' + n + ' .cbody');
+  if (body) body.scrollTop = 0;
+}
+
+function move(d) { goTo(cur + d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') move(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   move(-1);
+});
+
+let tx = 0;
+track.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+track.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+}, { passive: true });
+</script>
+</body>
+</html>
