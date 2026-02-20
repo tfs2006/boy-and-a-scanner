@@ -143,7 +143,7 @@
   <p class="lead">Click a <strong style="color:#00b8ff">highlighted state</strong> to explore its statewide digital trunked radio system — frequencies, sites, and counties, all organized for your scanner.</p>
 
   <div class="callout" style="margin-bottom:24px">
-    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), Illinois (STARCOM21 · P25 Phase II), Montana (PSCN · P25 Phase II), Colorado (DTRS · P25 Phase I), and Alaska (ALMR · P25 Phase II). More states added regularly — check back soon.
+    <strong>Currently available:</strong> Arizona (AZ WINS · P25 Phase II, APS Corporation · P25 Phase II), Idaho (ICAWIN · P25 Phase I), Nevada (NSRS · P25 Phase II), Florida (SLERS · P25 Phase II), Illinois (STARCOM21 · P25 Phase II), Montana (PSCN · P25 Phase II), Colorado (DTRS · P25 Phase I), Alaska (ALMR · P25 Phase II), and California (CRIS · P25 Phase II). More states added regularly — check back soon.
   </div>
 
   <div class="map-container" style="max-width: 959px; margin: 0 auto 32px; text-align: center;">
@@ -589,6 +589,11 @@ Place this code in the empty space below. */
         <div class="dsc-system">ALMR · Sysid: 142 · WACN: BEE00</div>
         <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide AK &nbsp;·&nbsp; 80+ Sites</div>
       </a>
+      <a class="db-state-card" href="/california-database.html">
+        <div class="dsc-state">California</div>
+        <div class="dsc-system">CRIS · Sysid: 9D2 · WACN: BEE00</div>
+        <div class="dsc-meta">Project 25 Phase II &nbsp;·&nbsp; Statewide CA &nbsp;·&nbsp; 69 Sites</div>
+      </a>
     </div>
   </div>
 </div>
@@ -603,7 +608,8 @@ document.addEventListener('DOMContentLoaded', () => {
     il: '/illinois-database.html',
     mt: '/montana-database.html',
     co: '/colorado-database.html',
-    ak: '/alaska-database.html'
+    ak: '/alaska-database.html',
+    ca: '/california-database.html'
   };
 
   const wrapper = document.getElementById('usa-map-wrapper');
