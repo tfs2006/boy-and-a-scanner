@@ -114,25 +114,21 @@
       <button id="navToggle" aria-expanded="false" aria-controls="topnav" aria-label="Toggle navigation">
         <span class="hamburger"><span></span><span></span><span></span></span>
       </button>
-      <nav id="topnav">
-        
-          <a class='navlink' href='/'>Home</a>
-        
-        
-       <a class="navlink" href="/antenna-guide.html">Antenna Finder</a>
-       <a class="navlink" href="/sds100-complete-manual.html">Manual</a>
-       <a class="navlink" href="/sds100-sentinel-programming.html">Sentinel</a>
-       <a class="navlink" href="/sds100-p25-programming.html">P25</a>
-       <a class="navlink" href="/sds100-dmr-programming.html">DMR</a>
-       <a class="navlink" href="/sds100-nxdn-programming.html">NXDN</a>
-       <a class="navlink" href="/sds100-provoice-programming.html">ProVoice</a>
-       <a class="navlink" href="/uniden-sds150.html">SDS150</a>
-       <a class="navlink" href="/sds100-simulcast-guide.html">Simulcast Fix</a>
-       <!-- More links can be added here or dynamically managed -->
-       <a class="cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder & Trip Planner →</a>
-       <a class="cta" href="https://www.amazon.com/shop/boyandascanner" target="_blank" rel="nofollow noopener">Shop My Picks →</a>
-        
-       <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
+      <nav id="topnav" aria-label="Main navigation">
+        <a class="navlink" href="/" >Home</a>
+        <a class="navlink" href="/database.html" >Database</a>
+        <a class="navlink" href="/sds100-complete-manual.html" >Manual</a>
+        <a class="navlink" href="/antenna-guide.html" >Antennas</a>
+        <a class="navlink" href="/sds100-sentinel-programming.html" >Sentinel</a>
+        <a class="navlink" href="/sds100-p25-programming.html" >P25</a>
+        <a class="navlink" href="/sds100-dmr-programming.html" >DMR</a>
+        <a class="navlink" href="/sds100-nxdn-programming.html" >NXDN</a>
+        <a class="navlink" href="/sds100-provoice-programming.html" >ProVoice</a>
+        <a class="navlink" href="/sds100-simulcast-guide.html" >Simulcast Fix</a>
+        <a class="navlink" href="/sds100-vs-sds200.html" >Compare</a>
+        <a class="navlink" href="/uniden-sds150.html" >SDS150</a>
+        <a class="cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder →</a>
+        <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
       </nav>
     </div>
   </header>
@@ -390,14 +386,60 @@
   <footer>
     <div class="wrap">
       <div class="footer-inner">
-        <div>© <span id="year"></span> Boy and a Scanner. All rights reserved. <script>document.getElementById('year').textContent = new Date().getFullYear();</script></div>
-        <div class="note">Affiliate Disclaimer: Some links on this page are affiliate links. If you click and purchase, I may earn a commission at no additional cost to you. I only recommend products I believe provide value. Thank you for your support! – BAAS</div>
-        <div class="footer-links">
-          <a class="navlink" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_store" target="_blank" rel="noopener">BAAS Store</a>
-          <a class="navlink" href="https://www.youtube.com/@BoyAndAScanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_youtube" target="_blank" rel="noopener">YouTube</a>
-          <a class="navlink" href="https://buymeacoffee.com/boyandascanner?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=footer_bmac" target="_blank" rel="noopener">Buy Me a Coffee</a>
-          <a class="navlink" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+
+        <!-- Site nav grid -->
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-group">
+            <strong>Guides</strong>
+            <a href="/">SDS100 Overview</a>
+            <a href="/sds100-complete-manual.html">Complete Manual</a>
+            <a href="/sds100-simulcast-guide.html">Simulcast Fix</a>
+            <a href="/sds100-close-call-tutorial.html">Close Call</a>
+            <a href="/sds100-priority-scan-tutorial.html">Priority Scan</a>
+            <a href="/uniden-sds100-programming-alerts-and-tones-baas-tutorial/">Alerts &amp; Tones</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Programming</strong>
+            <a href="/sds100-sentinel-programming.html">Sentinel</a>
+            <a href="/sds100-p25-programming.html">P25</a>
+            <a href="/sds100-dmr-programming.html">DMR</a>
+            <a href="/sds100-nxdn-programming.html">NXDN</a>
+            <a href="/sds100-provoice-programming.html">ProVoice</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Accessories</strong>
+            <a href="/antenna-guide.html">Antenna Finder</a>
+            <a href="/sds100-700-800-mhz-stubby-antenna.html">Stubby Antenna</a>
+            <a href="/sds100-triband-antenna.html">Triband Antenna</a>
+            <a href="/sds100-battery.html">Battery</a>
+            <a href="/sds100-gps-receiver.html">GPS Receiver</a>
+            <a href="/sds100-earpiece-headphones.html">Earpiece</a>
+            <a href="/sds100-microsd-card.html">MicroSD Card</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Scanners &amp; Database</strong>
+            <a href="/sds100-vs-sds200.html">SDS100 vs SDS200</a>
+            <a href="/uniden-sds150.html">Uniden SDS150</a>
+            <a href="/database.html">Statewide Database</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Community</strong>
+            <a href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=footer&utm_campaign=sds100_site&utm_content=footer_store" target="_blank" rel="noopener">BAAS Store</a>
+            <a href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder App</a>
+            <a href="https://www.youtube.com/@BoyAndAScanner?utm_source=boyandascanner.com&utm_medium=footer&utm_campaign=sds100_site&utm_content=footer_youtube" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.amazon.com/shop/boyandascanner" target="_blank" rel="nofollow noopener">Amazon Shop</a>
+            <a href="https://buymeacoffee.com/boyandascanner?utm_source=boyandascanner.com&utm_medium=footer&utm_campaign=sds100_site&utm_content=footer_bmac" target="_blank" rel="noopener">Buy Me a Coffee</a>
+          </div>
+        </nav>
+
+        <div class="footer-bottom">
+          <div>© <span id="year"></span> Boy and a Scanner. All rights reserved. <script>document.getElementById('year').textContent = new Date().getFullYear();</script></div>
+          <div class="note">Affiliate Disclaimer: Some links on this page are affiliate links. If you click and purchase, I may earn a commission at no additional cost to you. I only recommend products I believe provide value. Thank you for your support! – BAAS</div>
+          <div class="footer-links">
+            <a class="navlink" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+          </div>
         </div>
+
       </div>
     </div>
   </footer>

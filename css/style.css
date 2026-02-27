@@ -317,6 +317,19 @@ nav#topnav {
   left: 25%;
 }
 
+/* Active page indicator */
+.navlink[aria-current="page"] {
+  background: rgba(54, 162, 255, 0.12);
+  color: var(--accent);
+  opacity: 1;
+}
+
+.navlink[aria-current="page"]::after {
+  width: 50%;
+  left: 25%;
+  background: var(--accent);
+}
+
 /* ── Mobile Navigation ─────────────────── */
 
 @media (max-width: 860px) {
@@ -975,6 +988,58 @@ footer .wrap {
 .footer-links .navlink {
   font-size: 14px;
   padding: 8px 12px;
+}
+
+/* ── Footer Nav Sitemap Grid ───────────── */
+
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 28px 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.footer-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-nav-group strong {
+  color: var(--accent-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.footer-nav-group a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s ease;
+  line-height: 1.4;
+}
+
+.footer-nav-group a:hover {
+  color: var(--text);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media (max-width: 500px) {
+  .footer-nav {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ── Accordion / Details ───────────────── */
