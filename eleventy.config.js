@@ -6,6 +6,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/**/*.jpeg");
     eleventyConfig.addPassthroughCopy("src/robots.txt");
     eleventyConfig.addPassthroughCopy("src/sitemap.xml");
+    eleventyConfig.addPassthroughCopy("src/ads.txt");
     eleventyConfig.addPassthroughCopy("src/CNAME");
     eleventyConfig.addPassthroughCopy("src/google*.html");
     eleventyConfig.addPassthroughCopy("src/css"); // CSS
