@@ -8,18 +8,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <title>How to Program DMR on the Uniden SDS100 (MotoTRBO &amp; Conventional) | Boy and a Scanner</title>
-  <meta name="description" content="Program DMR on your SDS100: one-frequency DMR and MotoTRBO trunking setup, Color Code, Slot, TGID, and LCN explained, plus troubleshooting no audio. Requires DMR upgrade key." />
+  <title>Blog — Radio Scanning News, Tech &amp; Guides | Boy and a Scanner</title>
+  <meta name="description" content="The Boy and a Scanner blog covers the latest in radio scanning technology, police scanner encryption news, AI tools for scanner hobbyists, and practical guides for SDS100 users." />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
   <meta name="theme-color" content="#0b0e14" />
-  <link rel="canonical" href="https://boyandascanner.com/sds100-dmr-programming.html" />
+  <link rel="canonical" href="https://boyandascanner.com/blog/" />
   
-  <meta property="og:title" content="How to Program DMR on the Uniden SDS100 (MotoTRBO &amp; Conventional) | Boy and a Scanner" />
-  <meta property="og:description" content="Program DMR on your SDS100: one-frequency DMR and MotoTRBO trunking setup, Color Code, Slot, TGID, and LCN explained, plus troubleshooting no audio. Requires DMR upgrade key." />
+  <meta property="og:title" content="Blog — Radio Scanning News, Tech &amp; Guides | Boy and a Scanner" />
+  <meta property="og:description" content="The Boy and a Scanner blog covers the latest in radio scanning technology, police scanner encryption news, AI tools for scanner hobbyists, and practical guides for SDS100 users." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://boyandascanner.com/sds100-dmr-programming.html" />
+  <meta property="og:url" content="https://boyandascanner.com/blog/" />
   <meta property="og:site_name" content="Boy and a Scanner" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://boyandascanner.com/og-image.png" />
@@ -28,8 +28,8 @@
   <meta property="og:image:alt" content="Boy and a Scanner — Uniden SDS100 Guides, Programming & Accessories" />
   
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="How to Program DMR on the Uniden SDS100 (MotoTRBO &amp; Conventional) | Boy and a Scanner" />
-  <meta name="twitter:description" content="Program DMR on your SDS100: one-frequency DMR and MotoTRBO trunking setup, Color Code, Slot, TGID, and LCN explained, plus troubleshooting no audio. Requires DMR upgrade key." />
+  <meta name="twitter:title" content="Blog — Radio Scanning News, Tech &amp; Guides | Boy and a Scanner" />
+  <meta name="twitter:description" content="The Boy and a Scanner blog covers the latest in radio scanning technology, police scanner encryption news, AI tools for scanner hobbyists, and practical guides for SDS100 users." />
   <meta name="twitter:image" content="https://boyandascanner.com/og-image.png" />
   <meta name="twitter:image:alt" content="Boy and a Scanner — Uniden SDS100 Guides, Programming & Accessories" />
   
@@ -75,8 +75,8 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "How to Program DMR on the Uniden SDS100 (MotoTRBO &amp; Conventional) | Boy and a Scanner",
-            "item": "https://boyandascanner.com/sds100-dmr-programming.html"
+            "name": "Blog — Radio Scanning News, Tech &amp; Guides | Boy and a Scanner",
+            "item": "https://boyandascanner.com/blog/"
           }
         ]
       }
@@ -121,13 +121,13 @@
         <a class="navlink" href="/antenna-guide.html" >Antennas</a>
         <a class="navlink" href="/sds100-sentinel-programming.html" >Sentinel</a>
         <a class="navlink" href="/sds100-p25-programming.html" >P25</a>
-        <a class="navlink" href="/sds100-dmr-programming.html" aria-current="page">DMR</a>
+        <a class="navlink" href="/sds100-dmr-programming.html" >DMR</a>
         <a class="navlink" href="/sds100-nxdn-programming.html" >NXDN</a>
         <a class="navlink" href="/sds100-provoice-programming.html" >ProVoice</a>
         <a class="navlink" href="/sds100-simulcast-guide.html" >Simulcast Fix</a>
         <a class="navlink" href="/sds100-vs-sds200.html" >Compare</a>
         <a class="navlink" href="/uniden-sds150.html" >SDS150</a>
-        <a class="navlink" href="/blog/" >Blog</a>
+        <a class="navlink" href="/blog/" aria-current="page">Blog</a>
         <a class="cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder →</a>
         <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
       </nav>
@@ -136,192 +136,45 @@
   <div class="nav-overlay"></div>
 
   <main class="wrap" id="content">
-  <h1>Uniden SDS100 DMR Programming Guide</h1>
-  <section class="card" id="basics">
-    <h2>DMR Basics (What the SDS100 Needs)</h2>
-    <p>DMR is a digital voice format used by many businesses, utilities, schools, and some public safety. For the
-      SDS100, there are two common cases:</p>
-    <ul>
-      <li><strong>DMR One-Frequency (conventional):</strong> You program a single frequency and listen to traffic on it.
-      </li>
-      <li><strong>DMR Trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III):</strong> You program a site (multiple
-        frequencies) and the scanner follows conversations across channels.</li>
-    </ul>
-    <div class="callout warning">
-      <strong>Before you start:</strong>
-      <ul>
-        <li>Confirm <strong>DMR upgrade</strong> is enabled: MENU → Settings → Upgrade (DMR should show enabled).</li>
-        <li>Confirm whether your target system is <strong>one-frequency</strong> or <strong>trunked</strong> (this is
-          the #1 place people pick the wrong system type).</li>
-      </ul>
-    </div>
-  </section>
 
-  <section class="card" id="one-frequency" style="margin-top:18px">
-    <h2>Step-by-Step: DMR One-Frequency (Upgrade Required)</h2>
-    <p><strong>You need:</strong> one frequency. If known, Color Code/Slot/TGID can refine what you hear, but you can
-      often start without them and let the scanner display them during active traffic.</p>
-    <ol>
-      <li><strong>Create a Favorites List</strong> (if needed): MENU → Manage Favorites → New Favorites List.</li>
-      <li><strong>New system:</strong> Open that Favorites List → Review/Edit System → New System → <strong>DMR One
-          Frequency</strong>.</li>
-      <li><strong>Department:</strong> Edit Department → New Department (name it).</li>
-      <li><strong>Channel:</strong> Edit Channel → New Channel → enter the frequency.</li>
-      <li><strong>Scan and observe:</strong> Start scanning and watch the display for DMR parameters (Color Code / Slot
-        / TGID) when traffic appears.</li>
-      <li><strong>Refine:</strong> Once you know the talkgroups you want, avoid or lock out the noise and name
-        channels/talkgroups cleanly.</li>
-    </ol>
-    <p class="note">If you see traffic but it’s silent, jump to troubleshooting below—encryption is common on some
-      business systems.</p>
-  </section>
+  <span class="kicker">Boy and a Scanner</span>
+  <h1>Blog: Radio Scanning News & Technology</h1>
+  <p class="lead">Deep dives on what's changing in the scanner world — encryption trends, AI tools, new technology, and practical tips for SDS100 users and the broader hobbyist community.</p>
 
-  <section class="card" id="trunked" style="margin-top:18px">
-    <h2>Step-by-Step: DMR Trunked (MotoTRBO / Capacity+ / Connect Plus / Tier III)</h2>
-    <p><strong>You need:</strong> the correct trunking type, site frequencies, and <strong>LCNs</strong> for the site
-      you can receive.</p>
-    <ol>
-      <li><strong>Get the system details:</strong> Use RadioReference to confirm the trunking flavor and to collect site
-        frequencies and LCNs for your nearest site.</li>
-      <li><strong>Create a Favorites List</strong> and then <strong>New System</strong> → choose the appropriate
-        DMR/MotoTRBO trunk system type offered by the SDS100.</li>
-      <li><strong>Add a site</strong> and enter all site frequencies.</li>
-      <li><strong>Enter LCNs</strong> for each frequency. This mapping is required for proper tracking.</li>
-      <li><strong>Validate with traffic:</strong> Start scanning; if it won’t follow conversations, re-check the LCN
-        mapping first.</li>
-      <li><strong>LCN Finder (if available):</strong> If you don’t have LCNs, use LCN Finder where supported during
-        active traffic to determine mapping.</li>
-    </ol>
-    <div class="callout warning">
-      <strong>Reality check:</strong> Trunked DMR programming is sensitive to correct LCNs. If your system stops on
-      talkgroups but voice is chopped or doesn’t follow, treat LCNs as the first suspect.
-    </div>
-  </section>
+  <div class="blog-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:28px">
 
-  <section class="card" id="sentinel" style="margin-top:18px">
-    <h2>Sentinel vs Manual: Which is Better for DMR?</h2>
-    <ul>
-      <li><strong>Sentinel (recommended):</strong> Fastest way to pull correct system types and site data from the
-        database, then write clean Favorites Lists.</li>
-      <li><strong>Manual (on-radio):</strong> Great for quick one-frequency DMR in the field, or small edits after
-        you’ve built the list in Sentinel.</li>
-    </ul>
-    <p class="note">If you’re using a PC, start with the <a href="/sds100-sentinel-programming.html">Sentinel guide</a>,
-      then come back here for DMR-specific details.</p>
-  </section>
+    <article class="card blog-card" style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <span class="blog-tag" style="display:inline-block;background:#0a2040;color:#00b8ff;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #0e3060;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Technology</span>
+        <h2 style="font-size:1.15rem;line-height:1.3;margin:0 0 8px"><a href="/blog/ai-radio-scanning/" style="color:#d6eeff;text-decoration:none">How AI Is Changing Radio Scanning: Frequency Finders, Smart SDR, and What's Next</a></h2>
+        <p style="font-size:.9rem;color:#6a90b8;line-height:1.6;margin:0">AI tools are reshaping how scanner hobbyists find frequencies, plan routes, decode signals, and transcribe audio. Here's where AI is already useful today — and where it's heading in 2026 and beyond.</p>
+      </div>
+      <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:.78rem;color:#4a6a8a">March 25, 2026</span>
+        <a href="/blog/ai-radio-scanning/" class="btn" style="font-size:.82rem;padding:6px 14px">Read More →</a>
+      </div>
+    </article>
 
-  <section class="card" id="troubleshooting" style="margin-top:18px">
-    <h2>Troubleshooting: DMR “No Audio” and Other Common Issues</h2>
-    <ul>
-      <li><strong>Encryption:</strong> If the talkgroup is encrypted, you may see activity but you won’t hear
-        intelligible audio.</li>
-      <li><strong>Wrong system type:</strong> Make sure you didn’t program a trunked system as one-frequency (or vice
-        versa).</li>
-      <li><strong>LCNs:</strong> For trunked systems, incorrect or missing LCNs prevent proper following.</li>
-      <li><strong>What’s enabled:</strong> Check Quick Keys, Avoids, and that the Favorites List/System/Department is
-        enabled to scan.</li>
-      <li><strong>Signal quality:</strong> DMR needs a clean signal. If decode is broken, try a small move or a better
-        antenna placement.</li>
-    </ul>
-    <div class="note">If you’re also dealing with garbled P25 audio, see the <a
-        href="/sds100-simulcast-guide.html">Simulcast Fix Guide</a>.</div>
-  </section>
+    <article class="card blog-card" style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <span class="blog-tag" style="display:inline-block;background:#2a0a0a;color:#ff6b6b;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #5a1a1a;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Scanner News</span>
+        <h2 style="font-size:1.15rem;line-height:1.3;margin:0 0 8px"><a href="/blog/police-scanner-encryption/" style="color:#d6eeff;text-decoration:none">Police Scanner Encryption: What's Happening & What It Means for Scanner Buyers</a></h2>
+        <p style="font-size:.9rem;color:#6a90b8;line-height:1.6;margin:0">Police departments across the U.S. are switching to AES-encrypted P25 radio. Here's what that means if you own or plan to buy a scanner — plus what you can still legally monitor.</p>
+      </div>
+      <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:.78rem;color:#4a6a8a">March 25, 2026</span>
+        <a href="/blog/police-scanner-encryption/" class="btn" style="font-size:.82rem;padding:6px 14px">Read More →</a>
+      </div>
+    </article>
 
-  <section id="faq" style="margin-top:18px">
-    <h2>Frequently Asked Questions</h2>
+  </div>
 
-    <details open>
-      <summary>Does the SDS100 need the DMR upgrade to listen to DMR?</summary>
-      <p>Yes. The Uniden SDS100 requires the optional DMR upgrade key to decode DMR (including conventional DMR and
-        MotoTRBO trunked systems).</p>
-    </details>
+  <div class="callout" style="margin-top:36px">
+    <strong>Stay updated:</strong> Subscribe on <a href="https://www.youtube.com/@BoyAndAScanner" target="_blank" rel="noopener">YouTube</a> for video coverage of scanner news and tutorials, or bookmark this page for written guides and analysis.
+  </div>
 
-    <details>
-      <summary>What information do I need to program DMR one-frequency on an SDS100?</summary>
-      <p>At minimum, you need the frequency. If you know them, Color Code, Time Slot, and Talkgroup ID help you narrow
-        what you hear. If you don’t know them, you can often start with Search/ID Search behavior and let the scanner
-        display the parameters when traffic is active.</p>
-    </details>
-
-    <details>
-      <summary>Why won’t my SDS100 follow DMR trunked conversations?</summary>
-      <p>The most common cause is incorrect LCN mapping or incomplete site frequencies. DMR trunking is sensitive to
-        correct Logical Channel Numbers (LCNs). Verify the site frequencies/LCNs for your specific site and use LCN
-        Finder where supported.</p>
-    </details>
-
-    <details>
-      <summary>I see DMR activity but hear no audio—what’s the usual reason?</summary>
-      <p>Common causes are encryption on that talkgroup, missing/incorrect system type (trunked vs one-frequency), wrong
-        site or LCNs, or the scanner isn’t set to scan the right items (Quick Keys/Service Types/Avoids).</p>
-    </details>
-
-    <details>
-      <summary>Can the SDS100 monitor encrypted DMR talkgroups?</summary>
-      <p>No. If a DMR talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but
-        you won’t hear clear voice.</p>
-    </details>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <h2>More SDS100 Guides</h2>
-    <ul>
-      <li><a href="/sds100-sentinel-programming.html">SDS100 Sentinel Programming Guide</a></li>
-      <li><a href="/sds100-simulcast-guide.html">SDS100 Simulcast Fix Guide</a></li>
-      <li><a href="/sds100-complete-manual.html">Complete SDS100 Manual</a></li>
-      <li><a href="/sds100-vs-sds200.html">SDS100 vs SDS150 vs SDS200 Comparison</a></li>
-    </ul>
-  </section>
-
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does the SDS100 need the DMR upgrade to listen to DMR?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. The Uniden SDS100 requires the optional DMR upgrade key to decode DMR (including conventional DMR and MotoTRBO trunked systems)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What information do I need to program DMR one-frequency on an SDS100?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "At minimum, you need the frequency. If you know them, Color Code, Time Slot, and Talkgroup ID help you narrow what you hear. If you don't know them, you can often start with Search/ID Search behavior and let the scanner display the parameters when traffic is active."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why won't my SDS100 follow DMR trunked conversations?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The most common cause is incorrect LCN mapping or incomplete site frequencies. DMR trunking is sensitive to correct Logical Channel Numbers (LCNs). Verify the site frequencies/LCNs for your specific site and use LCN Finder where supported."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "I see DMR activity but hear no audio—what's the usual reason?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Common causes are encryption on that talkgroup, missing/incorrect system type (trunked vs one-frequency), wrong site or LCNs, or the scanner isn't set to scan the right items (Quick Keys/Service Types/Avoids)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can the SDS100 monitor encrypted DMR talkgroups?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. If a DMR talkgroup is encrypted, the SDS100 will not decode intelligible audio. You may see activity, but you won't hear clear voice."
-      }
-    }
-  ]
-}
-</script>
 </main>
+
 
   <div class="stickybar">
     <div class="wrap">
