@@ -10,6 +10,7 @@
   
   <title>How to Add GPS to the Uniden SDS100: Location-Based Scanning Guide | Boy and a Scanner</title>
   <meta name="description" content="Add GPS to your Uniden SDS100 for automatic Location-Based Scanning. The Uniden BC-SGPS is the only plug-and-play option. Here&#39;s what it does, how it works, and what to know before you buy." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -115,25 +116,38 @@
         <span class="hamburger"><span></span><span></span><span></span></span>
       </button>
       <nav id="topnav" aria-label="Main navigation">
-        <a class="navlink" href="/" >Home</a>
-        <a class="navlink" href="/database.html" >Database</a>
-        <a class="navlink" href="/sds100-complete-manual.html" >Manual</a>
-        <a class="navlink" href="/antenna-guide.html" >Antennas</a>
-        <a class="navlink" href="/sds100-sentinel-programming.html" >Sentinel</a>
-        <a class="navlink" href="/sds100-p25-programming.html" >P25</a>
-        <a class="navlink" href="/sds100-dmr-programming.html" >DMR</a>
-        <a class="navlink" href="/sds100-nxdn-programming.html" >NXDN</a>
-        <a class="navlink" href="/sds100-provoice-programming.html" >ProVoice</a>
-        <a class="navlink" href="/sds100-simulcast-guide.html" >Simulcast Fix</a>
-        <a class="navlink" href="/sds100-vs-sds200.html" >Compare</a>
-        <a class="navlink" href="/uniden-sds150.html" >SDS150</a>
-        <a class="navlink" href="/blog/" >Blog</a>
-        <a class="cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder →</a>
-        <a class="cta" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">BAAS Store →</a>
+        <a class="navlink" data-match="/" href="/">Home</a>
+        <a class="navlink" data-match="/sds100-complete-manual.html" href="/sds100-complete-manual.html">Start Here</a>
+        <a class="navlink" data-match="/sds100-sentinel-programming.html,/sds100-p25-programming.html,/sds100-dmr-programming.html,/sds100-nxdn-programming.html,/sds100-provoice-programming.html" href="/sds100-sentinel-programming.html">Programming</a>
+        <a class="navlink" data-match="/database.html,/alaska-database.html,/arizona-database.html,/arizona-aps-database.html,/california-database.html,/colorado-database.html,/florida-database.html,/idaho-database.html,/illinois-database.html,/montana-database.html,/nevada-database.html" href="/database.html">State Database</a>
+        <a class="navlink" data-match="/antenna-guide.html,/sds100-700-800-mhz-stubby-antenna.html,/sds100-stock-wideband-antenna.html,/sds100-triband-antenna.html,/sds100-uhf-whip-antenna.html,/sds100-vhf-high-telescoping-whip-antenna.html,/sds100-battery.html,/sds100-gps-receiver.html,/sds100-earpiece-headphones.html,/sds100-microsd-card.html" href="/antenna-guide.html">Accessories</a>
+        <a class="navlink" data-match="/sds100-vs-sds200.html,/uniden-sds150.html" href="/sds100-vs-sds200.html">Compare</a>
+        <a class="navlink" data-match="/blog/" href="/blog/">Blog</a>
+        <a class="cta nav-cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder</a>
+        <a class="navlink navlink-secondary" href="https://shop.boyandascanner.com/?utm_source=boyandascanner.com&utm_medium=button&utm_campaign=sds100_site&utm_content=nav_store" target="_blank" rel="noopener">Store</a>
       </nav>
     </div>
   </header>
   <div class="nav-overlay"></div>
+
+  <section class="site-quick-access" aria-label="Popular site paths">
+    <div class="wrap site-quick-access-inner">
+      <p class="site-quick-label">Popular Paths</p>
+      <nav class="site-quick-grid" aria-label="Popular guides">
+        <a class="quick-pill" href="/sds100-complete-manual.html">SDS100 Complete Manual</a>
+        <a class="quick-pill" href="/sds100-sentinel-programming.html">Program with Sentinel</a>
+        <a class="quick-pill" href="/sds100-simulcast-guide.html">Fix Simulcast Audio</a>
+        <a class="quick-pill" href="/antenna-guide.html">Find the Best Antenna</a>
+        <a class="quick-pill" href="/database.html">Browse State Databases</a>
+        <a class="quick-pill" href="/sds100-vs-sds200.html">Compare SDS100 vs SDS200</a>
+      </nav>
+      <div class="site-search" role="search" aria-label="Site guide search">
+        <label for="siteQuickSearch">Find a guide fast</label>
+        <input id="siteQuickSearch" type="search" placeholder="Search guide, database, antenna, or scanner topic" autocomplete="off" />
+        <div id="siteQuickResults" class="site-search-results" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
 
   <main class="wrap" id="content">
   <h1>How to Add GPS to the Uniden SDS100</h1>
@@ -496,7 +510,147 @@
           navToggle.focus();
         }
       });
+      function setActivePrimaryNav(){
+        var nav = document.getElementById('topnav');
+        if(!nav){
+          return;
+        }
+
+        var path = window.location.pathname;
+        if(path === '/index.html'){
+          path = '/';
+        }
+
+        var navLinks = nav.querySelectorAll('a[data-match]');
+        navLinks.forEach(function(link){
+          link.removeAttribute('aria-current');
+          var matchValue = (link.getAttribute('data-match') || '').split(',');
+          var isCurrent = matchValue.some(function(rawMatch){
+            var match = rawMatch.trim();
+            if(!match){
+              return false;
+            }
+            if(match === '/'){
+              return path === '/';
+            }
+            return path.indexOf(match) === 0;
+          });
+
+          if(isCurrent){
+            link.setAttribute('aria-current', 'page');
+          }
+        });
+      }
+
+      function injectAutoBreadcrumb(){
+        var main = document.getElementById('content');
+        if(!main || main.querySelector('.breadcrumb') || main.querySelector('.auto-breadcrumb')){
+          return;
+        }
+
+        var path = window.location.pathname;
+        if(path === '/' || path === '/index.html'){
+          return;
+        }
+
+        var crumbs = [{ name: 'Home', url: '/' }];
+        if(path.indexOf('/blog/') === 0){
+          crumbs.push({ name: 'Blog', url: '/blog/' });
+        }
+
+        if(path.indexOf('database') !== -1 && path !== '/database.html'){
+          crumbs.push({ name: 'Database', url: '/database.html' });
+        }
+
+        var pageName = document.title.split('|')[0].trim();
+        var titleEl = main.querySelector('h1');
+        if(titleEl && titleEl.textContent){
+          pageName = titleEl.textContent.trim();
+        }
+
+        var breadcrumb = document.createElement('nav');
+        breadcrumb.className = 'auto-breadcrumb';
+        breadcrumb.setAttribute('aria-label', 'Breadcrumb');
+
+        var html = '';
+        crumbs.forEach(function(item, index){
+          if(index > 0){
+            html += '<span class="crumb-sep">/</span>';
+          }
+          html += '<a href="' + item.url + '">' + item.name + '</a>';
+        });
+        html += '<span class="crumb-sep">/</span><span aria-current="page">' + pageName + '</span>';
+
+        breadcrumb.innerHTML = html;
+        main.insertBefore(breadcrumb, main.firstChild);
+      }
+
+      function initSiteQuickSearch(){
+        var input = document.getElementById('siteQuickSearch');
+        var results = document.getElementById('siteQuickResults');
+        if(!input || !results){
+          return;
+        }
+
+        var quickIndex = [
+          { title: 'SDS100 Complete Manual', url: '/sds100-complete-manual.html', category: 'Manual', keywords: 'beginner setup menu settings' },
+          { title: 'SDS100 Sentinel Programming', url: '/sds100-sentinel-programming.html', category: 'Programming', keywords: 'favorite lists profile write scanner' },
+          { title: 'SDS100 P25 Programming', url: '/sds100-p25-programming.html', category: 'Programming', keywords: 'phase i phase ii trunked systems' },
+          { title: 'SDS100 DMR Programming', url: '/sds100-dmr-programming.html', category: 'Programming', keywords: 'dmr key trunk conventional' },
+          { title: 'SDS100 NXDN Programming', url: '/sds100-nxdn-programming.html', category: 'Programming', keywords: 'nxdn upgrade key' },
+          { title: 'SDS100 ProVoice Programming', url: '/sds100-provoice-programming.html', category: 'Programming', keywords: 'edacs provoice lcn' },
+          { title: 'SDS100 Simulcast Fix Guide', url: '/sds100-simulcast-guide.html', category: 'Troubleshooting', keywords: 'distortion garbled audio filter attenuation' },
+          { title: 'Best Antenna Finder', url: '/antenna-guide.html', category: 'Accessories', keywords: '700 800 vhf uhf remtronix' },
+          { title: 'SDS100 vs SDS200', url: '/sds100-vs-sds200.html', category: 'Compare', keywords: 'comparison best scanner' },
+          { title: 'Uniden SDS150 Guide', url: '/uniden-sds150.html', category: 'Compare', keywords: 'new model handheld' },
+          { title: 'Statewide Digital Database', url: '/database.html', category: 'Database', keywords: 'state p25 map frequencies' },
+          { title: 'Blog: Scanner News & Guides', url: '/blog/', category: 'Blog', keywords: 'encryption ai scanning news' }
+        ];
+
+        function renderResults(query){
+          var q = query.trim().toLowerCase();
+          var matches = quickIndex;
+
+          if(q.length > 1){
+            matches = quickIndex.filter(function(item){
+              var haystack = (item.title + ' ' + item.category + ' ' + item.keywords).toLowerCase();
+              return haystack.indexOf(q) !== -1;
+            });
+          }
+
+          matches = matches.slice(0, 7);
+          if(matches.length === 0){
+            results.innerHTML = '<div class="site-search-empty">No matches found. Try a broader keyword.</div>';
+            results.classList.add('open');
+            return;
+          }
+
+          results.innerHTML = matches.map(function(item){
+            return '<a class="site-search-result" href="' + item.url + '"><span class="site-search-title">' + item.title + '</span><span class="site-search-category">' + item.category + '</span></a>';
+          }).join('');
+          results.classList.add('open');
+        }
+
+        input.addEventListener('focus', function(){
+          renderResults(input.value);
+        });
+
+        input.addEventListener('input', function(){
+          renderResults(input.value);
+        });
+
+        document.addEventListener('click', function(event){
+          if(!results.contains(event.target) && event.target !== input){
+            results.classList.remove('open');
+          }
+        });
+      }
+
+      setActivePrimaryNav();
+      injectAutoBreadcrumb();
+      initSiteQuickSearch();
     })();
   </script>
 </body>
 </html>
+
