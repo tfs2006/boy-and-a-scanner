@@ -1,1 +1,14 @@
-{"buildCommand":"npm run build","outputDirectory":"_site","rewrites":[{"source":"/frequencies/:path*","destination":"https://scanner-seo-pages.vercel.app/frequencies/:path*"}]}
+{
+	"buildCommand": "npm run build",
+	"outputDirectory": "_site",
+	"rewrites": [
+		{
+			"source": "/frequencies",
+			"destination": "https://scanner-seo-pages.vercel.app/frequencies"
+		},
+		{
+			"source": "/frequencies/:path*",
+			"destination": "https://scanner-seo-pages.vercel.app/frequencies/:path*"
+		}
+	]
+}
