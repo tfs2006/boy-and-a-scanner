@@ -40,6 +40,14 @@
     .pmc-faq dd { margin: .35rem 0 0; color: #94a3b8; }
     .pmc-box { border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
     .pmc-center { text-align: center; }
+    .pmc-bundles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .pmc-bundle { border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; text-align: center; }
+    .pmc-bundle.best { border-color: #f59e0b; border-width: 2px; }
+    .pmc-bundle h3 { margin: 0 0 .5rem; font-size: 1.25rem; }
+    .pmc-bundle .b-price { font-size: 1.9rem; font-weight: 800; color: #f59e0b; }
+    .pmc-bundle .b-save { color: #94a3b8; margin: .25rem 0 .75rem; }
+    .pmc-bundle .b-cta { display: inline-block; background: #f59e0b; color: #0b0e14; font-weight: 800; padding: .6rem 1.5rem; border-radius: 10px; text-decoration: none; }
+    .pmc-bundle .b-cta:hover { background: #fbbf24; }
   </style>
 </head>
 <body>
@@ -71,6 +79,32 @@
       <p class="sub">You asked for it in hundreds of messages, so I built it. I program your county's police, fire, EMS and local systems myself, then email you a personal link. You plug in your scanner and click one button. That is the whole job.</p>
       <a class="pmc-cta" href="https://pay.4ourmedia.com/b/cNiaEX0OQ2jBarI5pQ8bS0s">Get My County Programmed</a>
       <p class="pmc-price"><strong>$24.95</strong> one time. Link arrives within 24 hours.</p>
+    </section>
+
+    <section class="pmc-section">
+      <h2>Need More Than One County?</h2>
+      <p>Travel a lot, or live near a county line? Bundle up and save. You list every county and state on the checkout page. One email, one personal link per county, all within 24 hours.</p>
+      <div class="pmc-bundles">
+        <div class="pmc-bundle">
+          <h3>2 Counties</h3>
+          <div class="b-price">$39.95</div>
+          <div class="b-save">Save $9.95</div>
+          <a class="b-cta" href="https://pay.4ourmedia.com/b/4gM00jeFG4rJdDUcSi8bS0v">Get 2 Counties</a>
+        </div>
+        <div class="pmc-bundle best">
+          <h3>3 Counties</h3>
+          <div class="b-price">$54.95</div>
+          <div class="b-save">Save $19.90</div>
+          <a class="b-cta" href="https://pay.4ourmedia.com/b/3cIcN5412f6n43k4lM8bS0w">Get 3 Counties</a>
+        </div>
+        <div class="pmc-bundle">
+          <h3>5 Counties</h3>
+          <div class="b-price">$79.95</div>
+          <div class="b-save">Save $44.80</div>
+          <a class="b-cta" href="https://pay.4ourmedia.com/b/7sY9ATfJK5vNarIaKa8bS0x">Get 5 Counties</a>
+        </div>
+      </div>
+      <p class="pmc-center">One county is still <strong>$24.95</strong>. Prefer to do it yourself? <a href="https://uniden-scanner-programming-software.vercel.app">ScanPilot</a> has a one-time $14.95 unlock for unlimited counties.</p>
     </section>
 
     <section class="pmc-section">
@@ -126,6 +160,8 @@
         <dd>I program what is actually listenable. If there is nothing worth hearing in your county, I will tell you and refund you.</dd>
         <dt>How do you get my county?</dt>
         <dd>You enter your county and state on the checkout page when you order.</dd>
+        <dt>How do the multi-county bundles work?</dt>
+        <dd>Pick the bundle, then list every county and state on the checkout page. You get one personal link per county, all in a single email within 24 hours. The 2-county bundle is $39.95, 3 counties $54.95, and 5 counties $79.95.</dd>
       </dl>
     </section>
 
