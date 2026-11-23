@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>How to Program a Baofeng UV-5R With CHIRP</title>
+  <meta name="description" content="Program your Baofeng UV-5R with CHIRP in about 15 minutes. Cable, download, backup, import a ready-made file, upload. Full walkthrough." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://boyandascanner.com/baofeng-chirp-programming.html" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <meta property="og:title" content="How to Program a Baofeng UV-5R With CHIRP" />
+  <meta property="og:description" content="Program your Baofeng UV-5R with CHIRP in about 15 minutes. Cable, download, backup, import a ready-made file, upload. Full walkthrough." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://boyandascanner.com/baofeng-chirp-programming.html" />
+  <meta property="og:site_name" content="Boy and a Scanner" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .bf-hero { text-align: center; padding: 3.5rem 1rem 2.5rem; }
+    .bf-hero h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 1rem; }
+    .bf-hero .sub { font-size: 1.2rem; color: #94a3b8; max-width: 640px; margin: 0 auto 1.75rem; }
+    .bf-section { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; }
+    .bf-section h2 { font-size: 1.7rem; margin-bottom: 1rem; }
+    .bf-section h3 { font-size: 1.25rem; margin: 1.5rem 0 .5rem; }
+    .bf-box { border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .bf-note { background: #1e293b; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; color: #94a3b8; }
+    .bf-packlist { list-style: none; padding: 0; }
+    .bf-packlist li { margin-bottom: 1rem; }
+    .bf-packlist a { font-weight: 700; }
+    .bf-center { text-align: center; }
+    .bf-faq dt { font-weight: 700; margin-top: 1.25rem; }
+    .bf-faq dd { margin: .35rem 0 0; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <img src="/brand-mark.svg" width="24" height="24" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav" aria-label="Toggle navigation">
+        <span class="hamburger"><span></span><span></span><span></span></span>
+      </button>
+      <nav id="topnav" aria-label="Main navigation">
+        <a class="navlink" href="/">Home</a>
+        <a class="navlink" href="/sds100-complete-manual.html">Start Here</a>
+        <a class="navlink" href="/sds100-sentinel-programming.html">Programming</a>
+        <a class="navlink" href="/database.html">State Database</a>
+        <a class="navlink" href="/antenna-guide.html">Accessories</a>
+        <a class="navlink" href="/sds100-vs-sds200.html">Compare</a>
+        <a class="navlink" href="/blog/">Blog</a>
+        <a class="cta nav-cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="bf-hero">
+      <h1>How to Program a Baofeng UV-5R With CHIRP</h1>
+      <p class="sub">Typing 73 channels into a Baofeng by hand takes over an hour. CHIRP does it in about 15 minutes, and most of that is waiting for the download. Here is the whole job, start to finish.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>What you need: cable, CHIRP, computer</h2>
+      <p>You need three things. A Baofeng UV-5R, UV-5R Plus, or BF-F8HP. A programming cable, the Kenwood style two pin cable that plugs into the side of the radio. And a computer running Windows, Mac, or Linux with CHIRP installed.</p>
+      <p>CHIRP is free software from chirpmyradio.com. Download the CHIRP Next version for your computer and install it. If your cable came with a driver disc, you do not need it. On Windows, the cable needs a working serial driver. The cables with an FTDI chip just work. The cheapest no name cables sometimes need a driver installed by hand, and that is the most common reason the steps below fail, so if you are buying a cable, get one that says FTDI.</p>
+      <p>Charge the radio first. A radio that dies halfway through an upload can corrupt its memory, and then you get to start over.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Download from the radio first, and save a backup</h2>
+      <p>This is the step everyone skips, and it is the step that saves you when something goes wrong. Do it first, every time.</p>
+      <p>First, plug the cable into the radio and the computer. Push the radio end in firmly. It takes more force than you expect, and a loose plug is the number one cause of "radio did not respond" errors. Turn the radio on and turn the volume knob up to about halfway. CHIRP talks to the radio through the speaker and microphone pins, so the volume matters.</p>
+      <p>Second, open CHIRP. Go to Radio, then Download From Radio. Pick the port your cable is on, set Vendor to Baofeng, and set Model to UV-5R. Click OK. CHIRP will read the radio's memory and show you a grid of channels, probably empty or with the factory test channels.</p>
+      <p>Third, save that file. File, then Save As, and name it something like uv5r-backup. This is your way back. If an upload ever goes wrong, you open this file and upload it to the radio, and you are back where you started.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Import a ready-made file, or type channels by hand</h2>
+      <p>Now you have a choice. You can type every channel into the grid yourself, or you can import a file that already has the channels in it. Every other CHIRP guide on the internet ends with "now type in your channels." This one ends with "or skip the typing."</p>
+
+      <div class="bf-box">
+        <h3>Skip the typing: ready-made CHIRP files, $4.99 each</h3>
+        <p>Each pack is a CSV file with the channels for one area, already researched, plus a README with plain import instructions. Download the pack, then in CHIRP go to File, Import, pick the CSV, and the channels land in the grid. Upload to the radio and you are listening. Every channel is receive only, so your radio will not transmit on any of them.</p>
+        <ul class="bf-packlist">
+          <li><a href="https://shop.boyandascanner.com/products/nationwide-starter-baofeng-uv-5r-chirp-pack-36-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Nationwide Starter, 36 channels</a>. GMRS, MURS, NOAA weather, and ham calling, anywhere in the United States. No local police or fire. Load this one first.</li>
+          <li><a href="https://shop.boyandascanner.com/products/st-george-utah-baofeng-uv-5r-chirp-pack-73-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">St. George, Utah, 73 channels</a>. Washington County sheriff, St. George police and fire dispatch. Does not hear UCA P25 trunked traffic.</li>
+          <li><a href="https://shop.boyandascanner.com/products/new-york-city-new-york-baofeng-uv-5r-chirp-pack-128-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">New York City, New York, 128 channels</a>. FDNY and EMS dispatch, NYPD citywide and tactical. No NYPD precinct dispatch, every precinct channel is P25 encrypted.</li>
+          <li><a href="https://shop.boyandascanner.com/products/los-angeles-california-baofeng-uv-5r-chirp-pack-87-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Los Angeles, California, 87 channels</a>. LA County Sheriff dispatch and LA County Fire dispatch. No LAPD at all, and no LA City Fire.</li>
+          <li><a href="https://shop.boyandascanner.com/products/chicago-illinois-baofeng-uv-5r-chirp-pack-123-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Chicago, Illinois, 123 channels</a>. CPD citywide, CFD fireground and command, suburban fire dispatch. No Chicago Police dispatch, all 13 zones are P25 encrypted.</li>
+          <li><a href="https://shop.boyandascanner.com/products/salt-lake-city-utah-baofeng-uv-5r-chirp-pack-74-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Salt Lake City, Utah, 74 channels</a>. SLC Fire and EMS dispatch and paging, Gold Cross, campus police, UTA, hospitals. No police dispatch at all.</li>
+          <li><a href="https://shop.boyandascanner.com/products/moab-utah-baofeng-uv-5r-chirp-pack-81-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Moab, Utah, 81 channels</a>. Grand County Sheriff, Fire, and EMS dispatch, Moab Police, Arches and Canyonlands rangers. No Utah Highway Patrol.</li>
+          <li><a href="https://shop.boyandascanner.com/products/las-vegas-nevada-baofeng-uv-5r-chirp-pack-76-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Las Vegas, Nevada, 76 channels</a>. Clark County rural fire paging and dispatch, legacy LVMPD VHF admin and tactical. No LVMPD dispatch, it is encrypted P25.</li>
+        </ul>
+        <p>See them all on the <a href="https://shop.boyandascanner.com/collections/baofeng-chirp-packs">Baofeng CHIRP Packs collection</a>. If your city is not there yet, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnKAu0m1ZUVy9MOOxrMGBp2-9TXuRob3laeprCUO6KP5_A-Q/viewform">suggest it here</a>.</p>
+        <p><strong>What is inside a pack:</strong> one CHIRP CSV file with the channels, a README with plain step by step import instructions, and a cover image. The channel count is in the title. Local channels plus the universal GMRS, MURS, NOAA weather, and ham calling channels. The Nationwide Starter pack is the universal set only.</p>
+      </div>
+
+      <p>If you would rather type channels in yourself, the frequencies worth programming are on <a href="/baofeng-frequencies.html">Baofeng UV-5R Frequencies Worth Programming</a>, and the local ones for your county are on RadioReference. The how to is on <a href="/baofeng-police-scanner.html">How to Use a Baofeng UV-5R as a Police Scanner</a>.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>The CHIRP grid, column by column</h2>
+      <p>Whether you typed the channels in or imported them, the grid is the same. Here is what the columns that matter actually do.</p>
+      <p><strong>Location.</strong> The channel slot, 0 to 127. The UV-5R holds 128 channels.</p>
+      <p><strong>Name.</strong> Up to 7 characters. That is a CHIRP limit, not a suggestion. Short names only, like FIRE1 or PD DISP.</p>
+      <p><strong>Frequency.</strong> The receive frequency, in MHz. The UV-5R receives 136 to 174 MHz and 400 to 520 MHz.</p>
+      <p><strong>Duplex.</strong> For listening, this should be off. Off means receive only, the radio will not transmit on that channel. That is how every channel in the packs is set.</p>
+      <p><strong>Tone.</strong> The receive tone, usually blank for listening. A tone set here filters what you hear, so a wrong tone means silence. Leave it blank unless you know the channel needs a specific tone.</p>
+      <p><strong>Mode.</strong> FM for most channels, NFM for narrowband. Ham and GMRS channels are FM. Most public safety analog channels are NFM.</p>
+      <p><strong>Skip.</strong> Set to S and the channel is skipped while scanning. NOAA weather channels are usually set to skip, so the weather broadcast does not stop your scan every few seconds.</p>
+      <p>Everything else in the grid can stay at its default. Do not fill in a transmit frequency or a transmit tone on a listen-only channel.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Upload to the radio</h2>
+      <p>When the grid looks right, go to Radio, then Upload To Radio. Pick the same port, vendor, and model as the download. Click OK and wait. The radio's screen will show it is receiving data. Do not touch the cable or turn the radio off until CHIRP says it is done.</p>
+      <p>When the upload finishes, unplug the cable, turn the radio off and back on, and press VFO/MR until you are in channel mode. Your channels are there. Press and hold the star key to scan them.</p>
+      <p>If a channel sounds wrong, or a channel you expected is missing, download from the radio again and look at the grid. The download shows you exactly what is in the radio, which is the fastest way to find a mistake.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Troubleshooting</h2>
+      <dl class="bf-faq">
+        <dt>Radio did not respond.</dt>
+        <dd>This is the most common CHIRP error, and it is almost always the cable or the port. Push the radio end of the cable in firmly, turn the radio volume up to about halfway, and check that you picked the right port in the download dialog. If the port list is empty, the cable driver is not installed.</dd>
+        <dt>Wrong model selected.</dt>
+        <dd>CHIRP needs the exact model. A UV-5R is not a UV-5R Plus in CHIRP's list, and a BF-F8HP is its own model too. Pick the one printed on your radio. If your exact model is not listed, download from the radio first with the closest match and let CHIRP detect it.</dd>
+        <dt>Firmware mismatch.</dt>
+        <dd>Some UV-5R variants have firmware CHIRP does not know yet. The error usually says the firmware version is unknown. Update CHIRP to the newest version, because new firmware support lands in updates all the time. If it still fails, the radio can still be programmed by hand from the keypad, which is covered in the <a href="https://shop.boyandascanner.com/products/baofeng-uv-5r-plus-manual-program-it-by-hand">free Baofeng UV-5R Plus manual</a>.</dd>
+        <dt>Upload worked but the radio is silent.</dt>
+        <dd>Check the squelch, Menu 0, set to 1 or 2. Check that the receive tone column is blank on the channels you expect to hear. And check that the channels are actually analog. A P25 or DMR channel in the grid will sit silent forever, because the radio cannot decode it. That is covered on <a href="/baofeng-police-scanner.html">How to Use a Baofeng UV-5R as a Police Scanner</a>.</dd>
+        <dt>Channels are there but the names are wrong.</dt>
+        <dd>Names are limited to 7 characters in CHIRP. Anything longer gets cut off. Shorten the name in the grid and upload again.</dd>
+      </dl>
+    </section>
+
+    <section class="bf-section">
+      <h2>More Baofeng guides</h2>
+      <p><a href="/baofeng-police-scanner.html">How to Use a Baofeng UV-5R as a Police Scanner</a>. What it can hear, what it cannot, and how to find your local frequencies.</p>
+      <p><a href="/baofeng-uv-5r-beginners.html">Baofeng UV-5R for Beginners: First Night Setup</a>. Charge it, listen to weather first, and program real channels tonight.</p>
+      <p><a href="/baofeng-frequencies.html">Baofeng UV-5R Frequencies Worth Programming</a>. Every frequency worth putting in the radio, with the numbers.</p>
+    </section>
+
+    <section class="bf-section bf-center">
+      <p><em>Get Yer Freq On.</em> David, Boy and a Scanner</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-group">
+            <strong>Services</strong>
+            <a href="/program-my-county.html">Program My County</a>
+            <a href="/program-my-region-canada.html">Program My Region Canada</a>
+            <a href="/program-my-region-australia.html">Program My Region Australia</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Baofeng Guides</strong>
+            <a href="/baofeng-police-scanner.html">Baofeng as a Police Scanner</a>
+            <a href="/baofeng-uv-5r-beginners.html">Baofeng for Beginners</a>
+            <a href="/baofeng-chirp-programming.html">Program With CHIRP</a>
+            <a href="/baofeng-frequencies.html">Baofeng Frequencies</a>
+            <a href="/baofeng-vs-sds100.html">Baofeng vs SDS100</a>
+            <a href="/baofeng-gmrs-legal.html">Baofeng on GMRS</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Guides</strong>
+            <a href="/">SDS100 Overview</a>
+            <a href="/sds100-complete-manual.html">Complete Manual</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Programming</strong>
+            <a href="/sds100-sentinel-programming.html">Sentinel</a>
+            <a href="/sds100-p25-programming.html">P25</a>
+          </div>
+        </nav>
+        <p>&copy; Boy and a Scanner. Questions? <a href="mailto:contact@boyandascanner.com">contact@boyandascanner.com</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

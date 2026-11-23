@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>How to Use a Baofeng UV-5R as a Police Scanner</title>
+  <meta name="description" content="Turn your Baofeng UV-5R into a police scanner. Learn what it can hear, what it cannot, and how to program local dispatch with CHIRP." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://boyandascanner.com/baofeng-police-scanner.html" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <meta property="og:title" content="How to Use a Baofeng UV-5R as a Police Scanner" />
+  <meta property="og:description" content="Turn your Baofeng UV-5R into a police scanner. Learn what it can hear, what it cannot, and how to program local dispatch with CHIRP." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://boyandascanner.com/baofeng-police-scanner.html" />
+  <meta property="og:site_name" content="Boy and a Scanner" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .bf-hero { text-align: center; padding: 3.5rem 1rem 2.5rem; }
+    .bf-hero h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 1rem; }
+    .bf-hero .sub { font-size: 1.2rem; color: #94a3b8; max-width: 640px; margin: 0 auto 1.75rem; }
+    .bf-cta { display: inline-block; background: #f59e0b; color: #0b0e14; font-weight: 800; font-size: 1.25rem; padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; }
+    .bf-cta:hover { background: #fbbf24; }
+    .bf-section { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; }
+    .bf-section h2 { font-size: 1.7rem; margin-bottom: 1rem; }
+    .bf-section h3 { font-size: 1.25rem; margin: 1.5rem 0 .5rem; }
+    .bf-box { border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .bf-note { background: #1e293b; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; color: #94a3b8; }
+    .bf-packlist { list-style: none; padding: 0; }
+    .bf-packlist li { margin-bottom: 1rem; }
+    .bf-packlist a { font-weight: 700; }
+    .bf-center { text-align: center; }
+    .bf-faq dt { font-weight: 700; margin-top: 1.25rem; }
+    .bf-faq dd { margin: .35rem 0 0; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <img src="/brand-mark.svg" width="24" height="24" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav" aria-label="Toggle navigation">
+        <span class="hamburger"><span></span><span></span><span></span></span>
+      </button>
+      <nav id="topnav" aria-label="Main navigation">
+        <a class="navlink" href="/">Home</a>
+        <a class="navlink" href="/sds100-complete-manual.html">Start Here</a>
+        <a class="navlink" href="/sds100-sentinel-programming.html">Programming</a>
+        <a class="navlink" href="/database.html">State Database</a>
+        <a class="navlink" href="/antenna-guide.html">Accessories</a>
+        <a class="navlink" href="/sds100-vs-sds200.html">Compare</a>
+        <a class="navlink" href="/blog/">Blog</a>
+        <a class="cta nav-cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="bf-hero">
+      <h1>How to Use a Baofeng UV-5R as a Police Scanner</h1>
+      <p class="sub">Yes, a $25 Baofeng can hear police and fire dispatch. It can also hear nothing at all, depending on where you live. This page tells you which one it will be in your town, and how to program the channels that are actually there.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>What a Baofeng can hear, and what it cannot</h2>
+      <p>The Baofeng UV-5R is an analog FM radio. It hears analog FM voice on VHF and UHF, which is still how a lot of police, fire, and EMS dispatch works in smaller towns and rural counties. It hears GMRS, MURS, NOAA weather, ham repeaters, and plenty of business and public works channels too.</p>
+      <p>What it cannot hear: anything digital. It cannot decode P25, DMR, or NXDN. It cannot hear a trunked system. It cannot hear an encrypted channel, and no radio you can buy can. It cannot receive AM aircraft band. If your town's police moved to a digital trunked system, the Baofeng will sit silent on those channels no matter what you program into it.</p>
+      <p>That is not a flaw in the radio. It is a $25 analog radio doing exactly what a $25 analog radio does. The trick is knowing what your town uses before you spend an evening typing frequencies in by hand.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Analog, digital, and encrypted, in plain words</h2>
+      <p><strong>Analog</strong> is plain old FM voice, the same kind of signal as a walkie talkie. A Baofeng hears it fine.</p>
+      <p><strong>Digital</strong> is voice turned into data, like P25, DMR, and NXDN. It sounds like static or a buzz on an analog radio. You need a digital scanner to hear it, such as the Uniden SDS100 or SDS150.</p>
+      <p><strong>Encrypted</strong> is digital voice scrambled with a key. Nobody can listen to it, not even with a $700 scanner. When a department encrypts, that channel is gone for listeners, full stop.</p>
+      <p>Most cities are a mix. The fire department may still be analog while the police went encrypted. A county sheriff may be analog while the city police are digital. That is why the honest answer to "can a Baofeng hear police in my city" is always "it depends on your city," and why a pack built for one city cannot be used for another.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>How to find your local frequencies on RadioReference</h2>
+      <p>RadioReference is the database almost every scanner owner uses. Here is the short version.</p>
+      <p>First, go to radioreference.com and open the Database. Pick your state, then your county. You will see a list of agencies and a list of trunked radio systems. Click an agency to see its frequencies. The Mode column tells you what you are looking at: FM or FMN means analog, and your Baofeng can hear it. P25, DMR, or NXDN means digital, and your Baofeng cannot. A mode marked with an E, or a talkgroup marked encrypted, means nobody can hear it.</p>
+      <p>Second, check the trunked systems for your county. If your police and fire live on a trunked system, look at the system type. P25 Phase I and Phase II, DMR, and NXDN are all digital. Some trunked systems still carry analog talkgroups, but most do not.</p>
+      <p>Third, write down the analog frequencies that matter to you: dispatch channels first, then tactical and fireground. Those are the ones worth programming.</p>
+      <p>If that sounds like a lot of homework, it is. That is the whole reason the packs below exist.</p>
+
+      <div class="bf-box">
+        <h3>Already did the homework for these cities. Load the file and listen tonight.</h3>
+        <p>Each pack is a ready-made CHIRP file with the local analog channels for that city, plus GMRS, MURS, NOAA weather, and ham calling. Every channel is receive only. $4.99 each.</p>
+        <ul class="bf-packlist">
+          <li><a href="https://shop.boyandascanner.com/products/st-george-utah-baofeng-uv-5r-chirp-pack-73-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">St. George, Utah, 73 channels</a>. Washington County sheriff, St. George police and fire dispatch. Does not hear UCA P25 trunked traffic.</li>
+          <li><a href="https://shop.boyandascanner.com/products/new-york-city-new-york-baofeng-uv-5r-chirp-pack-128-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">New York City, New York, 128 channels</a>. FDNY and EMS dispatch, NYPD citywide and tactical. No NYPD precinct dispatch, every precinct channel is P25 encrypted.</li>
+          <li><a href="https://shop.boyandascanner.com/products/los-angeles-california-baofeng-uv-5r-chirp-pack-87-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Los Angeles, California, 87 channels</a>. LA County Sheriff dispatch and LA County Fire dispatch. No LAPD at all, and no LA City Fire.</li>
+          <li><a href="https://shop.boyandascanner.com/products/chicago-illinois-baofeng-uv-5r-chirp-pack-123-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Chicago, Illinois, 123 channels</a>. CPD citywide, CFD fireground and command, suburban fire dispatch. No Chicago Police dispatch, all 13 zones are P25 encrypted.</li>
+          <li><a href="https://shop.boyandascanner.com/products/salt-lake-city-utah-baofeng-uv-5r-chirp-pack-74-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Salt Lake City, Utah, 74 channels</a>. SLC Fire and EMS dispatch and paging, Gold Cross, campus police, UTA, hospitals. No police dispatch at all.</li>
+          <li><a href="https://shop.boyandascanner.com/products/moab-utah-baofeng-uv-5r-chirp-pack-81-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Moab, Utah, 81 channels</a>. Grand County Sheriff, Fire, and EMS dispatch, Moab Police, Arches and Canyonlands rangers. No Utah Highway Patrol.</li>
+          <li><a href="https://shop.boyandascanner.com/products/las-vegas-nevada-baofeng-uv-5r-chirp-pack-76-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Las Vegas, Nevada, 76 channels</a>. Clark County rural fire paging and dispatch, legacy LVMPD VHF admin and tactical. No LVMPD dispatch, it is encrypted P25.</li>
+          <li><a href="https://shop.boyandascanner.com/products/nationwide-starter-baofeng-uv-5r-chirp-pack-36-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Nationwide Starter, 36 channels</a>. GMRS, MURS, NOAA weather, and ham calling, anywhere in the United States. No local police or fire.</li>
+        </ul>
+        <p>See them all on the <a href="https://shop.boyandascanner.com/collections/baofeng-chirp-packs">Baofeng CHIRP Packs collection</a>. If your city is not there yet, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnKAu0m1ZUVy9MOOxrMGBp2-9TXuRob3laeprCUO6KP5_A-Q/viewform">suggest it here</a> and I will build it.</p>
+      </div>
+    </section>
+
+    <section class="bf-section">
+      <h2>Program it by hand, or load it with CHIRP</h2>
+      <p>There are two ways to get channels into a UV-5R. By hand, you switch to frequency mode with the VFO/MR button, type a frequency on the keypad, then save it with Menu 27, MEM-CH. It works, and it takes about a minute a channel. A 73 channel pack would take you over an hour.</p>
+      <p>With CHIRP, you do it once on a computer. CHIRP is free software from chirpmyradio.com. You need a programming cable, the Kenwood style two pin cable that plugs into the side of the radio. Download from the radio first and save a backup, then import a channel file and upload it back. The whole job takes about 15 minutes, and the file does the typing for you. The full walkthrough is on <a href="/baofeng-chirp-programming.html">How to Program a Baofeng UV-5R With CHIRP</a>.</p>
+      <p>I also made a plain English manual for the UV-5R Plus that walks through keypad programming button by button. It is free on the shop: <a href="https://shop.boyandascanner.com/products/baofeng-uv-5r-plus-manual-program-it-by-hand">Baofeng UV-5R Plus Manual, Program It by Hand</a>. And if you would rather watch than read, here is the video version: <a href="https://www.youtube.com/watch?v=IMkUfKELutE">Baofeng UV-5R Plus, Program It by Hand</a>.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>What to do when your police is digital</h2>
+      <p>First, check what is still analog in your area. Fire and EMS often stay analog long after police go digital. County sheriffs, small town police, public works, schools, and hospitals are often analog too. A Baofeng loaded with the analog channels in your county can still be a busy little radio.</p>
+      <p>Second, do not buy a pack for a city where the headline agencies are digital and hope for the best. Every pack on this site says plainly what it does not hear, right in the listing. Read that part before you buy.</p>
+      <p>Third, if the channels you want are digital, you need a digital scanner. That is a different radio and a different price, and it is worth it if listening to your town matters to you.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>When you need a real scanner: the SDS150</h2>
+      <p>The Uniden SDS150 is the radio I use when a Baofeng cannot do the job. It hears P25 Phase I and Phase II, DMR, and NXDN, it follows trunked systems, and it handles simulcast, which is the thing that makes most digital scanners go deaf in a simulcast city. It is about $950, which is a lot next to a $25 Baofeng, but it hears the channels the Baofeng physically cannot.</p>
+      <p>If you are deciding between the two, read <a href="/baofeng-vs-sds100.html">Baofeng UV-5R vs Uniden SDS100: Which One Should You Buy?</a> It is the honest comparison from someone who owns both. And if you do go the scanner route, this is my affiliate link for the SDS150: <a href="https://uniden.com/j8nfsi">Uniden SDS150</a>.</p>
+      <p>Is it legal to listen to police on a Baofeng? Yes, listening is legal in almost every state. Transmitting on public safety frequencies without authorization is illegal, and transmitting on GMRS or MURS with a UV-5R is not legal either, because the radio holds no Part 95 grant. Listening needs no license. The full answer is on <a href="/baofeng-gmrs-legal.html">Can You Use a Baofeng UV-5R on GMRS?</a>.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>Why you hear nothing on your Baofeng</h2>
+      <dl class="bf-faq">
+        <dt>The agency is digital.</dt>
+        <dd>Your Baofeng is analog only. A digital channel sounds like static or a buzz, or nothing at all. Check the Mode column on RadioReference.</dd>
+        <dt>The agency is encrypted.</dt>
+        <dd>Nobody can hear it, on any radio. Nothing to fix.</dd>
+        <dt>A receive tone is set wrong.</dt>
+        <dd>If a channel has a CTCSS or DCS receive tone set and the signal does not carry that tone, the radio stays silent. For listening, leave the receive tone off unless you know the channel needs it.</dd>
+        <dt>The squelch is too high.</dt>
+        <dd>Menu 0, SQL, set it to 1 or 2. A high squelch setting mutes weak signals entirely.</dd>
+        <dt>You are scanning with nothing saved.</dt>
+        <dd>A Baofeng with no memory channels has nothing to scan. Save at least one channel first, then press and hold the star key to scan.</dd>
+      </dl>
+    </section>
+
+    <section class="bf-section">
+      <h2>More Baofeng guides</h2>
+      <p><a href="/baofeng-uv-5r-beginners.html">Baofeng UV-5R for Beginners: First Night Setup</a>. Charge it, listen to weather first, and program real channels tonight.</p>
+      <p><a href="/baofeng-chirp-programming.html">How to Program a Baofeng UV-5R With CHIRP</a>. Cable, download, backup, import a ready-made file, upload.</p>
+      <p><a href="/baofeng-frequencies.html">Baofeng UV-5R Frequencies Worth Programming</a>. Every frequency worth putting in the radio, with the numbers.</p>
+    </section>
+
+    <section class="bf-section bf-center">
+      <p><em>Get Yer Freq On.</em> David, Boy and a Scanner</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-group">
+            <strong>Services</strong>
+            <a href="/program-my-county.html">Program My County</a>
+            <a href="/program-my-region-canada.html">Program My Region Canada</a>
+            <a href="/program-my-region-australia.html">Program My Region Australia</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Baofeng Guides</strong>
+            <a href="/baofeng-police-scanner.html">Baofeng as a Police Scanner</a>
+            <a href="/baofeng-uv-5r-beginners.html">Baofeng for Beginners</a>
+            <a href="/baofeng-chirp-programming.html">Program With CHIRP</a>
+            <a href="/baofeng-frequencies.html">Baofeng Frequencies</a>
+            <a href="/baofeng-vs-sds100.html">Baofeng vs SDS100</a>
+            <a href="/baofeng-gmrs-legal.html">Baofeng on GMRS</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Guides</strong>
+            <a href="/">SDS100 Overview</a>
+            <a href="/sds100-complete-manual.html">Complete Manual</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Programming</strong>
+            <a href="/sds100-sentinel-programming.html">Sentinel</a>
+            <a href="/sds100-p25-programming.html">P25</a>
+          </div>
+        </nav>
+        <p>&copy; Boy and a Scanner. Questions? <a href="mailto:contact@boyandascanner.com">contact@boyandascanner.com</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
