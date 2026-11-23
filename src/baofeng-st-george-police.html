@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Can a Baofeng Hear Police in St. George, Utah?</title>
+  <meta name="description" content="Can a Baofeng hear police in St. George, Utah? Yes, on VHF simulcasts. The channels, the limits, and the ready-made CHIRP file." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href="https://boyandascanner.com/baofeng-st-george-police.html" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <meta property="og:title" content="Can a Baofeng Hear Police in St. George, Utah?" />
+  <meta property="og:description" content="Can a Baofeng hear police in St. George, Utah? Yes, on VHF simulcasts. The channels, the limits, and the ready-made CHIRP file." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://boyandascanner.com/baofeng-st-george-police.html" />
+  <meta property="og:site_name" content="Boy and a Scanner" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    .bf-hero { text-align: center; padding: 3.5rem 1rem 2.5rem; }
+    .bf-hero h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 1rem; }
+    .bf-hero .sub { font-size: 1.2rem; color: #94a3b8; max-width: 640px; margin: 0 auto 1.75rem; }
+    .bf-cta { display: inline-block; background: #f59e0b; color: #0b0e14; font-weight: 800; font-size: 1.25rem; padding: 1rem 2.5rem; border-radius: 12px; text-decoration: none; }
+    .bf-cta:hover { background: #fbbf24; }
+    .bf-section { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; }
+    .bf-section h2 { font-size: 1.7rem; margin-bottom: 1rem; }
+    .bf-section h3 { font-size: 1.25rem; margin: 1.5rem 0 .5rem; }
+    .bf-box { border: 2px solid #f59e0b; border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .bf-note { background: #1e293b; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; color: #94a3b8; }
+    .bf-packlist { list-style: none; padding: 0; }
+    .bf-packlist li { margin-bottom: 1rem; }
+    .bf-packlist a { font-weight: 700; }
+    .bf-center { text-align: center; }
+    .bf-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .95rem; }
+    .bf-table th, .bf-table td { border: 1px solid #1e293b; padding: .5rem .6rem; text-align: left; }
+    .bf-table th { background: #1e293b; color: #e8eef9; }
+    .bf-table td.num { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <a class="brand" href="/">
+        <img src="/brand-mark.svg" width="24" height="24" alt="Boy and a Scanner" decoding="async" loading="eager" />
+        <span class="brand-text">Boy and a Scanner</span>
+      </a>
+      <button id="navToggle" aria-expanded="false" aria-controls="topnav" aria-label="Toggle navigation">
+        <span class="hamburger"><span></span><span></span><span></span></span>
+      </button>
+      <nav id="topnav" aria-label="Main navigation">
+        <a class="navlink" href="/">Home</a>
+        <a class="navlink" href="/sds100-complete-manual.html">Start Here</a>
+        <a class="navlink" href="/sds100-sentinel-programming.html">Programming</a>
+        <a class="navlink" href="/database.html">State Database</a>
+        <a class="navlink" href="/antenna-guide.html">Accessories</a>
+        <a class="navlink" href="/sds100-vs-sds200.html">Compare</a>
+        <a class="navlink" href="/blog/">Blog</a>
+        <a class="cta nav-cta" href="https://app.boyandascanner.com" target="_blank" rel="noopener">Freq Finder</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="content">
+    <section class="bf-hero">
+      <h1>Can a Baofeng Hear Police in St. George, Utah?</h1>
+      <p class="sub">Short answer: yes, for the dispatch that matters. St. George police, fire, and the sheriff moved to a digital P25 system, but the same dispatch is simulcast on analog VHF. That is exactly what a Baofeng hears.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>The short answer</h2>
+      <p>St. George police, fire, and the Washington County sheriff now live on the Utah Communications Authority (UCA) P25 system. A Baofeng UV-5R cannot hear P25. It is an analog FM radio, and P25 is digital voice.</p>
+      <p>Here is the part most people miss: the same dispatch is simulcast on analog VHF frequencies. Program those frequencies and the Baofeng hears the same calls the scanner hears, on the sheriff, St. George police, and St. George fire dispatch channels.</p>
+      <p>That is the honest shape of it in St. George. The Baofeng hears plenty, and it hears nothing digital. Read the next two sections before you program anything, so you know exactly which side of that line each channel falls on.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>The St. George dispatch channels</h2>
+      <p>These are the main St. George area dispatch channels, verified against the RadioReference Washington County (UT) listing. They are the same channels I programmed into my own Baofeng UV-5R Plus. The tone column is the receive tone for each channel. If you program by hand, set the tone before you save the channel, because the tone is stored at the moment you save it.</p>
+      <table class="bf-table">
+        <thead>
+          <tr><th>Channel</th><th>Frequency</th><th>Receive tone</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Washington County Sheriff Dispatch</td><td class="num">155.430</td><td class="num">141.3</td></tr>
+          <tr><td>St. George PD 1 Dispatch</td><td class="num">155.670</td><td class="num">167.9</td></tr>
+          <tr><td>St. George PD 2</td><td class="num">155.7225</td><td class="num">167.9</td></tr>
+          <tr><td>St. George PD 3 Tactical</td><td class="num">155.130</td><td class="num">110.9</td></tr>
+          <tr><td>St. George PD 4 Car to Car</td><td class="num">155.850</td><td class="num">173.8</td></tr>
+          <tr><td>St. George Fire 1 Dispatch</td><td class="num">154.160</td><td class="num">123.0</td></tr>
+          <tr><td>St. George Fire 2</td><td class="num">151.130</td><td class="num">100.0</td></tr>
+          <tr><td>St. George Fire 5 Ops</td><td class="num">154.235</td><td class="num">156.7</td></tr>
+          <tr><td>Washington County Search and Rescue</td><td class="num">155.370</td><td class="num">141.3</td></tr>
+          <tr><td>Gold Cross Ambulance</td><td class="num">461.175</td><td class="num">114.8</td></tr>
+          <tr><td>Hurricane PD</td><td class="num">155.610</td><td class="num">151.4</td></tr>
+          <tr><td>Washington City PD</td><td class="num">151.0475</td><td class="num">151.4</td></tr>
+          <tr><td>St. George Power</td><td class="num">153.425</td><td class="num">77.0</td></tr>
+          <tr><td>NOAA Weather, St. George</td><td class="num">162.475</td><td>none</td></tr>
+        </tbody>
+      </table>
+      <p>Two small notes on the table. First, two channels share 155.850 with different tones: St. George PD 4 uses 173.8 and the Washington County Services channel uses 100.0, so the radio hears whichever tone matches. Second, St. George Fire 1 is listed with two different tones in different places. This list uses 123.0, the tone from the St. George side, and the one on my own radio.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>What else is around St. George</h2>
+      <p>Ham repeaters, all with a 100.0 tone: 145.490 Utah Hill (Dixie ARC), 146.640 Webb Hill, 145.450 Toquerville, and 146.820 Utah Hill Intertie. Dixie National Forest, no tone: 171.550 West, 172.350 East, and 168.625 Air-Guard.</p>
+      <p>Then there is the universal set that works anywhere in the United States: 22 GMRS channels, 5 MURS channels, 7 NOAA weather channels, and the 2 ham calling frequencies. Those are in every pack in this series, St. George included.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>What the Baofeng does not hear in St. George</h2>
+      <p>Say it plainly so nobody buys the wrong thing. The Baofeng does not hear UCA P25 trunked traffic. It does not hear the Utah Highway Patrol. It hears no digital channels at all, and no aircraft band, because the UV-5R cannot receive AM airband.</p>
+      <p>The VHF channels above are simulcasts of the same dispatch, and the SDS150 hears the P25 side. If the channels you want are the digital ones, you need a digital scanner. That is a different radio and a different price, and it is worth it if hearing the P25 side matters to you. The honest comparison is on <a href="/baofeng-vs-sds100.html">Baofeng UV-5R vs Uniden SDS100: Which One Should You Buy?</a>, and if you go the scanner route, this is my affiliate link for the SDS150: <a href="https://uniden.com/j8nfsi">Uniden SDS150</a>.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>How to get these channels in the radio</h2>
+      <p>Two ways. By hand, switch to frequency mode with the VFO/MR button, type a frequency on the keypad, set the receive tone with Menu 11, turn the transmit tone off with Menu 13, then save it with Menu 27. Do the one-time setup first: Menu 1, STEP, set to 2.5K, and Menu 0, SQL, set to 1 or 2 so weak signals break through. Hold the star key for about two seconds to scan once channels are saved. The full button-by-button walkthrough is in my free manual: <a href="https://shop.boyandascanner.com/products/baofeng-uv-5r-plus-manual-program-it-by-hand">Baofeng UV-5R Plus Manual, Program It by Hand</a>. Or watch the video version: <a href="https://www.youtube.com/watch?v=IMkUfKELutE">Baofeng UV-5R Plus, Program It by Hand</a>.</p>
+      <p>With CHIRP, you do it once on a computer. CHIRP is free software from chirpmyradio.com, and you need a programming cable. Download from the radio first and save a backup, then import a channel file and upload it back. The whole job takes about 15 minutes. The full walkthrough is on <a href="/baofeng-chirp-programming.html">How to Program a Baofeng UV-5R With CHIRP</a>.</p>
+
+      <div class="bf-box">
+        <h3>Skip the typing: the St. George pack</h3>
+        <p>The <a href="https://shop.boyandascanner.com/products/st-george-utah-baofeng-uv-5r-chirp-pack-73-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">St. George, Utah Baofeng UV-5R CHIRP Pack, 73 analog channels</a> loads all of this in one import. It has 33 local channels, including the dispatch channels in the table above, plus the universal GMRS, MURS, NOAA weather, and ham calling set. Every channel is receive only, so your radio will not transmit on any of them. $4.99, and it works on any Baofeng UV-5R clone that CHIRP supports. It does not hear UCA P25 trunked traffic, and it does not hear the Utah Highway Patrol.</p>
+        <p>If you want just the universal set without the local channels, that is the <a href="https://shop.boyandascanner.com/products/nationwide-starter-baofeng-uv-5r-chirp-pack-36-analog-channels-for-uv-5r-uv-5r-plus-bf-f8hp">Nationwide Starter pack, 36 channels</a>. Same GMRS, MURS, NOAA, and ham calling channels, anywhere in the United States. See them all on the <a href="https://shop.boyandascanner.com/collections/baofeng-chirp-packs">Baofeng CHIRP Packs collection</a>. If your city is not there yet, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnKAu0m1ZUVy9MOOxrMGBp2-9TXuRob3laeprCUO6KP5_A-Q/viewform">suggest it here</a> and I will build it.</p>
+      </div>
+    </section>
+
+    <section class="bf-section">
+      <h2>Listening is legal, transmitting is not, on this radio</h2>
+      <p>Listening to police, fire, and EMS on a Baofeng is legal in almost every state. Transmitting on public safety frequencies without authorization is illegal, and the UV-5R holds no Part 95 grant, so GMRS and MURS are listen only on this radio even with a GMRS license. Ham is the only transmit path, and that needs a license. Keep Menu 13, T-CTCS, set to OFF, and never press PTT on a public safety channel. The full answer is on <a href="/baofeng-gmrs-legal.html">Can You Use a Baofeng UV-5R on GMRS?</a>.</p>
+    </section>
+
+    <section class="bf-section">
+      <h2>More Baofeng guides</h2>
+      <p><a href="/baofeng-police-scanner.html">How to Use a Baofeng UV-5R as a Police Scanner</a>. Yes, a $25 Baofeng can hear police and fire dispatch. It can also hear nothing at all, depending on where you live.</p>
+      <p><a href="/baofeng-uv-5r-beginners.html">Baofeng UV-5R for Beginners: First Night Setup</a>. Charge it, listen to weather first, and program real channels tonight.</p>
+      <p><a href="/baofeng-chirp-programming.html">How to Program a Baofeng UV-5R With CHIRP</a>. Cable, download, backup, import a ready-made file, upload.</p>
+      <p><a href="/baofeng-frequencies.html">Baofeng UV-5R Frequencies Worth Programming</a>. Every frequency worth putting in the radio, with the numbers.</p>
+    </section>
+
+    <section class="bf-section bf-center">
+      <p><em>Get Yer Freq On.</em> David, Boy and a Scanner</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <div class="footer-nav-group">
+            <strong>Services</strong>
+            <a href="/program-my-county.html">Program My County</a>
+            <a href="/program-my-region-canada.html">Program My Region Canada</a>
+            <a href="/program-my-region-australia.html">Program My Region Australia</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Baofeng Guides</strong>
+            <a href="/baofeng-police-scanner.html">Baofeng as a Police Scanner</a>
+            <a href="/baofeng-uv-5r-beginners.html">Baofeng for Beginners</a>
+            <a href="/baofeng-chirp-programming.html">Program With CHIRP</a>
+            <a href="/baofeng-frequencies.html">Baofeng Frequencies</a>
+            <a href="/baofeng-vs-sds100.html">Baofeng vs SDS100</a>
+            <a href="/baofeng-gmrs-legal.html">Baofeng on GMRS</a>
+            <a href="/baofeng-st-george-police.html">Baofeng in St. George</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Guides</strong>
+            <a href="/">SDS100 Overview</a>
+            <a href="/sds100-complete-manual.html">Complete Manual</a>
+          </div>
+          <div class="footer-nav-group">
+            <strong>Programming</strong>
+            <a href="/sds100-sentinel-programming.html">Sentinel</a>
+            <a href="/sds100-p25-programming.html">P25</a>
+          </div>
+        </nav>
+        <p>&copy; Boy and a Scanner. Questions? <a href="mailto:contact@boyandascanner.com">contact@boyandascanner.com</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
