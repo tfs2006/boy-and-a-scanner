@@ -10,6 +10,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/CNAME");
     eleventyConfig.addPassthroughCopy("src/google*.html");
     eleventyConfig.addPassthroughCopy("src/css"); // CSS
+    eleventyConfig.addPassthroughCopy("src/baas-v1"); // BAAS V1 interactive 3D demo (single self-contained page, copied as-is)
 
     return {
         dir: {
